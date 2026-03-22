@@ -10,7 +10,6 @@ import {
   Plus, 
   BookOpen, 
   Users, 
-  ArrowRight, 
   DollarSign, 
   Calendar, 
   Zap, 
@@ -85,57 +84,38 @@ export default function PractitionerStudio() {
         </div>
 
         {/* Active Cycles Grid */}
-        <div className="space-y-6">
-          <div className="flex items-center justify-between px-2">
-            <h2 className="text-xl font-black text-secondary tracking-tight">Active Professional Cycles</h2>
-            <Badge variant="outline" className="rounded-full px-4 py-1 font-black text-[10px] uppercase tracking-widest text-primary border-primary/20 bg-primary/5">
-              {teacherCourses.length} Registered Sources
-            </Badge>
-          </div>
-
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {teacherCourses.map((course) => (
-              <button 
-                key={course.id} 
-                onClick={() => setSelectedCycle(course)}
-                className="group relative text-left transition-all hover:scale-[1.02] focus:outline-none"
-              >
-                <Card className="overflow-hidden border-none shadow-sm hover:shadow-xl transition-all rounded-[2.5rem] bg-white h-full flex flex-col">
-                  <div className="relative aspect-video w-full overflow-hidden">
-                    <Image 
-                      src={course.thumbnail} 
-                      alt={course.title} 
-                      fill 
-                      className="object-cover transition-transform duration-700 group-hover:scale-110 opacity-80"
-                    />
-                    <div className="absolute top-4 left-4">
-                      <Badge className="bg-secondary text-white border-none rounded-full px-3 py-1 font-black text-[10px] uppercase tracking-widest">
-                        $499 Tuition
-                      </Badge>
-                    </div>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {teacherCourses.map((course) => (
+            <button 
+              key={course.id} 
+              onClick={() => setSelectedCycle(course)}
+              className="group relative text-left transition-all hover:scale-[1.02] focus:outline-none"
+            >
+              <Card className="overflow-hidden border-none shadow-sm hover:shadow-xl transition-all rounded-[2.5rem] bg-white h-full flex flex-col">
+                <div className="relative aspect-video w-full overflow-hidden">
+                  <Image 
+                    src={course.thumbnail} 
+                    alt={course.title} 
+                    fill 
+                    className="object-cover transition-transform duration-700 group-hover:scale-110 opacity-80"
+                  />
+                  <div className="absolute top-4 left-4">
+                    <Badge className="bg-secondary text-white border-none rounded-full px-3 py-1 font-black text-[10px] uppercase tracking-widest">
+                      $499 Tuition
+                    </Badge>
                   </div>
-                  <CardHeader className="p-6 flex-1">
-                    <CardTitle className="text-lg font-black text-secondary group-hover:text-primary transition-colors leading-tight">{course.title}</CardTitle>
-                    <CardDescription className="line-clamp-2 mt-2 font-medium italic text-xs">"{course.description}"</CardDescription>
-                  </CardHeader>
-                  <div className="p-6 pt-0 flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-muted-foreground">
-                    <span className="flex items-center gap-1"><BookOpen className="h-3 w-3" /> {course.modules.length} Chapters</span>
-                    <span className="text-secondary">12 Seekers</span>
-                  </div>
-                </Card>
-              </button>
-            ))}
-            
-            <Link href="/admin/courses/new" className="flex h-full min-h-[300px] flex-col items-center justify-center gap-4 rounded-[2.5rem] border-4 border-dashed border-border hover:border-primary/50 bg-white hover:bg-primary/5 transition-all group p-8 text-center">
-              <div className="h-16 w-16 rounded-3xl bg-muted group-hover:bg-primary group-hover:scale-110 transition-all flex items-center justify-center text-secondary group-hover:text-white">
-                <Plus className="h-8 w-8" />
-              </div>
-              <div>
-                <p className="font-black text-xs uppercase tracking-widest text-secondary">New Legacy Cycle</p>
-                <p className="text-[10px] text-muted-foreground mt-1">Structure your next professional truth.</p>
-              </div>
-            </Link>
-          </div>
+                </div>
+                <CardHeader className="p-6 flex-1">
+                  <CardTitle className="text-lg font-black text-secondary group-hover:text-primary transition-colors leading-tight">{course.title}</CardTitle>
+                  <CardDescription className="line-clamp-2 mt-2 font-medium italic text-xs">"{course.description}"</CardDescription>
+                </CardHeader>
+                <div className="p-6 pt-0 flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                  <span className="flex items-center gap-1"><BookOpen className="h-3 w-3" /> {course.modules.length} Chapters</span>
+                  <span className="text-secondary">12 Seekers</span>
+                </div>
+              </Card>
+            </button>
+          ))}
         </div>
       </main>
 
