@@ -13,7 +13,7 @@ export default function Home() {
         <div className="container mx-auto px-4 h-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-full items-stretch">
             
-            {/* Left Column: Mission & Identity Card */}
+            {/* Left Column: Outcome & Mission Card */}
             <div className="lg:col-span-4 flex flex-col gap-6 animate-in fade-in slide-in-from-left-8 duration-700">
               <div className="flex-1 p-10 rounded-[3rem] bg-white/5 border border-white/10 backdrop-blur-md flex flex-col justify-between">
                 <div>
@@ -28,13 +28,13 @@ export default function Home() {
                     <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/5">
                       <Zap className="h-6 w-6 text-primary shrink-0" />
                       <p className="text-sm font-medium leading-relaxed opacity-60">
-                        Trading money for time. Veterans monetize their truth. Apprentices buy back years of struggle.
+                        Trading money for time. Veterans monetize their truth. Apprentices buy back years of struggle to get real work in the field.
                       </p>
                     </div>
                     <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/5">
                       <ShieldCheck className="h-6 w-6 text-primary shrink-0" />
                       <p className="text-sm font-medium leading-relaxed opacity-60">
-                        Practical Excellence over paper credentials. Direct entry to the industries that locked you out.
+                        Practical Excellence over paper credentials. Direct entry to the industries that once locked you out.
                       </p>
                     </div>
                   </div>
@@ -42,13 +42,13 @@ export default function Home() {
                 
                 <div className="pt-8 border-t border-white/5 mt-8">
                   <Link href="/about" className="inline-flex items-center gap-3 text-[10px] font-black text-primary uppercase tracking-[0.4em] hover:text-white transition-colors group">
-                    <Info className="h-5 w-5" /> Our Theory of Practice <ArrowRight className="h-4 w-4 group-hover:translate-x-2 transition-transform" />
+                    <Info className="h-5 w-5" /> Theory of Practice <ArrowRight className="h-4 w-4 group-hover:translate-x-2 transition-transform" />
                   </Link>
                 </div>
               </div>
             </div>
 
-            {/* Right Column: Interactive Registry & Matcher (HeroChat) */}
+            {/* Right Column: Experience Discovery & Matcher (HeroChat) */}
             <div className="lg:col-span-8 flex flex-col h-full min-h-[600px] lg:min-h-0">
               <HeroChat />
             </div>
@@ -57,7 +57,7 @@ export default function Home() {
         </div>
       </main>
       
-      {/* Compact Professional Footer */}
+      {/* Professional Footer */}
       <footer className="bg-black/40 border-t border-white/5 py-6 px-4 z-50 hidden md:block">
         <div className="container mx-auto flex justify-between items-center">
           <div className="flex items-center gap-8">
@@ -68,8 +68,8 @@ export default function Home() {
              <span className="text-[9px] font-black text-white/20 uppercase tracking-[0.4em]">© 2024 Career Mastery Sanctuary</span>
           </div>
           <div className="flex gap-10">
-            {['Ethics', 'Safety', 'Connect', 'Archive'].map((item) => (
-              <Link key={item} href="#" className="text-[9px] font-black text-white/40 uppercase tracking-[0.3em] hover:text-primary transition-colors">
+            {['Mission', 'Ethics', 'Connect', 'Archive'].map((item) => (
+              <Link key={item} href={item === 'Mission' ? '/about' : '#'} className="text-[9px] font-black text-white/40 uppercase tracking-[0.3em] hover:text-primary transition-colors">
                 {item}
               </Link>
             ))}

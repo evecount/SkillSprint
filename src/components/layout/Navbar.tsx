@@ -1,7 +1,7 @@
 "use client"
 
 import Link from 'next/link';
-import { Home, User, Compass, Info, BookOpen, LayoutDashboard } from 'lucide-react';
+import { Compass, BookOpen, User, LayoutDashboard, Info } from 'lucide-react';
 import { UserRole } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
@@ -13,15 +13,15 @@ interface NavbarProps {
 export function Navbar({ role = 'learner' }: NavbarProps) {
   const pathname = usePathname();
 
-  // Simplified navigation based on "Discovery", "Matches", and "Philosophy"
+  // Tinder-style Navigation: Discovery, Activity, Identity
   const navItems = role === 'learner' ? [
-    { label: 'Registry', icon: Compass, href: '/learner/dashboard' },
-    { label: 'My Guilds', icon: BookOpen, href: '/learner/dashboard' }, // Simplified for MVP
-    { label: 'Mission', icon: Info, href: '/about' },
+    { label: 'Explore', icon: Compass, href: '/learner/dashboard' },
+    { label: 'Guilds', icon: BookOpen, href: '/learner/dashboard' }, // Simplified for MVP
+    { label: 'Identity', icon: User, href: '/learner/dashboard' }, // Links to profile/settings
   ] : [
+    { label: 'Explore', icon: Compass, href: '/admin/dashboard' },
     { label: 'Studio', icon: LayoutDashboard, href: '/teacher/dashboard' },
-    { label: 'Registry', icon: Compass, href: '/admin/dashboard' },
-    { label: 'Mission', icon: Info, href: '/about' },
+    { label: 'Identity', icon: User, href: '/teacher/dashboard' },
   ];
 
   return (
@@ -42,7 +42,7 @@ export function Navbar({ role = 'learner' }: NavbarProps) {
           <div className="flex items-center gap-14">
             {navItems.map((item) => (
               <Link 
-                key={item.label} // Use label as key to ensure uniqueness even if href is duplicated for MVP
+                key={item.label}
                 href={item.href} 
                 className={cn(
                   "flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.3em] transition-all relative group py-2",
@@ -56,19 +56,22 @@ export function Navbar({ role = 'learner' }: NavbarProps) {
                 )}
               </Link>
             ))}
-            <div className="h-16 w-16 rounded-[1.5rem] bg-white/5 flex items-center justify-center hover:bg-white/10 cursor-pointer transition-all overflow-hidden border-2 border-white/5 hover:border-primary/30">
-              <User className="h-8 w-8 text-white" />
-            </div>
+            <Link 
+              href="/about" 
+              className="flex items-center gap-2 text-[9px] font-black text-white/30 hover:text-white uppercase tracking-[0.4em] transition-colors"
+            >
+              <Info className="h-3 w-3" /> Mission
+            </Link>
           </div>
         </div>
       </nav>
 
-      {/* Mobile Bottom Navigation - Native App Style (3 Core Tabs) */}
+      {/* Mobile Bottom Navigation - High Intent Tinder Style */}
       <nav className="fixed bottom-0 left-0 right-0 z-[100] flex h-24 items-center border-t border-white/10 bg-secondary/95 backdrop-blur-3xl md:hidden mobile-nav-shadow px-6 pb-2">
         <div className="grid h-full w-full grid-cols-3 gap-4">
           {navItems.map((item) => (
             <Link 
-              key={item.label} // Unique key
+              key={item.label}
               href={item.href}
               className={cn(
                 "flex flex-col items-center justify-center gap-2 transition-all active:scale-90 rounded-[2.5rem]",
