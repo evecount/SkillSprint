@@ -172,7 +172,7 @@ export function HeroChat() {
             </div>
           </CardHeader>
           
-          <CardContent className="flex-1 relative p-6 flex items-center justify-center perspective-1000 min-h-[300px]">
+          <CardContent className="flex-1 relative p-4 flex items-center justify-center perspective-1000">
             {MOCK_EXPERIENCES.map((item: any, idx) => {
               const isTop = idx === stackIndex;
               const isNext = idx === (stackIndex + 1) % MOCK_EXPERIENCES.length;
@@ -182,7 +182,7 @@ export function HeroChat() {
                 <div 
                   key={item.id}
                   className={cn(
-                    "absolute inset-x-6 inset-y-6 transition-all duration-500 flex flex-col",
+                    "absolute inset-x-4 md:inset-x-8 inset-y-4 md:inset-y-8 transition-all duration-500 flex flex-col",
                     isTop ? "z-20 scale-100" : "z-10 scale-95 translate-y-4 opacity-20",
                     isTop && swipeDirection === 'left' && "animate-swipe-out-left-tilt",
                     isTop && swipeDirection === 'right' && "animate-swipe-out-right-tilt"
@@ -271,22 +271,22 @@ export function HeroChat() {
               );
             })}
             
-            <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-6 z-30">
+            <div className="absolute -bottom-2 md:-bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-6 z-30">
               <Button 
                 variant="outline" 
                 size="icon" 
                 onClick={() => handleSwipe('left')}
-                className="h-16 w-16 rounded-full bg-secondary/80 backdrop-blur-md border-white/10 text-white hover:bg-destructive hover:border-destructive transition-all hover:scale-110 active:scale-90 shadow-2xl"
+                className="h-14 w-14 md:h-16 md:w-16 rounded-full bg-secondary/80 backdrop-blur-md border-white/10 text-white hover:bg-destructive hover:border-destructive transition-all hover:scale-110 active:scale-90 shadow-2xl"
               >
-                <X className="h-8 w-8" />
+                <X className="h-7 w-7 md:h-8 md:w-8" />
               </Button>
               <Button 
                 variant="outline" 
                 size="icon" 
                 onClick={() => handleSwipe('right')}
-                className="h-16 w-16 rounded-full bg-primary text-white border-none shadow-xl shadow-primary/20 hover:bg-accent transition-all hover:scale-110 active:scale-90"
+                className="h-14 w-14 md:h-16 md:w-16 rounded-full bg-primary text-white border-none shadow-xl shadow-primary/20 hover:bg-accent transition-all hover:scale-110 active:scale-90"
               >
-                <Check className="h-8 w-8" />
+                <Check className="h-7 w-7 md:h-8 md:w-8" />
               </Button>
             </div>
           </CardContent>
