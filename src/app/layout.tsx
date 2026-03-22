@@ -4,7 +4,7 @@ import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
   title: 'University of Life | Own Your Higher Ed Legacy',
-  description: 'Democratizing higher education by helping practitioners and masters turn their wisdom into private learning portals.',
+  description: 'Democratizing access to higher education by helping practitioners and masters turn their lived wisdom into private learning portals.',
 };
 
 export default function RootLayout({
