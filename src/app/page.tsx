@@ -19,13 +19,13 @@ export default function Home() {
             <div className="space-y-8">
               <div className="space-y-4">
                 <Badge className="bg-secondary/10 text-secondary hover:bg-secondary/20 px-3 py-1">
-                  Empowering Educators & Retirees
+                  Empowering Experts & Knowledge Holders
                 </Badge>
                 <h1 className="font-headline text-5xl font-extrabold tracking-tight text-foreground md:text-7xl leading-tight">
                   Your Knowledge is a <span className="text-primary italic">Legacy</span>.
                 </h1>
                 <p className="text-xl text-muted-foreground leading-relaxed">
-                  Turn your life's mastery into bite-sized lessons. SkillSprint uses AI to help classical educators and retirees create engaging courses in minutes, not months.
+                  Turn your life's mastery into bite-sized lessons. SkillSprint uses AI to help experts, practitioners, and wisdom-sharers create engaging courses in minutes, not months.
                 </p>
               </div>
               
@@ -81,7 +81,7 @@ export default function Home() {
                   <BookOpenCheck className="h-5 w-5" />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-foreground">Teacher Approved</p>
+                  <p className="text-xs font-bold text-foreground">Verified Creator</p>
                   <p className="text-[10px] text-muted-foreground">Legacy Onboarding Active</p>
                 </div>
               </div>
@@ -102,12 +102,12 @@ export default function Home() {
                   <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-primary-foreground group-hover:scale-110 transition-transform">
                     <Sparkles className="h-7 w-7" />
                   </div>
-                  <CardTitle>Creators & Teachers</CardTitle>
+                  <CardTitle>Creators & Practitioners</CardTitle>
                   <CardDescription>Use Captain Sprint to turn your wisdom into interactive modules and track your impact.</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <Button asChild variant="outline" className="w-full">
-                    <Link href="/teacher/dashboard">Enter Teacher Studio</Link>
+                    <Link href="/teacher/dashboard">Enter Creator Studio</Link>
                   </Button>
                 </CardContent>
               </Card>
