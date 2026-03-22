@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Send, Bot, Loader2, ArrowRight, Zap, GraduationCap, MapPin, Calendar, Users, Star } from 'lucide-react';
+import { Send, Bot, Loader2, ArrowRight, Zap, GraduationCap, MapPin, Calendar, Users, Star, FastForward } from 'lucide-react';
 import { prospectiveOnboardingChat, ProspectiveOnboardingOutput } from '@/ai/flows/prospective-onboarding';
 import { onboardingConsultant } from '@/ai/flows/onboarding-consultant';
 import { cn } from '@/lib/utils';
@@ -42,12 +42,12 @@ export function HeroChat() {
     setMessages([{ role: 'model', text: initialMsg }]);
   };
 
-  const handleSend = async () => {
-    if (!input.trim() || loading || !role) return;
+  const handleSend = async (forcedInput?: string) => {
+    const textToSend = forcedInput || input;
+    if (!textToSend.trim() || loading || !role) return;
 
-    const userMsg = input;
-    setInput('');
-    setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
+    if (!forcedInput) setInput('');
+    setMessages(prev => [...prev, { role: 'user', text: textToSend }]);
     setLoading(true);
 
     try {
@@ -55,20 +55,19 @@ export function HeroChat() {
         const history = messages.map(m => ({ role: m.role, text: m.text }));
         const result = await prospectiveOnboardingChat({
           history,
-          userMessage: userMsg
+          userMessage: textToSend
         });
 
         setMessages(prev => [...prev, { role: 'model', text: result.response }]);
-        if (result.portalDraft && result.isOnboardingComplete) {
+        if (result.portalDraft && (result.isOnboardingComplete || forcedInput?.includes("blueprint"))) {
           setDraft(result.portalDraft);
         }
       } else {
-        // Simple Student Onboarding Simulation for MVP
         const result = await onboardingConsultant({
           userName: "Seeker",
           role: 'learner',
           orgName: "University of Life",
-          userMessage: userMsg
+          userMessage: textToSend
         });
         setMessages(prev => [...prev, { role: 'model', text: result.response }]);
       }
@@ -79,27 +78,36 @@ export function HeroChat() {
     }
   };
 
+  const handleFastTrack = () => {
+    if (role === 'mentor') {
+      handleSend("I'm ready. Generate my blueprint now based on what we've discussed.");
+    } else {
+      // For students, fast track just takes them to the dashboard
+      window.location.href = "/learner/dashboard";
+    }
+  };
+
   if (!role) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
         <button 
           onClick={() => handleRoleSelect('mentor')}
-          className="group relative h-[450px] rounded-[3rem] bg-white text-secondary overflow-hidden transition-all hover:scale-[1.02] active:scale-95 shadow-2xl"
+          className="group relative h-[450px] rounded-[3rem] bg-white text-secondary overflow-hidden transition-all hover:scale-[1.02] active:scale-95 shadow-2xl border-2 border-transparent hover:border-primary/20"
         >
           <div className="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors" />
           <div className="relative h-full flex flex-col items-center justify-center p-10 text-center space-y-6">
-            <div className="h-20 w-20 rounded-3xl bg-primary/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+            <div className="h-20 w-20 rounded-3xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-inner">
               <Zap className="h-10 w-10 text-primary" />
             </div>
             <div>
               <h3 className="text-4xl font-black tracking-tight mb-2">Mentor / Lecturer</h3>
-              <p className="text-secondary/60 font-bold uppercase tracking-widest text-xs">Share Mastery</p>
+              <p className="text-secondary/40 font-black uppercase tracking-[0.3em] text-[10px]">Registry: The Source</p>
             </div>
-            <p className="text-secondary/70 font-medium italic leading-relaxed">
-              "I have 30+ years of lived truth and I'm ready to architect my paid legacy."
+            <p className="text-secondary/70 font-medium italic leading-relaxed text-sm md:text-base">
+              "I have 30+ years of lived truth. I'm ready to architect my paid legacy."
             </p>
-            <div className="pt-6">
-              <span className="inline-flex h-12 px-8 rounded-full bg-secondary text-white items-center gap-2 font-black text-xs uppercase tracking-widest">
+            <div className="pt-4">
+              <span className="inline-flex h-14 px-10 rounded-2xl bg-secondary text-white items-center gap-3 font-black text-xs uppercase tracking-[0.2em] shadow-xl group-hover:bg-primary transition-colors">
                 Enter Registry <ArrowRight className="h-4 w-4" />
               </span>
             </div>
@@ -108,22 +116,22 @@ export function HeroChat() {
 
         <button 
           onClick={() => handleRoleSelect('student')}
-          className="group relative h-[450px] rounded-[3rem] bg-primary text-white overflow-hidden transition-all hover:scale-[1.02] active:scale-95 shadow-2xl"
+          className="group relative h-[450px] rounded-[3rem] bg-secondary text-white overflow-hidden transition-all hover:scale-[1.02] active:scale-95 shadow-2xl"
         >
-          <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-colors" />
+          <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 transition-colors" />
           <div className="relative h-full flex flex-col items-center justify-center p-10 text-center space-y-6">
-            <div className="h-20 w-20 rounded-3xl bg-white/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-              <GraduationCap className="h-10 w-10 text-white" />
+            <div className="h-20 w-20 rounded-3xl bg-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+              <GraduationCap className="h-10 w-10 text-primary" />
             </div>
             <div>
               <h3 className="text-4xl font-black tracking-tight mb-2">Apprentice / Student</h3>
-              <p className="text-white/60 font-bold uppercase tracking-widest text-xs">Seek Mastery</p>
+              <p className="text-white/40 font-black uppercase tracking-[0.3em] text-[10px]">Registry: The Seeker</p>
             </div>
-            <p className="text-white/80 font-medium italic leading-relaxed">
+            <p className="text-white/80 font-medium italic leading-relaxed text-sm md:text-base">
               "I'm working my shift, but I'm hungry to moonlight with the source."
             </p>
-            <div className="pt-6">
-              <span className="inline-flex h-12 px-8 rounded-full bg-white text-secondary items-center gap-2 font-black text-xs uppercase tracking-widest">
+            <div className="pt-4">
+              <span className="inline-flex h-14 px-10 rounded-2xl bg-primary text-white items-center gap-3 font-black text-xs uppercase tracking-[0.2em] shadow-xl shadow-primary/20 hover:bg-accent transition-colors">
                 Start Learning <ArrowRight className="h-4 w-4" />
               </span>
             </div>
@@ -138,7 +146,7 @@ export function HeroChat() {
       <Card className="border-none shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] rounded-[3rem] overflow-hidden bg-white animate-in zoom-in duration-500">
         <CardHeader className="bg-secondary text-white p-10 md:p-14">
           <Badge className="bg-primary text-white border-none px-4 py-1.5 mb-6 rounded-full text-xs font-black uppercase tracking-widest">Blueprint Ready</Badge>
-          <CardTitle className="text-4xl md:text-6xl font-black leading-tight tracking-tighter">Your Guild <span className="text-primary italic">Drafted.</span></CardTitle>
+          <CardTitle className="text-4xl md:text-6xl font-black leading-[0.9] tracking-tighter">Your Guild <span className="text-primary italic">Drafted.</span></CardTitle>
           <p className="text-white/50 text-xl mt-4 font-bold italic">Proctor has architecturalized your exchange.</p>
         </CardHeader>
         <CardContent className="p-10 md:p-14 space-y-10">
@@ -178,7 +186,7 @@ export function HeroChat() {
   }
 
   return (
-    <Card className="border-none shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] rounded-[3rem] overflow-hidden bg-white flex flex-col h-[700px] animate-in slide-in-from-right duration-500">
+    <Card className="border-none shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] rounded-[3rem] overflow-hidden bg-white flex flex-col h-[750px] animate-in slide-in-from-right duration-500">
       <CardHeader className="border-b border-border/10 bg-muted/30 px-10 py-8">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-5">
@@ -192,13 +200,23 @@ export function HeroChat() {
               </div>
               <div className="flex items-center gap-2 mt-1">
                 <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-                <span className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">Architecturalizing {role} registry</span>
+                <span className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">Architecting {role} legacy</span>
               </div>
             </div>
           </div>
-          <Button variant="ghost" size="sm" onClick={() => setRole(null)} className="text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary">
-            Change Role
-          </Button>
+          <div className="flex items-center gap-3">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={handleFastTrack}
+              className="text-[10px] font-black uppercase tracking-widest text-primary hover:bg-primary/10 rounded-full px-4"
+            >
+              <FastForward className="mr-2 h-3 w-3" /> {role === 'mentor' ? 'Skip to Blueprint' : 'Skip to Registry'}
+            </Button>
+            <Button variant="ghost" size="sm" onClick={() => setRole(null)} className="h-8 w-8 p-0 rounded-full hover:bg-muted">
+              <ArrowRight className="h-4 w-4 rotate-180" />
+            </Button>
+          </div>
         </div>
       </CardHeader>
       <CardContent 
@@ -207,14 +225,14 @@ export function HeroChat() {
       >
         {messages.map((m, i) => (
           <div key={i} className={cn(
-            "flex w-full",
+            "flex w-full animate-in slide-in-from-bottom-4 duration-300",
             m.role === 'user' ? "justify-end" : "justify-start"
           )}>
             <div className={cn(
               "max-w-[85%] rounded-[2rem] px-8 py-6 text-sm md:text-base font-bold leading-relaxed shadow-sm",
               m.role === 'user' 
                 ? "bg-primary text-white shadow-primary/20" 
-                : "bg-muted text-secondary border border-border/10"
+                : "bg-muted/80 text-secondary border border-border/5"
             )}>
               {m.text}
             </div>
@@ -241,9 +259,9 @@ export function HeroChat() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={loading}
-            className="flex-1 h-16 rounded-2xl px-8 bg-muted/50 border-transparent focus-visible:ring-primary text-base font-bold text-secondary"
+            className="flex-1 h-16 rounded-2xl px-8 bg-muted/50 border-transparent focus-visible:ring-primary text-base font-bold text-secondary shadow-inner"
           />
-          <Button type="submit" size="icon" className="h-16 w-16 shrink-0 rounded-2xl bg-secondary hover:bg-secondary/90 transition-all shadow-xl shadow-secondary/20" disabled={loading || !input.trim()}>
+          <Button type="submit" size="icon" className="h-16 w-16 shrink-0 rounded-2xl bg-secondary hover:bg-primary transition-all shadow-xl shadow-secondary/20" disabled={loading || !input.trim()}>
             <Send className="h-7 w-7 text-white" />
           </Button>
         </form>
