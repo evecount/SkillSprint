@@ -23,7 +23,6 @@ export function Navbar({ role = 'learner', userName, orgName }: NavbarProps) {
   const finalUserName = userName || (role === 'learner' ? mockLearner.name : role === 'teacher' ? mockTeacher.name : mockAdmin.name);
   const finalOrgName = orgName || mockOrg.name;
 
-  // Unified 5-pillar professional navigation: Explore, Join (Apprentice), PROCTOR, Studio (Practitioner), Identity
   const navItems = [
     { label: 'Explore', icon: Compass, href: '/' },
     { label: 'Join', icon: BookOpen, href: '/learner/dashboard' },
@@ -41,41 +40,41 @@ export function Navbar({ role = 'learner', userName, orgName }: NavbarProps) {
         orgName={finalOrgName}
       />
 
-      {/* Desktop Top Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 hidden h-28 items-center border-b border-white/10 bg-secondary/80 backdrop-blur-2xl md:flex">
+      {/* Desktop Top Navbar - Reduced Height */}
+      <nav className="fixed top-0 left-0 right-0 z-50 hidden h-20 items-center border-b border-white/10 bg-secondary/80 backdrop-blur-2xl md:flex">
         <div className="container mx-auto flex items-center justify-between px-10">
-          <Link href="/" className="flex items-center gap-6 hover:opacity-80 transition-opacity group">
-            <div className="flex h-16 w-16 items-center justify-center rounded-[1.5rem] bg-primary text-white font-black text-3xl shadow-2xl shadow-primary/20 group-hover:scale-110 transition-transform">
+          <Link href="/" className="flex items-center gap-4 hover:opacity-80 transition-opacity group">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-white font-black text-2xl shadow-2xl shadow-primary/20 group-hover:scale-110 transition-transform">
               S
             </div>
             <div className="flex flex-col leading-none">
-              <span className="text-2xl font-black tracking-tighter text-white">SkillSprint</span>
-              <span className="text-[12px] font-black text-primary tracking-[0.4em] uppercase -mt-1">Registry</span>
+              <span className="text-xl font-black tracking-tighter text-white">SkillSprint</span>
+              <span className="text-[10px] font-black text-primary tracking-[0.4em] uppercase -mt-0.5">Registry</span>
             </div>
           </Link>
 
-          <div className="flex items-center gap-10">
+          <div className="flex items-center gap-8">
             {navItems.map((item) => (
               <Link 
                 key={item.label}
                 href={item.href} 
                 className={cn(
-                  "flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.3em] transition-all relative group py-2",
+                  "flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] transition-all relative group py-1",
                   pathname === item.href ? "text-primary" : "text-white/60 hover:text-primary"
                 )}
               >
-                <item.icon className={cn("h-4 w-4", pathname === item.href ? "fill-primary/20" : "")} />
+                <item.icon className={cn("h-3.5 w-3.5", pathname === item.href ? "fill-primary/20" : "")} />
                 {item.label}
                 {pathname === item.href && (
-                  <span className="absolute -bottom-1 left-0 w-full h-1 bg-primary rounded-full shadow-[0_0_10px_rgba(162,84,28,0.5)]" />
+                  <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-primary rounded-full shadow-[0_0_10px_rgba(162,84,28,0.5)]" />
                 )}
               </Link>
             ))}
             <button 
               onClick={() => setIsProctorOpen(true)}
-              className="flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.3em] text-white/60 hover:text-primary transition-all group"
+              className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] text-white/60 hover:text-primary transition-all group"
             >
-              <Bot className="h-4 w-4 group-hover:scale-110 transition-transform" />
+              <Bot className="h-3.5 w-3.5 group-hover:scale-110 transition-transform" />
               Proctor
             </button>
             <Link 
@@ -88,15 +87,15 @@ export function Navbar({ role = 'learner', userName, orgName }: NavbarProps) {
         </div>
       </nav>
 
-      {/* Mobile Bottom Navigation - 5 Pillars */}
-      <nav className="fixed bottom-0 left-0 right-0 z-[100] flex h-24 items-center border-t border-white/10 bg-secondary/95 backdrop-blur-3xl md:hidden mobile-nav-shadow px-2 pb-2">
+      {/* Mobile Bottom Navigation - Compact 5 Pillars */}
+      <nav className="fixed bottom-0 left-0 right-0 z-[100] flex h-20 items-center border-t border-white/10 bg-secondary/95 backdrop-blur-3xl md:hidden mobile-nav-shadow px-2 pb-1">
         <div className="grid h-full w-full grid-cols-5 gap-0.5">
           <Link href="/" className={cn("flex flex-col items-center justify-center gap-1 transition-all active:scale-90", pathname === '/' ? "text-primary" : "text-white/40")}>
-            <Compass className="h-5 w-5" />
+            <Compass className="h-4 w-4" />
             <span className="text-[7px] font-black uppercase tracking-[0.1em]">Explore</span>
           </Link>
           <Link href="/learner/dashboard" className={cn("flex flex-col items-center justify-center gap-1 transition-all active:scale-90", pathname === '/learner/dashboard' ? "text-primary" : "text-white/40")}>
-            <BookOpen className="h-5 w-5" />
+            <BookOpen className="h-4 w-4" />
             <span className="text-[7px] font-black uppercase tracking-[0.1em]">Join</span>
           </Link>
           
@@ -104,18 +103,18 @@ export function Navbar({ role = 'learner', userName, orgName }: NavbarProps) {
             onClick={() => setIsProctorOpen(true)}
             className="flex flex-col items-center justify-center gap-1 transition-all active:scale-90 text-white group"
           >
-            <div className="h-11 w-11 bg-black border-2 border-white/20 flex items-center justify-center rounded-none shadow-xl mb-0.5 group-active:bg-primary transition-colors">
-              <Bot className="h-6 w-6" />
+            <div className="h-10 w-10 bg-black border border-white/20 flex items-center justify-center rounded-none shadow-xl mb-0.5 group-active:bg-primary transition-colors">
+              <Bot className="h-5 w-5" />
             </div>
             <span className="text-[7px] font-black uppercase tracking-[0.1em] text-primary">Proctor</span>
           </button>
 
           <Link href="/teacher/dashboard" className={cn("flex flex-col items-center justify-center gap-1 transition-all active:scale-90", pathname === '/teacher/dashboard' ? "text-primary" : "text-white/40")}>
-            <LayoutDashboard className="h-5 w-5" />
+            <LayoutDashboard className="h-4 w-4" />
             <span className="text-[7px] font-black uppercase tracking-[0.1em]">Studio</span>
           </Link>
           <Link href="/profile" className={cn("flex flex-col items-center justify-center gap-1 transition-all active:scale-90", pathname === '/profile' ? "text-primary" : "text-white/40")}>
-            <User className="h-5 w-5" />
+            <User className="h-4 w-4" />
             <span className="text-[7px] font-black uppercase tracking-[0.1em]">Identity</span>
           </Link>
         </div>
