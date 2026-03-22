@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Flame, Trophy, ArrowRight, Play, Clock, Star, Zap, Landmark } from 'lucide-react';
+import { Flame, Trophy, ArrowRight, Play, Clock, Star, Zap } from 'lucide-react';
 import { mockCourses, mockLearner, mockOrg } from '@/lib/mock-data';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -13,124 +13,120 @@ import { AIConsultant } from '@/components/consultant/AIConsultant';
 
 export default function LearnerDashboard() {
   return (
-    <div className="min-h-screen bg-background pb-20 md:pb-0 md:pt-20">
+    <div className="min-h-screen bg-background pb-32 pt-24">
       <Navbar role="learner" />
       
-      <main className="container mx-auto px-4 py-8">
-        <div className="mb-12 border-b-8 border-black pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <main className="container mx-auto px-4">
+        <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-2">
-            <div className="flex items-center gap-2 mb-2 text-primary">
-              <Zap className="h-6 w-6 text-secondary" />
-              <span className="text-sm font-black uppercase tracking-[0.3em]">Direct Student</span>
+            <div className="flex items-center gap-2 mb-2 text-primary font-bold text-sm tracking-wider uppercase">
+              <Zap className="h-4 w-4" />
+              <span>Direct Student</span>
             </div>
-            <h1 className="font-headline text-5xl font-black uppercase italic tracking-tighter">My Registry</h1>
-            <p className="text-muted-foreground font-bold italic mt-2">Connecting directly with human mastery.</p>
+            <h1 className="text-4xl md:text-5xl font-black text-secondary tracking-tight">My Registry</h1>
+            <p className="text-muted-foreground font-medium">Moonlighting with human mastery.</p>
           </div>
           <div className="flex items-center gap-4">
-            <div className="bg-black text-white px-8 py-4 border-4 border-black text-center">
-              <p className="text-[10px] font-black uppercase tracking-widest text-secondary mb-1">Current Level</p>
-              <p className="text-3xl font-black italic">12</p>
+            <div className="bg-secondary text-white px-6 py-3 rounded-2xl shadow-xl shadow-secondary/20">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-primary mb-1">Level</p>
+              <p className="text-2xl font-black">12</p>
             </div>
-            <div className="bg-white text-black px-8 py-4 border-4 border-black text-center">
-              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-1">Streak</p>
-              <p className="text-3xl font-black italic flex items-center justify-center gap-2">
-                <Flame className="h-6 w-6 text-secondary fill-current" /> {mockLearner.streak}
+            <div className="bg-white border border-border text-secondary px-6 py-3 rounded-2xl">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-1">Streak</p>
+              <p className="text-2xl font-black flex items-center gap-2">
+                <Flame className="h-6 w-6 text-primary fill-current" /> {mockLearner.streak}
               </p>
             </div>
           </div>
         </div>
 
-        {/* Hero Gamification Stats */}
-        <div className="mb-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          <Card className="border-4 border-black shadow-none rounded-none bg-black text-white relative overflow-hidden group">
-            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-30 transition-opacity">
-              <Trophy className="h-32 w-32" />
-            </div>
-            <CardHeader className="pb-2 relative z-10">
-              <CardTitle className="text-xs font-black uppercase tracking-widest text-secondary">Global Wisdom XP</CardTitle>
+        {/* Hero Stats */}
+        <div className="mb-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <Card className="rounded-[2rem] border-none shadow-xl bg-secondary text-white overflow-hidden group">
+            <div className="absolute -right-8 -top-8 h-40 w-40 bg-primary opacity-10 rounded-full group-hover:scale-150 transition-transform duration-700" />
+            <CardHeader className="pb-2">
+              <CardTitle className="text-xs font-bold uppercase tracking-widest text-primary">Global Wisdom XP</CardTitle>
             </CardHeader>
-            <CardContent className="relative z-10">
-              <div className="text-6xl font-black italic">{mockLearner.totalXP}</div>
+            <CardContent>
+              <div className="text-5xl font-black">{mockLearner.totalXP}</div>
               <div className="mt-6 space-y-2">
-                <div className="flex justify-between text-[10px] font-black uppercase tracking-widest">
+                <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest">
                   <span>To Level 13</span>
                   <span>75%</span>
                 </div>
-                <Progress value={75} className="h-4 border-2 border-white rounded-none bg-white/10" />
+                <Progress value={75} className="h-2 rounded-full bg-white/10" />
               </div>
             </CardContent>
           </Card>
           
-          <Card className="border-4 border-black shadow-none rounded-none bg-white group hover:bg-muted/30 transition-colors">
+          <Card className="rounded-[2rem] border-none shadow-sm hover:shadow-md transition-shadow bg-white p-2">
             <CardHeader className="pb-2">
-              <CardTitle className="text-xs font-black uppercase tracking-widest">Active Portals</CardTitle>
+              <CardTitle className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Active Portals</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-6xl font-black italic">04</div>
-              <p className="mt-4 text-xs font-bold italic text-muted-foreground">Engaging directly with 2 Wisdom Architects.</p>
+              <div className="text-5xl font-black text-secondary">04</div>
+              <p className="mt-2 text-xs font-medium text-muted-foreground">Engaging with 2 Wisdom Architects.</p>
             </CardContent>
           </Card>
 
-          <Card className="border-4 border-black shadow-none rounded-none bg-white hidden lg:block group hover:bg-muted/30 transition-colors">
+          <Card className="rounded-[2rem] border-none shadow-sm hidden lg:block bg-white p-2">
             <CardHeader className="pb-2">
-              <CardTitle className="text-xs font-black uppercase tracking-widest">Achievements</CardTitle>
+              <CardTitle className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Achievements</CardTitle>
             </CardHeader>
-            <CardContent className="flex items-center gap-6">
-              <div className="flex h-16 w-16 items-center justify-center bg-secondary text-white border-4 border-black">
-                <Star className="h-8 w-8" />
+            <CardContent className="flex items-center gap-4">
+              <div className="h-14 w-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
+                <Star className="h-7 w-7" />
               </div>
               <div>
-                <div className="font-black text-lg uppercase italic tracking-tight">Fast Finisher</div>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Mastery validated in &lt; 30s</p>
+                <p className="font-bold text-secondary">Fast Finisher</p>
+                <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold">Validated in &lt; 30s</p>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Assigned Courses */}
+        {/* My Guilds */}
         <div className="space-y-8">
-          <div className="flex items-center justify-between border-b-4 border-black pb-4">
-            <h2 className="font-headline text-3xl font-black uppercase italic tracking-tighter">My Active Path</h2>
-            <Button variant="ghost" className="font-black uppercase tracking-widest italic hover:bg-black hover:text-white rounded-none">
-              Directory of Portals <ArrowRight className="ml-2 h-4 w-4" />
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-black text-secondary">Active Apprenticeships</h2>
+            <Button variant="ghost" className="rounded-full font-bold hover:text-primary">
+              All Guilds <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
 
-          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {mockCourses.map((course) => (
-              <Card key={course.id} className="border-4 border-black shadow-none rounded-none overflow-hidden group hover:border-secondary transition-all">
-                <div className="relative aspect-video w-full border-b-4 border-black overflow-hidden">
+              <Card key={course.id} className="group overflow-hidden border-none shadow-sm hover:shadow-xl transition-all rounded-[2.5rem] bg-white">
+                <div className="relative aspect-video w-full overflow-hidden">
                   <Image 
                     src={course.thumbnail} 
                     alt={course.title} 
                     fill 
-                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-100 group-hover:scale-110"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute top-4 left-4">
-                    <Badge className="bg-black text-white border-none rounded-none font-black uppercase tracking-widest text-[10px] px-3 py-1 italic">
+                    <Badge className="bg-secondary/90 text-white border-none rounded-full px-3 py-1 text-[10px] font-bold tracking-wider">
                       {course.category}
                     </Badge>
                   </div>
                 </div>
-                <CardHeader className="p-6 pb-2">
-                  <CardTitle className="text-2xl font-black uppercase italic leading-none">{course.title}</CardTitle>
-                  <CardDescription className="line-clamp-2 font-bold italic mt-2 text-black/60">{course.description}</CardDescription>
+                <CardHeader className="p-8">
+                  <CardTitle className="text-xl font-bold text-secondary leading-tight">{course.title}</CardTitle>
+                  <CardDescription className="line-clamp-2 mt-2 font-medium">{course.description}</CardDescription>
                 </CardHeader>
-                <CardContent className="p-6">
+                <CardContent className="px-8 pb-8">
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-muted-foreground">
-                      <span className="flex items-center gap-1">
-                        <Clock className="h-3 w-3" /> 45m EST
-                      </span>
+                    <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                      <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> 45m EST</span>
                       <span>4 / 12 Chapters</span>
                     </div>
-                    <Progress value={33} className="h-4 border-2 border-black rounded-none bg-muted/20" />
+                    <Progress value={33} className="h-2 rounded-full" />
                   </div>
                 </CardContent>
-                <CardFooter className="p-6 pt-0">
-                  <Button asChild className="w-full h-14 bg-black text-white hover:bg-secondary rounded-none font-black uppercase tracking-widest italic border-2 border-black">
+                <CardFooter className="px-8 pb-8 pt-0">
+                  <Button asChild className="w-full h-12 rounded-2xl bg-primary hover:bg-accent text-white font-bold shadow-lg shadow-primary/10">
                     <Link href={`/learner/course/${course.id}`}>
-                      <Play className="mr-3 h-5 w-5 fill-current" /> Return to Source
+                      <Play className="mr-2 h-4 w-4 fill-current" /> Return to Source
                     </Link>
                   </Button>
                 </CardFooter>

@@ -8,103 +8,104 @@ import Link from 'next/link';
 import { AIConsultant } from '@/components/consultant/AIConsultant';
 import { mockCourses, mockTeacher, mockOrg } from '@/lib/mock-data';
 import Image from 'next/image';
+import { Badge } from '@/components/ui/badge';
 
 export default function TeacherDashboard() {
   const teacherCourses = mockCourses.filter(c => c.authorId === mockTeacher.id);
 
   return (
-    <div className="min-h-screen bg-background pb-20 md:pb-0 md:pt-20">
+    <div className="min-h-screen bg-background pb-32 pt-24">
       <Navbar role="teacher" />
       
-      <main className="container mx-auto px-4 py-8">
-        <div className="mb-8 flex flex-col justify-between gap-6 md:flex-row md:items-end border-b-8 border-black pb-8">
-          <div>
-            <div className="flex items-center gap-2 mb-2 text-primary">
-              <Landmark className="h-6 w-6" />
-              <span className="text-sm font-black uppercase tracking-[0.3em]">Master Architect</span>
+      <main className="container mx-auto px-4">
+        <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="space-y-2">
+            <div className="flex items-center gap-2 mb-2 text-primary font-bold text-sm tracking-wider uppercase">
+              <Landmark className="h-4 w-4" />
+              <span>Master Architect</span>
             </div>
-            <h1 className="font-headline text-5xl font-black uppercase italic tracking-tighter">Wisdom Studio</h1>
-            <p className="text-muted-foreground font-bold italic mt-2">Monetizing your 30+ years of lived mastery.</p>
+            <h1 className="text-4xl md:text-5xl font-black text-secondary tracking-tight">Wisdom Studio</h1>
+            <p className="text-muted-foreground font-medium">Digitalizing your 30+ years of lived mastery.</p>
           </div>
-          <Button asChild size="lg" className="h-16 px-10 text-xl font-black uppercase italic tracking-widest rounded-none shadow-none bg-black border-4 border-black hover:bg-secondary">
+          <Button asChild size="lg" className="h-14 px-8 rounded-2xl bg-secondary hover:bg-secondary/90 shadow-xl shadow-secondary/20">
             <Link href="/admin/courses/new">
-              <Plus className="mr-3 h-6 w-6" /> Architect New Guild
+              <Plus className="mr-2 h-5 w-5" /> Architect New Guild
             </Link>
           </Button>
         </div>
 
-        {/* Teacher Stats */}
-        <div className="mb-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <Card className="shadow-none border-4 border-black bg-white rounded-none">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-              <CardTitle className="text-xs font-black uppercase tracking-widest">Tuition Revenue</CardTitle>
-              <DollarSign className="h-5 w-5 text-secondary" />
+        {/* Stats Grid */}
+        <div className="mb-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <Card className="rounded-3xl border-none shadow-sm hover:shadow-md transition-shadow">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Tuition Revenue</CardTitle>
+              <DollarSign className="h-4 w-4 text-primary" />
             </CardHeader>
             <CardContent>
-              <div className="text-4xl font-black italic">$4,820</div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-2">This month's exchange</p>
+              <div className="text-3xl font-black text-secondary">$4,820</div>
+              <p className="text-[10px] font-bold text-primary mt-1">+15% this month</p>
             </CardContent>
           </Card>
-          <Card className="shadow-none border-4 border-black bg-white rounded-none">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-              <CardTitle className="text-xs font-black uppercase tracking-widest">Active Apprentices</CardTitle>
-              <Users className="h-5 w-5 text-black" />
+          <Card className="rounded-3xl border-none shadow-sm hover:shadow-md transition-shadow">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Apprentices</CardTitle>
+              <Users className="h-4 w-4 text-secondary" />
             </CardHeader>
             <CardContent>
-              <div className="text-4xl font-black italic">12</div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-secondary mt-2">+2 high-intent students</p>
+              <div className="text-3xl font-black text-secondary">12</div>
+              <p className="text-[10px] font-bold text-muted-foreground mt-1">High-intent students</p>
             </CardContent>
           </Card>
-          <Card className="shadow-none border-4 border-black bg-white rounded-none">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-              <CardTitle className="text-xs font-black uppercase tracking-widest">Mastery Impact</CardTitle>
-              <TrendingUp className="h-5 w-5 text-black" />
+          <Card className="rounded-3xl border-none shadow-sm hover:shadow-md transition-shadow">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Legacy Reach</CardTitle>
+              <TrendingUp className="h-4 w-4 text-primary" />
             </CardHeader>
             <CardContent>
-              <div className="text-4xl font-black italic">15%</div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-2">Legacy reach increasing</p>
+              <div className="text-3xl font-black text-secondary">1,240</div>
+              <p className="text-[10px] font-bold text-muted-foreground mt-1">Direct inquiries</p>
             </CardContent>
           </Card>
-          <Card className="shadow-none border-4 border-black bg-white rounded-none">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-              <CardTitle className="text-xs font-black uppercase tracking-widest">Moonlight Hours</CardTitle>
-              <Clock className="h-5 w-5 text-secondary" />
+          <Card className="rounded-3xl border-none shadow-sm hover:shadow-md transition-shadow">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Moonlight Hours</CardTitle>
+              <Clock className="h-4 w-4 text-secondary" />
             </CardHeader>
             <CardContent>
-              <div className="text-4xl font-black italic">84h</div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-2">Direct engagement hours</p>
+              <div className="text-3xl font-black text-secondary">84h</div>
+              <p className="text-[10px] font-bold text-muted-foreground mt-1">Direct engagement</p>
             </CardContent>
           </Card>
         </div>
 
         <div className="space-y-8">
-          <h2 className="font-headline text-3xl font-black uppercase italic tracking-tighter">Your Active Guilds</h2>
+          <h2 className="text-2xl font-black text-secondary">Your Active Guilds</h2>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {teacherCourses.map((course) => (
-              <Card key={course.id} className="overflow-hidden shadow-none border-4 border-black group hover:border-secondary transition-all rounded-none bg-white">
-                <div className="relative aspect-video w-full border-b-4 border-black">
+              <Card key={course.id} className="group overflow-hidden border-none shadow-sm hover:shadow-xl transition-all rounded-[2rem] bg-white">
+                <div className="relative aspect-video w-full overflow-hidden">
                   <Image 
                     src={course.thumbnail} 
                     alt={course.title} 
                     fill 
-                    className="object-cover grayscale group-hover:grayscale-0 transition-all"
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute top-4 left-4">
-                    <Badge className="bg-black text-white border-none rounded-none font-black uppercase tracking-widest text-[10px] px-3 py-1 italic">
+                    <Badge className="bg-secondary text-white border-none rounded-full px-3 py-1 font-bold">
                       $499 Tuition
                     </Badge>
                   </div>
                 </div>
                 <CardHeader className="p-6">
-                  <CardTitle className="text-xl font-black uppercase italic leading-tight">{course.title}</CardTitle>
-                  <CardDescription className="line-clamp-2 font-bold italic mt-2 text-black/60">{course.description}</CardDescription>
+                  <CardTitle className="text-xl font-bold text-secondary group-hover:text-primary transition-colors">{course.title}</CardTitle>
+                  <CardDescription className="line-clamp-2 mt-2 font-medium">{course.description}</CardDescription>
                 </CardHeader>
-                <CardContent className="px-6 pb-6 flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-muted-foreground">
-                  <span>{course.modules.length} Chapters</span>
-                  <span className="text-black">12 Apprentices</span>
+                <CardContent className="px-6 pb-6 flex justify-between items-center text-xs font-bold text-muted-foreground">
+                  <span className="flex items-center gap-1"><BookOpen className="h-3 w-3" /> {course.modules.length} Chapters</span>
+                  <span className="text-secondary">12 Apprentices</span>
                 </CardContent>
-                <div className="p-4 border-t-4 border-black bg-muted/20">
-                  <Button variant="ghost" className="w-full justify-between hover:bg-black hover:text-white rounded-none font-black uppercase tracking-widest italic h-12" asChild>
+                <div className="p-4 border-t border-border/50 bg-muted/20">
+                  <Button variant="ghost" className="w-full justify-between hover:bg-primary hover:text-white rounded-xl font-bold h-12" asChild>
                     <Link href={`/admin/courses/edit/${course.id}`}>
                       Structure Apprenticeship <ArrowRight className="h-4 w-4" />
                     </Link>
@@ -113,13 +114,13 @@ export default function TeacherDashboard() {
               </Card>
             ))}
             
-            <Link href="/admin/courses/new" className="flex h-full min-h-[350px] flex-col items-center justify-center gap-6 border-4 border-dashed border-black/20 bg-muted/10 p-10 text-center transition-all hover:bg-secondary/5 hover:border-secondary group rounded-none">
-              <div className="flex h-16 w-16 items-center justify-center bg-black text-white group-hover:scale-110 transition-transform border-4 border-white shadow-none">
+            <Link href="/admin/courses/new" className="flex h-full min-h-[350px] flex-col items-center justify-center gap-4 rounded-[2rem] border-2 border-dashed border-border hover:border-primary/50 bg-white hover:bg-primary/5 transition-all group p-8 text-center">
+              <div className="h-16 w-16 rounded-2xl bg-muted group-hover:bg-primary group-hover:scale-110 transition-all flex items-center justify-center text-secondary group-hover:text-white">
                 <Plus className="h-8 w-8" />
               </div>
-              <div className="space-y-2">
-                <p className="font-black uppercase tracking-widest text-lg italic">Architect Paid Guild</p>
-                <p className="text-xs font-bold italic text-muted-foreground">Let Proctor structure your side-hustle</p>
+              <div>
+                <p className="font-bold text-lg text-secondary">Architect Paid Guild</p>
+                <p className="text-xs text-muted-foreground mt-1">Let Proctor structure your legacy</p>
               </div>
             </Link>
           </div>

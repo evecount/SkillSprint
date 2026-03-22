@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Sparkles, Send, Bot, Loader2, ArrowRight, CheckCircle2, DollarSign, MapPin, Calendar, Users, GraduationCap, Landmark, Zap } from 'lucide-react';
+import { Sparkles, Send, Bot, Loader2, ArrowRight, CheckCircle2, Zap, Landmark, Users, MapPin, Calendar } from 'lucide-react';
 import { prospectiveOnboardingChat, ProspectiveOnboardingOutput } from '@/ai/flows/prospective-onboarding';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
@@ -19,7 +19,7 @@ export function HeroChat() {
   const [messages, setMessages] = useState<Message[]>([
     { 
       role: 'model', 
-      text: "I am Proctor. I architect the bridge between your lived mastery and the next generation. If you were to launch your own private Wisdom Guild today—bypassing every institutional gatekeeper—what specific industry or craft are we masterminding?" 
+      text: "I am Proctor. I architect the bridge between your lived mastery and the next generation. What industry or craft are we masterminding today?" 
     }
   ]);
   const [input, setInput] = useState('');
@@ -53,7 +53,7 @@ export function HeroChat() {
         setDraft(result.portalDraft);
       }
     } catch (error) {
-      setMessages(prev => [...prev, { role: 'model', text: "Registry error encountered. Please re-state your domain of mastery." }]);
+      setMessages(prev => [...prev, { role: 'model', text: "Encountered a registry error. Please re-state your domain." }]);
     } finally {
       setLoading(false);
     }
@@ -61,99 +61,69 @@ export function HeroChat() {
 
   if (draft) {
     return (
-      <Card className="border-8 border-black shadow-none bg-white overflow-hidden animate-in fade-in zoom-in duration-500 rounded-none">
-        <CardHeader className="bg-black text-white p-10">
-          <div className="flex items-center gap-3 mb-4">
-            <Badge variant="secondary" className="bg-secondary text-white border-none px-4 py-1 rounded-none uppercase font-black tracking-widest text-xs italic">Guild Blueprint Ready</Badge>
-          </div>
-          <CardTitle className="text-4xl md:text-5xl font-black leading-[0.9] uppercase italic tracking-tighter">Wisdom Guild <span className="text-secondary">Drafted</span></CardTitle>
-          <p className="text-white/60 text-lg mt-4 font-bold max-w-lg italic">Proctor has architecturalized your exchange. Your direct-from-source academy is ready.</p>
+      <Card className="border-none shadow-2xl rounded-[2rem] overflow-hidden bg-white animate-in zoom-in duration-500">
+        <CardHeader className="bg-secondary text-white p-8 md:p-12">
+          <Badge className="bg-primary text-white border-none px-3 py-1 mb-4 rounded-full text-xs font-bold uppercase tracking-wider">Blueprint Ready</Badge>
+          <CardTitle className="text-3xl md:text-5xl font-black leading-tight tracking-tight">Your Guild <span className="text-primary italic">Drafted.</span></CardTitle>
+          <p className="text-white/60 text-lg mt-2 font-medium">Proctor has architecturalized your exchange.</p>
         </CardHeader>
-        <CardContent className="p-10 space-y-10">
-          <div className="rounded-none border-4 border-black bg-muted/20 p-8">
-            <h3 className="font-black text-2xl text-black uppercase tracking-tighter italic">{draft.title}</h3>
-            <p className="text-base text-black font-bold mt-4 leading-relaxed italic">{draft.description}</p>
+        <CardContent className="p-8 md:p-12 space-y-8">
+          <div className="p-6 rounded-2xl bg-muted/50 border border-border/50">
+            <h3 className="font-bold text-2xl text-secondary">{draft.title}</h3>
+            <p className="text-muted-foreground mt-2 leading-relaxed">{draft.description}</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[
               { icon: Zap, label: "Mastery Domain", value: draft.masteryDomain },
-              { icon: MapPin, label: "Delivery Format", value: draft.logistics.format },
-              { icon: Calendar, label: "Engagement Frequency", value: draft.logistics.frequency },
-              { icon: Users, label: "Enrollment Protocol", value: draft.logistics.enrollmentMode },
+              { icon: MapPin, label: "Format", value: draft.logistics.format },
+              { icon: Calendar, label: "Frequency", value: draft.logistics.frequency },
+              { icon: Users, label: "Enrollment", value: draft.logistics.enrollmentMode },
             ].map((item, idx) => (
-              <div key={idx} className="flex items-start gap-4 rounded-none bg-muted/30 p-6 border-2 border-black/10 hover:border-black transition-colors">
-                <item.icon className="h-6 w-6 text-secondary mt-1 shrink-0" />
+              <div key={idx} className="flex items-center gap-4 p-4 rounded-xl bg-muted/30 border border-transparent hover:border-primary/20 transition-all">
+                <div className="h-10 w-10 rounded-lg bg-white shadow-sm flex items-center justify-center">
+                  <item.icon className="h-5 w-5 text-primary" />
+                </div>
                 <div>
-                  <p className="font-black text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-1">{item.label}</p>
-                  <p className="text-sm font-black text-black leading-tight uppercase italic">{item.value}</p>
+                  <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{item.label}</p>
+                  <p className="text-sm font-bold text-secondary">{item.value}</p>
                 </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="space-y-4">
-            <div className="flex items-center gap-2 mb-2">
-              <Landmark className="h-4 w-4 text-black" />
-              <p className="text-[10px] font-black uppercase tracking-[0.4em] text-black">Architectural Chapters</p>
-            </div>
-            {draft.chapters.slice(0, 4).map((m, i) => (
-              <div key={i} className="flex items-center gap-6 p-4 bg-muted/20 rounded-none group transition-all hover:bg-black hover:text-white border-2 border-transparent hover:border-black">
-                <div className="h-10 w-10 rounded-none bg-black text-white flex items-center justify-center text-sm font-black group-hover:bg-secondary shrink-0 italic">
-                  {i + 1}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <span className="font-black text-base truncate block uppercase tracking-tight italic">{m.title}</span>
-                  <span className="text-[10px] uppercase font-bold opacity-60 tracking-widest">{m.coreInsight.substring(0, 40)}...</span>
-                </div>
-                <Badge variant="outline" className="text-[9px] font-black uppercase rounded-none border-black group-hover:border-white group-hover:text-white shrink-0">Insight Map</Badge>
               </div>
             ))}
           </div>
         </CardContent>
-        <CardFooter className="p-10 bg-black border-t-8 border-secondary flex flex-col gap-6">
-          <Button asChild className="w-full h-20 text-3xl font-black shadow-none rounded-none bg-secondary hover:bg-white hover:text-black uppercase italic tracking-tighter">
+        <CardFooter className="p-8 md:p-12 bg-muted/20 border-t border-border/50">
+          <Button asChild className="w-full h-16 text-xl font-bold rounded-2xl bg-primary hover:bg-accent shadow-lg shadow-primary/20">
             <Link href="/teacher/dashboard">
-              Launch Guild Studio <ArrowRight className="ml-3 h-8 w-8" />
+              Launch Guild Studio <ArrowRight className="ml-2 h-6 w-6" />
             </Link>
           </Button>
-          <div className="flex justify-center items-center gap-4 text-white/40 font-black text-[10px] uppercase tracking-[0.3em]">
-            <CheckCircle2 className="h-4 w-4" />
-            <span>Own Your Legacy</span>
-            <span className="h-1 w-1 bg-white/20 rounded-full" />
-            <span>Direct Industry Access</span>
-            <span className="h-1 w-1 bg-white/20 rounded-full" />
-            <span>Bypass Barriers</span>
-          </div>
         </CardFooter>
       </Card>
     );
   }
 
   return (
-    <Card className="border-8 border-black shadow-none bg-white flex flex-col h-[700px] rounded-none overflow-hidden relative">
-      <CardHeader className="border-b-8 border-black py-8 bg-muted/10 px-10">
+    <Card className="border-none shadow-2xl rounded-[2rem] overflow-hidden bg-white flex flex-col h-[650px] md:h-[700px]">
+      <CardHeader className="border-b border-border/50 bg-muted/30 px-8 py-6">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <div className="h-16 w-16 rounded-none bg-black flex items-center justify-center text-white border-4 border-white shadow-none italic text-2xl font-black">
+          <div className="flex items-center gap-4">
+            <div className="h-12 w-12 rounded-2xl bg-secondary text-white flex items-center justify-center font-bold text-xl">
               P
             </div>
             <div>
-              <CardTitle className="text-xl font-black uppercase tracking-[0.2em] italic">Proctor</CardTitle>
+              <CardTitle className="text-lg font-bold text-secondary">Proctor</CardTitle>
               <div className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-none bg-secondary animate-pulse" />
-                <span className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.3em]">Architectural Registry</span>
+                <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+                <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Architectural Registry</span>
               </div>
             </div>
-          </div>
-          <div className="hidden sm:flex h-12 w-12 rounded-none bg-secondary text-white items-center justify-center border-2 border-black">
-            <Zap className="h-6 w-6" />
           </div>
         </div>
       </CardHeader>
       <CardContent 
         ref={scrollRef}
-        className="flex-1 overflow-y-auto p-10 space-y-8 scroll-smooth bg-white"
+        className="flex-1 overflow-y-auto p-8 space-y-6 scroll-smooth"
       >
         {messages.map((m, i) => (
           <div key={i} className={cn(
@@ -161,10 +131,10 @@ export function HeroChat() {
             m.role === 'user' ? "justify-end" : "justify-start"
           )}>
             <div className={cn(
-              "max-w-[90%] rounded-none px-8 py-6 text-base border-4 leading-relaxed font-bold italic",
+              "max-w-[85%] rounded-2xl px-6 py-4 text-sm font-medium leading-relaxed",
               m.role === 'user' 
-                ? "bg-black text-white border-black" 
-                : "bg-muted/30 text-black border-muted"
+                ? "bg-primary text-white shadow-lg shadow-primary/20" 
+                : "bg-muted text-secondary"
             )}>
               {m.text}
             </div>
@@ -172,33 +142,29 @@ export function HeroChat() {
         ))}
         {loading && (
           <div className="flex justify-start">
-            <div className="bg-muted/30 rounded-none px-8 py-6 border-4 border-muted">
-              <div className="flex gap-2">
-                <span className="h-2 w-2 rounded-none bg-black animate-bounce" style={{ animationDelay: '0ms' }} />
-                <span className="h-2 w-2 rounded-none bg-black animate-bounce" style={{ animationDelay: '150ms' }} />
-                <span className="h-2 w-2 rounded-none bg-black animate-bounce" style={{ animationDelay: '300ms' }} />
-              </div>
+            <div className="bg-muted rounded-2xl px-6 py-4">
+              <Loader2 className="h-4 w-4 animate-spin text-primary" />
             </div>
           </div>
         )}
       </CardContent>
-      <CardFooter className="p-8 border-t-8 border-black bg-white">
+      <CardFooter className="p-6 border-t border-border/50 bg-white">
         <form 
-          className="flex w-full gap-4"
+          className="flex w-full gap-3"
           onSubmit={(e) => {
             e.preventDefault();
             handleSend();
           }}
         >
           <Input 
-            placeholder="Tell Proctor your industry or mastery domain..." 
+            placeholder="State your domain of mastery..." 
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={loading}
-            className="flex-1 h-16 rounded-none px-8 bg-muted/10 border-4 border-black focus-visible:ring-secondary transition-all text-lg font-black placeholder:text-muted-foreground/40 italic"
+            className="flex-1 h-14 rounded-xl px-6 bg-muted/50 border-transparent focus-visible:ring-primary text-sm font-medium"
           />
-          <Button type="submit" size="icon" className="h-16 w-16 shrink-0 rounded-none shadow-none bg-black hover:bg-secondary transition-all border-4 border-black" disabled={loading || !input.trim()}>
-            <Send className="h-8 w-8 text-white" />
+          <Button type="submit" size="icon" className="h-14 w-14 shrink-0 rounded-xl bg-secondary hover:bg-secondary/90 transition-all shadow-lg" disabled={loading || !input.trim()}>
+            <Send className="h-6 w-6 text-white" />
           </Button>
         </form>
       </CardFooter>
