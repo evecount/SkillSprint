@@ -1,3 +1,94 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "sp-1",
+      "description": "Advertising legacy",
+      "imageUrl": "https://picsum.photos/seed/skillsprint1/600/400",
+      "imageHint": "advertising office"
+    },
+    {
+      "id": "sp-2",
+      "description": "Structural engineering",
+      "imageUrl": "https://picsum.photos/seed/skillsprint2/600/400",
+      "imageHint": "civil engineering"
+    },
+    {
+      "id": "sp-3",
+      "description": "Classical art",
+      "imageUrl": "https://picsum.photos/seed/skillsprint3/600/400",
+      "imageHint": "fine arts"
+    },
+    {
+      "id": "sp-4",
+      "description": "Software code",
+      "imageUrl": "https://picsum.photos/seed/skillsprint4/600/400",
+      "imageHint": "coding architecture"
+    },
+    {
+      "id": "sp-5",
+      "description": "Digital marketing",
+      "imageUrl": "https://picsum.photos/seed/skillsprint5/600/400",
+      "imageHint": "marketing strategy"
+    },
+    {
+      "id": "sp-6",
+      "description": "Urban planning",
+      "imageUrl": "https://picsum.photos/seed/skillsprint6/600/400",
+      "imageHint": "city planning"
+    },
+    {
+      "id": "sp-7",
+      "description": "Creative strategy",
+      "imageUrl": "https://picsum.photos/seed/skillsprint7/600/400",
+      "imageHint": "agency work"
+    },
+    {
+      "id": "sp-8",
+      "description": "Team leadership",
+      "imageUrl": "https://picsum.photos/seed/skillsprint8/600/400",
+      "imageHint": "leadership management"
+    },
+    {
+      "id": "sp-9",
+      "description": "Sculpting mastery",
+      "imageUrl": "https://picsum.photos/seed/skillsprint9/600/400",
+      "imageHint": "sculpting art"
+    },
+    {
+      "id": "sp-10",
+      "description": "Growth hacking",
+      "imageUrl": "https://picsum.photos/seed/skillsprint10/600/400",
+      "imageHint": "growth startup"
+    },
+    {
+      "id": "sp-11",
+      "description": "Resilient systems",
+      "imageUrl": "https://picsum.photos/seed/skillsprint11/600/400",
+      "imageHint": "resilient infrastructure"
+    },
+    {
+      "id": "sp-12",
+      "description": "Copywriting secrets",
+      "imageUrl": "https://picsum.photos/seed/skillsprint12/600/400",
+      "imageHint": "writing office"
+    },
+    {
+      "id": "sp-13",
+      "description": "Backend scale",
+      "imageUrl": "https://picsum.photos/seed/skillsprint13/600/400",
+      "imageHint": "server farm"
+    },
+    {
+      "id": "sp-14",
+      "description": "Art gallery reality",
+      "imageUrl": "https://picsum.photos/seed/skillsprint14/600/400",
+      "imageHint": "art gallery"
+    },
+    {
+      "id": "sp-15",
+      "description": "Brand strategy",
+      "imageUrl": "https://picsum.photos/seed/skillsprint15/600/400",
+      "imageHint": "brand legacy"
+    }
+  ]
 }

@@ -19,33 +19,25 @@ export interface UserProfile {
   isPublic?: boolean;
 }
 
-export interface WisdomPortal {
+export interface Course {
   id: string;
+  orgId: string;
   title: string;
   description: string;
-  authorId: string;
   category: string;
   thumbnail: string;
-  accessModel: 'public' | 'invitation_only' | 'referral_only';
-  monetization: {
-    type: 'free' | 'paid' | 'scholarship_based';
-    price: string;
-  };
-  logistics: {
-    format: string;
-    frequency: string;
-  };
+  authorId: string;
+  modules: Module[];
 }
 
-export interface WisdomChapter {
+export interface Module {
   id: string;
-  portalId: string;
+  courseId: string;
   title: string;
   content: string;
-  coreInsight: string;
+  order: number;
   videoUrl?: string;
   quiz?: Quiz;
-  order: number;
 }
 
 export interface Quiz {
@@ -60,14 +52,9 @@ export interface Question {
   correctAnswerIndex: number;
 }
 
-export interface InquiryLog {
+export interface Organization {
   id: string;
-  userId: string;
-  portalId: string;
-  chapterId: string;
-  query: string;
-  sentiment?: string;
-  timestamp: string;
+  name: string;
 }
 
 export interface Learner extends UserProfile {
