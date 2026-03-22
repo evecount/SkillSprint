@@ -1,3 +1,4 @@
+
 "use client"
 
 import { Navbar } from '@/components/layout/Navbar';
@@ -5,11 +6,10 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Flame, Trophy, ArrowRight, Play, Clock, Star, Zap } from 'lucide-react';
-import { mockCourses, mockLearner, mockOrg } from '@/lib/mock-data';
+import { Flame, ArrowRight, Play, Clock, Star, Zap } from 'lucide-react';
+import { mockCourses, mockLearner } from '@/lib/mock-data';
 import Link from 'next/link';
 import Image from 'next/image';
-import { AIConsultant } from '@/components/consultant/AIConsultant';
 
 export default function LearnerDashboard() {
   return (
@@ -135,12 +135,6 @@ export default function LearnerDashboard() {
           </div>
         </div>
       </main>
-
-      <AIConsultant 
-        userName={mockLearner.name} 
-        role="learner" 
-        orgName={mockOrg.name} 
-      />
     </div>
   );
 }

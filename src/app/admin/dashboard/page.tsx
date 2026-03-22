@@ -1,14 +1,13 @@
+
 "use client"
 
 import { Navbar } from '@/components/layout/Navbar';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
-import { Users, BookOpen, CheckCircle, AlertCircle, Plus, ShieldCheck, Landmark, Globe } from 'lucide-react';
+import { Users, BookOpen, CheckCircle, Plus, Landmark, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { AIConsultant } from '@/components/consultant/AIConsultant';
-import { mockOrg, mockAdmin } from '@/lib/mock-data';
 
 const completionData = [
   { name: 'Mon', completion: 45 },
@@ -145,12 +144,6 @@ export default function AdminDashboard() {
           </TabsContent>
         </Tabs>
       </main>
-
-      <AIConsultant 
-        userName={mockAdmin.name} 
-        role="admin" 
-        orgName={mockOrg.name} 
-      />
     </div>
   );
 }

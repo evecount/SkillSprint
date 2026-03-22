@@ -1,12 +1,12 @@
+
 "use client"
 
 import { Navbar } from '@/components/layout/Navbar';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Plus, BookOpen, Users, ArrowRight, Landmark, DollarSign, TrendingUp, Clock, Heart } from 'lucide-react';
+import { Plus, BookOpen, Users, ArrowRight, DollarSign, TrendingUp, Clock, Heart } from 'lucide-react';
 import Link from 'next/link';
-import { AIConsultant } from '@/components/consultant/AIConsultant';
-import { mockCourses, mockTeacher, mockOrg } from '@/lib/mock-data';
+import { mockCourses, mockTeacher } from '@/lib/mock-data';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 
@@ -126,12 +126,6 @@ export default function TeacherDashboard() {
           </div>
         </div>
       </main>
-
-      <AIConsultant 
-        userName={mockTeacher.name} 
-        role="teacher" 
-        orgName={mockOrg.name} 
-      />
     </div>
   );
 }
