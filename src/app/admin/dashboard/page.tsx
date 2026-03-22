@@ -1,14 +1,15 @@
+
 "use client"
 
 import { Navbar } from '@/components/layout/Navbar';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
-import { Users, BookOpen, CheckCircle, AlertCircle, Plus } from 'lucide-react';
+import { Users, BookOpen, CheckCircle, AlertCircle, Plus, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { AIConsultant } from '@/components/consultant/AIConsultant';
-import { mockOrg } from '@/lib/mock-data';
+import { mockOrg, mockAdmin } from '@/lib/mock-data';
 
 const completionData = [
   { name: 'Mon', completion: 45 },
@@ -28,13 +29,17 @@ const engagementData = [
 export default function AdminDashboard() {
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-0 md:pt-16">
-      <Navbar isAdmin />
+      <Navbar role="admin" />
       
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-center">
           <div>
+            <div className="flex items-center gap-2 mb-1">
+              <ShieldCheck className="h-5 w-5 text-primary" />
+              <span className="text-xs font-bold uppercase tracking-widest text-primary">Organization Admin</span>
+            </div>
             <h1 className="font-headline text-3xl font-bold">Admin Insights</h1>
-            <p className="text-muted-foreground">Manage {mockOrg.name}'s learning progress.</p>
+            <p className="text-muted-foreground">Manage {mockOrg.name}'s learning ecosystem.</p>
           </div>
           <div className="flex gap-2">
             <Button variant="outline" asChild>
@@ -144,7 +149,7 @@ export default function AdminDashboard() {
 
       {/* AI Onboarding Consultant */}
       <AIConsultant 
-        userName="Admin User" 
+        userName={mockAdmin.name} 
         role="admin" 
         orgName={mockOrg.name} 
       />

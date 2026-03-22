@@ -1,15 +1,16 @@
+
 import Link from 'next/link';
 import { Navbar } from '@/components/layout/Navbar';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
-import { ArrowRight, CheckCircle, Zap, Shield, TrendingUp } from 'lucide-react';
+import { ArrowRight, CheckCircle, Zap, Shield, TrendingUp, Sparkles } from 'lucide-react';
 import Image from 'next/image';
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
+      <Navbar role="learner" />
       
       <main className="pt-20 pb-32">
         {/* Hero Section */}
@@ -24,17 +25,22 @@ export default function Home() {
               </h1>
               <p className="text-xl text-muted-foreground">
                 SkillSprint provides bite-sized, engaging courses designed for the modern workforce. 
-                Improve retention with gamified progression and instant feedback.
+                Improve retention with gamified progression and AI-powered content creation.
               </p>
               <div className="flex flex-wrap gap-4">
                 <Button asChild size="lg" className="h-12 px-8">
                   <Link href="/learner/dashboard">
-                    Get Started as Learner <ArrowRight className="ml-2 h-4 w-4" />
+                    Get Started <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
-                <Button asChild variant="outline" size="lg" className="h-12 px-8">
-                  <Link href="/admin/dashboard">Admin Dashboard</Link>
-                </Button>
+                <div className="flex gap-2">
+                  <Button asChild variant="outline" size="lg" className="h-12 px-6">
+                    <Link href="/teacher/dashboard">Teacher Studio</Link>
+                  </Button>
+                  <Button asChild variant="ghost" size="lg" className="h-12 px-6">
+                    <Link href="/admin/dashboard">Admin Panel</Link>
+                  </Button>
+                </div>
               </div>
             </div>
             <div className="relative aspect-video overflow-hidden rounded-2xl shadow-2xl">
@@ -45,6 +51,7 @@ export default function Home() {
                 className="object-cover"
                 priority
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
             </div>
           </div>
         </section>
@@ -60,10 +67,10 @@ export default function Home() {
               {[
                 { title: 'Micro-Learning', desc: 'Bite-sized modules for fast consumption.', icon: Zap },
                 { title: 'Gamified XP', desc: 'Engage learners with streaks and scores.', icon: TrendingUp },
-                { title: 'Secure Feedback', desc: 'Instant pass/fail state for assessments.', icon: Shield },
-                { title: 'Compliance', desc: 'Detailed reporting for organization admins.', icon: CheckCircle },
+                { title: 'AI Assistant', desc: 'Generate quizzes and content instantly.', icon: Sparkles },
+                { title: 'Role Based', desc: 'Custom portals for Admins, Teachers, and Learners.', icon: Shield },
               ].map((f, i) => (
-                <Card key={i} className="border-none shadow-sm transition-transform hover:-translate-y-1">
+                <Card key={i} className="border-none shadow-sm transition-transform hover:-translate-y-1 bg-white">
                   <CardHeader>
                     <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
                       <f.icon className="h-6 w-6" />
@@ -78,7 +85,7 @@ export default function Home() {
         </section>
       </main>
       
-      <footer className="border-t py-12 text-center text-sm text-muted-foreground">
+      <footer className="border-t py-12 text-center text-sm text-muted-foreground bg-white">
         <p>© 2024 SkillSprint Platform. Built for professional growth.</p>
       </footer>
     </div>

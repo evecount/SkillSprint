@@ -1,4 +1,6 @@
 
+export type UserRole = 'admin' | 'teacher' | 'learner';
+
 export interface Organization {
   id: string;
   name: string;
@@ -12,6 +14,7 @@ export interface Course {
   category: string;
   thumbnail: string;
   modules: Module[];
+  authorId?: string;
 }
 
 export interface Module {
@@ -36,12 +39,20 @@ export interface Question {
   correctAnswerIndex: number;
 }
 
-export interface Learner {
+export interface UserProfile {
   id: string;
   orgId: string;
   name: string;
   email: string;
+  role: UserRole;
   avatar?: string;
+  totalXP?: number;
+  streak?: number;
+  lastActive?: string;
+}
+
+export interface Learner extends UserProfile {
+  role: 'learner';
   totalXP: number;
   streak: number;
   lastActive: string;

@@ -1,9 +1,25 @@
 
-import { Course, Learner, Organization } from './types';
+import { Course, Learner, Organization, UserProfile } from './types';
 
 export const mockOrg: Organization = {
   id: 'org_1',
   name: 'Global Tech Corp'
+};
+
+export const mockAdmin: UserProfile = {
+  id: 'admin_1',
+  orgId: 'org_1',
+  name: 'Sarah Admin',
+  email: 'sarah@example.com',
+  role: 'admin'
+};
+
+export const mockTeacher: UserProfile = {
+  id: 'teacher_1',
+  orgId: 'org_1',
+  name: 'Professor Spark',
+  email: 'spark@example.com',
+  role: 'teacher'
 };
 
 export const mockLearner: Learner = {
@@ -11,6 +27,7 @@ export const mockLearner: Learner = {
   orgId: 'org_1',
   name: 'Alex Johnson',
   email: 'alex@example.com',
+  role: 'learner',
   totalXP: 1250,
   streak: 5,
   lastActive: new Date().toISOString()
@@ -24,6 +41,7 @@ export const mockCourses: Course[] = [
     description: 'Learn the fundamentals of leading remote teams effectively.',
     category: 'Management',
     thumbnail: 'https://picsum.photos/seed/skillsprint3/600/400',
+    authorId: 'teacher_1',
     modules: [
       {
         id: 'm_1',
@@ -60,6 +78,7 @@ export const mockCourses: Course[] = [
     description: 'Protect your digital assets with these simple steps.',
     category: 'IT & Security',
     thumbnail: 'https://picsum.photos/seed/skillsprint4/600/400',
+    authorId: 'teacher_1',
     modules: []
   }
 ];
