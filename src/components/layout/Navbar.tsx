@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Compass, BookOpen, User, LayoutDashboard, Info, Bot } from 'lucide-react';
+import { Compass, BookOpen, User, LayoutDashboard, Info, Bot, Calendar } from 'lucide-react';
 import { UserRole } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
@@ -27,10 +27,12 @@ export function Navbar({ role = 'learner', userName, orgName }: NavbarProps) {
   const navItems = role === 'learner' ? [
     { label: 'Explore', icon: Compass, href: '/learner/dashboard' },
     { label: 'Guilds', icon: BookOpen, href: '/learner/dashboard' },
+    { label: 'Schedule', icon: Calendar, href: '/learner/dashboard' }, // Mapping to dashboard for now
     { label: 'Identity', icon: User, href: '/learner/dashboard' },
   ] : [
     { label: 'Explore', icon: Compass, href: '/admin/dashboard' },
     { label: 'Studio', icon: LayoutDashboard, href: '/teacher/dashboard' },
+    { label: 'Schedule', icon: Calendar, href: '/teacher/dashboard' },
     { label: 'Identity', icon: User, href: '/teacher/dashboard' },
   ];
 
@@ -38,6 +40,7 @@ export function Navbar({ role = 'learner', userName, orgName }: NavbarProps) {
     if (label === 'Explore') return Compass;
     if (label === 'Guilds') return BookOpen;
     if (label === 'Studio') return LayoutDashboard;
+    if (label === 'Schedule') return Calendar;
     if (label === 'Identity') return User;
     return Compass;
   };
@@ -65,7 +68,7 @@ export function Navbar({ role = 'learner', userName, orgName }: NavbarProps) {
             </div>
           </Link>
 
-          <div className="flex items-center gap-14">
+          <div className="flex items-center gap-10">
             {navItems.map((item) => {
               const Icon = getIcon(item.label);
               return (
@@ -102,9 +105,10 @@ export function Navbar({ role = 'learner', userName, orgName }: NavbarProps) {
         </div>
       </nav>
 
-      {/* Mobile Bottom Navigation */}
+      {/* Mobile Bottom Navigation - 5 Pillars */}
       <nav className="fixed bottom-0 left-0 right-0 z-[100] flex h-24 items-center border-t border-white/10 bg-secondary/95 backdrop-blur-3xl md:hidden mobile-nav-shadow px-4 pb-2">
-        <div className="grid h-full w-full grid-cols-4 gap-2">
+        <div className="grid h-full w-full grid-cols-5 gap-1">
+          {/* First Two Items */}
           {navItems.slice(0, 2).map((item) => {
             const Icon = getIcon(item.label);
             return (
@@ -122,7 +126,7 @@ export function Navbar({ role = 'learner', userName, orgName }: NavbarProps) {
             );
           })}
           
-          {/* Proctor Central Icon */}
+          {/* Proctor Central Icon - Pillar 3 */}
           <button 
             onClick={() => setIsProctorOpen(true)}
             className="flex flex-col items-center justify-center gap-1 transition-all active:scale-90 text-white group"
@@ -133,6 +137,7 @@ export function Navbar({ role = 'learner', userName, orgName }: NavbarProps) {
             <span className="text-[8px] font-black uppercase tracking-[0.2em]">Proctor</span>
           </button>
 
+          {/* Last Two Items */}
           {navItems.slice(2).map((item) => {
             const Icon = getIcon(item.label);
             return (
