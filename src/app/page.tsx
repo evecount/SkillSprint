@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Navbar } from '@/components/layout/Navbar';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Shield, GraduationCap, Landmark, Zap, DollarSign, Clock, Heart, Info, ArrowRight } from 'lucide-react';
+import { Shield, GraduationCap, Landmark, Zap, DollarSign, Clock, Heart, Info, ArrowRight, Star } from 'lucide-react';
 import { HeroChat } from '@/components/home/HeroChat';
 
 export default function Home() {
@@ -29,7 +29,7 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 mt-8">
               <Button asChild size="lg" className="rounded-2xl bg-secondary hover:bg-secondary/90 text-white h-16 px-10 font-bold uppercase tracking-widest text-xs shadow-xl shadow-secondary/20">
-                <Link href="/learner/dashboard">Find a Source</Link>
+                <Link href="/learner/dashboard">Find a Master</Link>
               </Button>
               <Button variant="ghost" asChild className="text-primary font-black hover:bg-primary/5 rounded-full h-16 px-10 uppercase tracking-widest text-xs">
                 <Link href="/about" className="flex items-center gap-2">
@@ -39,10 +39,12 @@ export default function Home() {
             </div>
           </div>
 
+          {/* Proctor Onboarding Chat - The "Tinder" start */}
           <div className="max-w-4xl mx-auto mb-20">
             <HeroChat />
           </div>
 
+          {/* Quick Value Props */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-2">
             <div className="group p-10 rounded-[2.5rem] bg-white border border-border/50 shadow-sm hover:shadow-2xl transition-all duration-500">
               <div className="h-14 w-14 rounded-3xl bg-primary/10 flex items-center justify-center mb-8">
@@ -75,7 +77,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Roles Section */}
+        {/* Simplified Role Selection Section */}
         <section className="py-32 mt-32 bg-secondary text-white rounded-[4rem] mx-4 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[120px] -z-10 translate-x-1/2 -translate-y-1/2" />
           
@@ -103,7 +105,7 @@ export default function Home() {
                 </div>
                 <GraduationCap className="h-12 w-12 mb-8 text-white" />
                 <h3 className="text-3xl font-black mb-4 tracking-tight">Apprentice / Student</h3>
-                <p className="text-white/90 text-base font-medium mb-10 leading-relaxed">Direct access. Moonlight with the source and bypass the corporate internships.</p>
+                <p className="text-white/90 text-base font-medium mb-10 leading-relaxed">Direct access. Moonlight with the source and bypass corporate internships.</p>
                 <Button asChild className="w-full rounded-[2rem] bg-secondary hover:bg-secondary/90 text-white h-16 font-black uppercase tracking-[0.2em] text-[10px]">
                   <Link href="/learner/dashboard">Find a Master</Link>
                 </Button>
@@ -136,24 +138,5 @@ export default function Home() {
         </div>
       </footer>
     </div>
-  );
-}
-
-function Star(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-    </svg>
   );
 }
