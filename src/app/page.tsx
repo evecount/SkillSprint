@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Navbar } from '@/components/layout/Navbar';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Shield, GraduationCap, Landmark, Zap, DollarSign, Clock, TrendingUp, Heart } from 'lucide-react';
+import { Shield, GraduationCap, Landmark, Zap, DollarSign, Clock, Heart, Info } from 'lucide-react';
 import { HeroChat } from '@/components/home/HeroChat';
 
 export default function Home() {
@@ -25,8 +25,13 @@ export default function Home() {
               <span className="text-primary italic">The Masters.</span>
             </h1>
             <p className="text-base md:text-xl text-muted-foreground font-medium max-w-2xl leading-relaxed">
-              Retirees monetize 30+ years of truth. Apprentices bypass the gatekeepers. A new meritocracy for a generation that values direct excellence.
+              Monetize 30+ years of craft. Bypass the institutional gatekeepers. A new meritocracy for a generation that values direct excellence.
             </p>
+            <Button variant="ghost" asChild className="text-primary font-bold hover:bg-primary/5 rounded-full">
+              <Link href="/about" className="flex items-center gap-2">
+                <Info className="h-4 w-4" /> Read our Manifesto
+              </Link>
+            </Button>
           </div>
 
           <div className="max-w-4xl mx-auto mb-20">
@@ -39,7 +44,7 @@ export default function Home() {
                 <Heart className="h-6 w-6 text-primary" />
               </div>
               <h3 className="font-bold text-xl text-secondary mb-2">Paid Mentorship</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">Monetize your legacy. Turn decades of "doing" into a professional side-hustle.</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">Own your legacy. Turn decades of "doing" into a professional side-hustle.</p>
             </div>
             <div className="group p-8 rounded-[2rem] bg-white border border-border/50 shadow-sm hover:shadow-xl transition-all">
               <div className="h-12 w-12 rounded-2xl bg-secondary/10 flex items-center justify-center mb-6">
@@ -52,8 +57,8 @@ export default function Home() {
               <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
                 <Shield className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="font-bold text-xl text-secondary mb-2">No Ageist Barriers</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">Bypass corporate ageism. Here, your experience is your greatest asset.</p>
+              <h3 className="font-bold text-xl text-secondary mb-2">Bypass Gatekeepers</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">No institutional ageism. Here, your experience is your greatest asset.</p>
             </div>
             <div className="group p-8 rounded-[2rem] bg-white border border-border/50 shadow-sm hover:shadow-xl transition-all">
               <div className="h-12 w-12 rounded-2xl bg-secondary/10 flex items-center justify-center mb-6">
@@ -77,23 +82,23 @@ export default function Home() {
                 <h3 className="text-2xl font-bold mb-3">Mentor / Lecturer</h3>
                 <p className="text-white/60 text-sm mb-8">Of the mind or by doing. Structure your legacy into a paid apprenticeship.</p>
                 <Button asChild className="w-full rounded-2xl bg-primary hover:bg-accent text-white h-14 font-bold uppercase tracking-widest text-xs">
-                  <Link href="/teacher/dashboard">Become a Mentor</Link>
+                  <Link href="/teacher/dashboard">Start My Side-Hustle</Link>
                 </Button>
               </div>
               
               <div className="p-8 rounded-[2.5rem] bg-primary text-white text-left shadow-2xl shadow-primary/20">
                 <GraduationCap className="h-10 w-10 mb-6 text-white" />
                 <h3 className="text-2xl font-bold mb-3">Apprentice / Student</h3>
-                <p className="text-white/80 text-sm mb-8">Practical or academic. Fund your access to the source and master your craft.</p>
+                <p className="text-white/80 text-sm mb-8">Direct access. Fund your mastery with the source and bypass the internships.</p>
                 <Button asChild className="w-full rounded-2xl bg-secondary hover:bg-secondary/90 text-white h-14 font-bold uppercase tracking-widest text-xs">
-                  <Link href="/learner/dashboard">Find a Mentor</Link>
+                  <Link href="/learner/dashboard">Find a Master</Link>
                 </Button>
               </div>
 
               <div className="p-8 rounded-[2.5rem] bg-white/5 border border-white/10 hover:bg-white/10 transition-all text-left">
                 <Landmark className="h-10 w-10 mb-6 text-primary" />
                 <h3 className="text-2xl font-bold mb-3">Registry Champion</h3>
-                <p className="text-white/60 text-sm mb-8">I can bring lots more people. Democratize access to human excellence at scale.</p>
+                <p className="text-white/60 text-sm mb-8">I can bring lots more people. Orchestrate the exchange and scale access to excellence.</p>
                 <Button asChild variant="outline" className="w-full rounded-2xl border-white/20 text-white hover:bg-white hover:text-secondary h-14 font-bold uppercase tracking-widest text-xs">
                   <Link href="/admin/dashboard">Become a Champion</Link>
                 </Button>
@@ -103,13 +108,16 @@ export default function Home() {
         </section>
       </main>
       
-      <footer className="py-16 text-center border-t border-border/50 mb-20 md:mb-0">
+      <footer className="py-16 text-center border-t border-border/50 mb-32 md:mb-0">
         <div className="container mx-auto px-4">
           <div className="flex flex-col items-center gap-6">
             <div className="h-12 w-12 bg-secondary text-white flex items-center justify-center font-bold text-2xl rounded-xl">
               U
             </div>
             <p className="text-sm font-medium text-muted-foreground">© 2024 University of Life. Lived mastery, democratized.</p>
+            <Link href="/about" className="text-xs font-bold text-primary uppercase tracking-[0.2em] hover:underline">
+              The Manifesto
+            </Link>
           </div>
         </div>
       </footer>

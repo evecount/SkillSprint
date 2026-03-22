@@ -2,7 +2,7 @@
 "use client"
 
 import Link from 'next/link';
-import { Home, BookOpen, User, PlusCircle, Compass, ShieldCheck } from 'lucide-react';
+import { Home, User, PlusCircle, Compass, ShieldCheck, Info } from 'lucide-react';
 import { UserRole } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
@@ -15,13 +15,13 @@ export function Navbar({ role = 'learner' }: NavbarProps) {
   const pathname = usePathname();
 
   const navItems = role === 'learner' ? [
-    { label: 'Home', icon: Home, href: '/learner/dashboard' },
-    { label: 'Apprentice', icon: Compass, href: '/learner/courses' },
-    { label: 'Profile', icon: User, href: '/profile' },
+    { label: 'Home', icon: Home, href: '/' },
+    { label: 'Registry', icon: Compass, href: '/learner/dashboard' },
+    { label: 'Manifesto', icon: Info, href: '/about' },
   ] : [
     { label: 'Studio', icon: ShieldCheck, href: '/teacher/dashboard' },
     { label: 'New Guild', icon: PlusCircle, href: '/admin/courses/new' },
-    { label: 'Profile', icon: User, href: '/profile' },
+    { label: 'Manifesto', icon: Info, href: '/about' },
   ];
 
   return (
@@ -61,19 +61,19 @@ export function Navbar({ role = 'learner' }: NavbarProps) {
       </nav>
 
       {/* Mobile Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 flex h-20 items-center border-t bg-background/95 backdrop-blur-xl md:hidden">
-        <div className="grid h-full w-full grid-cols-3">
+      <nav className="fixed bottom-0 left-0 right-0 z-50 flex h-24 items-center border-t bg-background/95 backdrop-blur-xl md:hidden mobile-nav-shadow px-4">
+        <div className="grid h-full w-full grid-cols-3 gap-2">
           {navItems.map((item) => (
             <Link 
               key={item.href}
               href={item.href}
               className={cn(
-                "flex flex-col items-center justify-center gap-1 transition-all active:scale-95",
-                pathname === item.href ? "text-primary" : "text-muted-foreground"
+                "flex flex-col items-center justify-center gap-1.5 transition-all active:scale-95 rounded-2xl",
+                pathname === item.href ? "text-primary bg-primary/5" : "text-muted-foreground"
               )}
             >
-              <item.icon className={cn("h-6 w-6", pathname === item.href && "fill-primary/10")} />
-              <span className="text-[10px] font-black uppercase tracking-widest">{item.label}</span>
+              <item.icon className={cn("h-7 w-7", pathname === item.href && "fill-primary/10")} />
+              <span className="text-[10px] font-black uppercase tracking-[0.2em]">{item.label}</span>
             </Link>
           ))}
         </div>
