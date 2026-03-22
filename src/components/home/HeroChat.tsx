@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useState, useRef, useEffect } from 'react';
@@ -57,7 +58,6 @@ export function HeroChat() {
     
     setMessages([{ role: 'model', text: initialMsg }]);
     
-    // START DIGITAL ASSET LOGGING
     if (firestore && user) {
       const convRef = doc(collection(firestore, 'organizations', 'org_1', 'learners', user.uid, 'aiConversations'));
       setConversationId(convRef.id);
@@ -94,7 +94,6 @@ export function HeroChat() {
           setDraft(result.portalDraft);
         }
 
-        // PERSIST TO FIRESTORE
         if (firestore && user && conversationId) {
           addDocumentNonBlocking(collection(firestore, 'organizations', 'org_1', 'learners', user.uid, 'aiConversations', conversationId, 'chatMessages'), {
             conversationId,
@@ -122,7 +121,6 @@ export function HeroChat() {
         });
         setMessages(prev => [...prev, { role: 'model', text: result.response }]);
 
-        // PERSIST TO FIRESTORE
         if (firestore && user && conversationId) {
           addDocumentNonBlocking(collection(firestore, 'organizations', 'org_1', 'learners', user.uid, 'aiConversations', conversationId, 'chatMessages'), {
             conversationId,
@@ -164,7 +162,7 @@ export function HeroChat() {
     return (
       <div className="w-full h-full flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-8 duration-700">
         <Card className="flex-1 bg-white/5 border-white/10 rounded-[2.5rem] overflow-hidden flex flex-col relative">
-          <CardHeader className="px-8 py-4 border-b border-white/5 bg-white/[0.02] z-30">
+          <CardHeader className="px-8 py-3 border-b border-white/5 bg-white/[0.02] z-30 shrink-0">
             <div className="flex items-center justify-between">
               <h3 className="text-[9px] font-black uppercase tracking-[0.4em] text-primary">Registry Discovery</h3>
               <div className="flex items-center gap-2">
@@ -174,7 +172,7 @@ export function HeroChat() {
             </div>
           </CardHeader>
           
-          <CardContent className="flex-1 relative p-6 flex items-center justify-center perspective-1000">
+          <CardContent className="flex-1 relative p-6 flex items-center justify-center perspective-1000 min-h-[300px]">
             {MOCK_EXPERIENCES.map((item: any, idx) => {
               const isTop = idx === stackIndex;
               const isNext = idx === (stackIndex + 1) % MOCK_EXPERIENCES.length;
@@ -184,38 +182,38 @@ export function HeroChat() {
                 <div 
                   key={item.id}
                   className={cn(
-                    "absolute inset-x-6 inset-y-4 transition-all duration-500",
+                    "absolute inset-x-6 inset-y-6 transition-all duration-500 flex flex-col",
                     isTop ? "z-20 scale-100" : "z-10 scale-95 translate-y-4 opacity-20",
                     isTop && swipeDirection === 'left' && "animate-swipe-out-left-tilt",
                     isTop && swipeDirection === 'right' && "animate-swipe-out-right-tilt"
                   )}
                 >
                   {item.type === 'hero' ? (
-                    <div className="h-full w-full rounded-[2rem] bg-secondary border border-white/10 p-8 flex flex-col justify-between shadow-2xl">
+                    <div className="h-full w-full rounded-[2rem] bg-secondary border border-white/10 p-6 flex flex-col justify-between shadow-2xl">
                       <div>
-                        <Badge className="bg-primary/20 text-primary border-primary/30 px-4 py-1.5 text-[7px] font-black tracking-[0.3em] uppercase rounded-full mb-6">
+                        <Badge className="bg-primary/20 text-primary border-primary/30 px-4 py-1 text-[7px] font-black tracking-[0.3em] uppercase rounded-full mb-4">
                           SkillSprint Registry
                         </Badge>
-                        <h1 className="font-headline text-4xl md:text-5xl font-black tracking-tighter leading-[0.85] text-white mb-6">
+                        <h1 className="font-headline text-3xl md:text-5xl font-black tracking-tighter leading-[0.85] text-white mb-4">
                           Master the Craft, <br />
                           <span className="text-primary italic">Skip the Loop.</span>
                         </h1>
-                        <div className="space-y-3">
-                          <div className="flex items-start gap-4 p-4 rounded-xl bg-white/[0.03] border border-white/5">
-                            <Zap className="h-5 w-5 text-primary shrink-0" />
-                            <p className="text-[11px] font-medium leading-relaxed text-white/60">
+                        <div className="space-y-2">
+                          <div className="flex items-start gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/5">
+                            <Zap className="h-4 w-4 text-primary shrink-0" />
+                            <p className="text-[10px] font-medium leading-relaxed text-white/60">
                               Trade money for time. Buy back years of struggle to get real work in the field.
                             </p>
                           </div>
-                          <div className="flex items-start gap-4 p-4 rounded-xl bg-white/[0.03] border border-white/5">
-                            <ShieldCheck className="h-5 w-5 text-primary shrink-0" />
-                            <p className="text-[11px] font-medium leading-relaxed text-white/60">
+                          <div className="flex items-start gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/5">
+                            <ShieldCheck className="h-4 w-4 text-primary shrink-0" />
+                            <p className="text-[10px] font-medium leading-relaxed text-white/60">
                               Practical Excellence over paper credentials.
                             </p>
                           </div>
                         </div>
                       </div>
-                      <div className="pt-6 border-t border-white/5">
+                      <div className="pt-4 border-t border-white/5">
                         <Link href="/about" className="inline-flex items-center gap-3 text-[9px] font-black text-primary uppercase tracking-[0.4em] hover:text-white transition-colors group">
                           <Info className="h-4 w-4" /> Theory of Practice <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
                         </Link>
@@ -273,22 +271,22 @@ export function HeroChat() {
               );
             })}
             
-            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-4 z-30">
+            <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-6 z-30">
               <Button 
                 variant="outline" 
                 size="icon" 
                 onClick={() => handleSwipe('left')}
-                className="h-14 w-14 rounded-2xl bg-secondary/80 backdrop-blur-md border-white/10 text-white hover:bg-destructive hover:border-destructive transition-all hover:scale-110 active:scale-90 shadow-2xl"
+                className="h-16 w-16 rounded-full bg-secondary/80 backdrop-blur-md border-white/10 text-white hover:bg-destructive hover:border-destructive transition-all hover:scale-110 active:scale-90 shadow-2xl"
               >
-                <X className="h-6 w-6" />
+                <X className="h-8 w-8" />
               </Button>
               <Button 
                 variant="outline" 
                 size="icon" 
                 onClick={() => handleSwipe('right')}
-                className="h-14 w-14 rounded-2xl bg-primary text-white border-none shadow-xl shadow-primary/20 hover:bg-accent transition-all hover:scale-110 active:scale-90"
+                className="h-16 w-16 rounded-full bg-primary text-white border-none shadow-xl shadow-primary/20 hover:bg-accent transition-all hover:scale-110 active:scale-90"
               >
-                <Check className="h-6 w-6" />
+                <Check className="h-8 w-8" />
               </Button>
             </div>
           </CardContent>
@@ -300,38 +298,38 @@ export function HeroChat() {
   if (draft) {
     return (
       <Card className="w-full h-full border-none shadow-2xl rounded-[2.5rem] overflow-hidden bg-white animate-in zoom-in duration-500 flex flex-col">
-        <CardHeader className="bg-secondary text-white p-8 shrink-0">
+        <CardHeader className="bg-secondary text-white p-6 shrink-0">
           <Badge className="bg-primary text-white border-none px-3 py-1 mb-3 rounded-full text-[7px] font-black uppercase tracking-widest">Registry Blueprint</Badge>
           <CardTitle className="text-3xl md:text-4xl font-black leading-[0.9] tracking-tighter">Your Side-Hustle <span className="text-primary italic">Drafted.</span></CardTitle>
         </CardHeader>
-        <CardContent className="p-8 space-y-6 flex-1 overflow-y-auto">
-          <div className="p-6 rounded-[1.5rem] bg-muted/50 border border-border/50 text-left">
-            <h3 className="font-black text-xl text-secondary tracking-tight">{draft.title}</h3>
-            <p className="text-muted-foreground mt-2 text-sm leading-relaxed italic">{draft.description}</p>
+        <CardContent className="p-6 space-y-4 flex-1 overflow-y-auto">
+          <div className="p-4 rounded-[1.5rem] bg-muted/50 border border-border/50 text-left">
+            <h3 className="font-black text-lg text-secondary tracking-tight">{draft.title}</h3>
+            <p className="text-muted-foreground mt-2 text-xs leading-relaxed italic">{draft.description}</p>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-2">
             {[
               { icon: Zap, label: "Domain", value: draft.masteryDomain },
               { icon: MapPin, label: "Format", value: draft.logistics.format },
               { icon: Star, label: "Tuition", value: draft.logistics.price },
               { icon: Users, label: "Access", value: draft.logistics.enrollmentMode },
             ].map((item, idx) => (
-              <div key={idx} className="flex items-center gap-3 p-3 rounded-xl bg-muted/30 border border-transparent hover:border-primary/30 transition-all group text-left">
-                <div className="h-8 w-8 rounded-lg bg-white shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <item.icon className="h-4 w-4 text-primary" />
+              <div key={idx} className="flex items-center gap-2 p-2 rounded-xl bg-muted/30 border border-transparent hover:border-primary/30 transition-all group text-left">
+                <div className="h-7 w-7 rounded-lg bg-white shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <item.icon className="h-3 w-3 text-primary" />
                 </div>
-                <div>
-                  <p className="text-[7px] font-black text-muted-foreground uppercase tracking-[0.2em] mb-0.5">{item.label}</p>
-                  <p className="text-[10px] font-black text-secondary truncate max-w-[100px]">{item.value}</p>
+                <div className="overflow-hidden">
+                  <p className="text-[6px] font-black text-muted-foreground uppercase tracking-[0.2em] mb-0.5">{item.label}</p>
+                  <p className="text-[9px] font-black text-secondary truncate">{item.value}</p>
                 </div>
               </div>
             ))}
           </div>
         </CardContent>
-        <CardFooter className="p-8 bg-muted/20 border-t border-border/50">
-          <Button asChild className="w-full h-14 text-lg font-black rounded-2xl bg-primary hover:bg-accent text-white shadow-xl shadow-primary/20 transition-all">
+        <CardFooter className="p-6 bg-muted/20 border-t border-border/50 shrink-0">
+          <Button asChild className="w-full h-12 text-sm font-black rounded-2xl bg-primary hover:bg-accent text-white shadow-xl shadow-primary/20 transition-all">
             <Link href="/teacher/dashboard">
-              Launch Paid Apprenticeship <ArrowRight className="ml-2 h-5 w-5" />
+              Launch Paid Apprenticeship <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>
         </CardFooter>
@@ -341,7 +339,7 @@ export function HeroChat() {
 
   return (
     <Card className="w-full h-full border-none shadow-2xl rounded-[2.5rem] overflow-hidden bg-white flex flex-col animate-in slide-in-from-right duration-500">
-      <CardHeader className="border-b border-border/10 bg-muted/30 px-8 py-4 shrink-0">
+      <CardHeader className="border-b border-border/10 bg-muted/30 px-8 py-3 shrink-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-xl bg-secondary text-white flex items-center justify-center font-black text-lg shadow-xl shadow-secondary/20">P</div>
@@ -361,11 +359,11 @@ export function HeroChat() {
           </Button>
         </div>
       </CardHeader>
-      <CardContent ref={scrollRef} className="flex-1 overflow-y-auto p-8 space-y-4 scroll-smooth">
+      <CardContent ref={scrollRef} className="flex-1 overflow-y-auto p-6 space-y-4 scroll-smooth min-h-[300px]">
         {messages.map((m, i) => (
           <div key={i} className={cn("flex w-full animate-in slide-in-from-bottom-4 duration-300", m.role === 'user' ? "justify-end" : "justify-start")}>
             <div className={cn(
-              "max-w-[85%] rounded-[1.2rem] px-5 py-3 text-[13px] font-bold leading-relaxed text-left",
+              "max-w-[85%] rounded-[1.2rem] px-4 py-2 text-[12px] font-bold leading-relaxed text-left",
               m.role === 'user' ? "bg-primary text-white" : "bg-muted/80 text-secondary border border-border/5"
             )}>
               {m.text}
@@ -374,23 +372,23 @@ export function HeroChat() {
         ))}
         {loading && (
           <div className="flex justify-start">
-            <div className="bg-muted rounded-[1.2rem] px-5 py-3 border border-border/10">
+            <div className="bg-muted rounded-[1.2rem] px-4 py-2 border border-border/10">
               <Loader2 className="h-4 w-4 animate-spin text-primary" />
             </div>
           </div>
         )}
       </CardContent>
-      <CardFooter className="p-4 border-t border-border/10 bg-white shrink-0">
+      <CardFooter className="p-3 border-t border-border/10 bg-white shrink-0">
         <form className="flex w-full gap-2" onSubmit={(e) => { e.preventDefault(); handleSend(); }}>
           <input 
             placeholder={role === 'mentor' ? "What is your industry domain?" : "Which industry is locking you out?"}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={loading}
-            className="flex-1 h-12 rounded-xl px-5 bg-muted/50 border-transparent focus-visible:ring-primary text-[13px] font-bold text-secondary outline-none"
+            className="flex-1 h-11 rounded-xl px-4 bg-muted/50 border-transparent focus-visible:ring-primary text-[12px] font-bold text-secondary outline-none"
           />
-          <Button type="submit" size="icon" className="h-12 w-12 shrink-0 rounded-xl bg-secondary hover:bg-primary transition-all shadow-xl shadow-secondary/20" disabled={loading || !input.trim()}>
-            <Send className="h-5 w-5 text-white" />
+          <Button type="submit" size="icon" className="h-11 w-11 shrink-0 rounded-xl bg-secondary hover:bg-primary transition-all shadow-xl shadow-secondary/20" disabled={loading || !input.trim()}>
+            <Send className="h-4 w-4 text-white" />
           </Button>
         </form>
       </CardFooter>
