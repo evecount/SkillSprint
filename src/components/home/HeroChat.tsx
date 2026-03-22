@@ -206,7 +206,7 @@ export function HeroChat() {
                         <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-sm">
                           <Landmark className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                           <p className="text-[11px] font-medium leading-relaxed text-white/60">
-                            Legacy as Income. Turn your professional truth into a high-value, funded side-hustle.
+                            Professional Sanctuary. Bypass the industrialized loop. AI has arrived to change the rules—no more forced work, only the mastery that truly matters.
                           </p>
                         </div>
                       </div>
