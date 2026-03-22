@@ -36,8 +36,8 @@ export function HeroChat() {
   const handleRoleSelect = (selectedRole: UserRole) => {
     setRole(selectedRole);
     const initialMsg = selectedRole === 'mentor' 
-      ? "Architectural Registry initiated. I am Proctor. I help veterans digitalize their 30+ years of craft into a paid legacy. What domain of mastery are we masterminding today?"
-      : "Student Registry initiated. I am Proctor. You're here to moonlight with the source. What craft are you hungry to master?";
+      ? "Registry initiated. I am Proctor. I help veterans turn 30+ years of lived craft into a paid side-hustle. What specific industry domain are we digitalizing today?"
+      : "Student Registry initiated. I am Proctor. You're here to pay for direct access to the source. What industry has been locking you out that you're ready to master?";
     
     setMessages([{ role: 'model', text: initialMsg }]);
   };
@@ -80,9 +80,8 @@ export function HeroChat() {
 
   const handleFastTrack = () => {
     if (role === 'mentor') {
-      handleSend("I'm ready. Generate my blueprint now based on what we've discussed.");
+      handleSend("I'm ready. Generate my paid blueprint now based on what we've discussed.");
     } else {
-      // For students, fast track just takes them to the dashboard
       window.location.href = "/learner/dashboard";
     }
   };
@@ -101,14 +100,14 @@ export function HeroChat() {
             </div>
             <div>
               <h3 className="text-4xl font-black tracking-tight mb-2">Mentor / Lecturer</h3>
-              <p className="text-secondary/40 font-black uppercase tracking-[0.3em] text-[10px]">Registry: The Source</p>
+              <p className="text-secondary/40 font-black uppercase tracking-[0.3em] text-[10px]">Turn 30+ Years Into a Paid Side-Hustle</p>
             </div>
             <p className="text-secondary/70 font-medium italic leading-relaxed text-sm md:text-base">
-              "I have 30+ years of lived truth. I'm ready to architect my paid legacy."
+              "I have a lifetime of practical truth. I'm ready to get paid for my legacy."
             </p>
             <div className="pt-4">
               <span className="inline-flex h-14 px-10 rounded-2xl bg-secondary text-white items-center gap-3 font-black text-xs uppercase tracking-[0.2em] shadow-xl group-hover:bg-primary transition-colors">
-                Enter Registry <ArrowRight className="h-4 w-4" />
+                Start Side-Hustle <ArrowRight className="h-4 w-4" />
               </span>
             </div>
           </div>
@@ -125,14 +124,14 @@ export function HeroChat() {
             </div>
             <div>
               <h3 className="text-4xl font-black tracking-tight mb-2">Apprentice / Student</h3>
-              <p className="text-white/40 font-black uppercase tracking-[0.3em] text-[10px]">Registry: The Seeker</p>
+              <p className="text-white/40 font-black uppercase tracking-[0.3em] text-[10px]">Pay for Direct Access to the Source</p>
             </div>
             <p className="text-white/80 font-medium italic leading-relaxed text-sm md:text-base">
-              "I'm working my shift, but I'm hungry to moonlight with the source."
+              "I'm locked out of my industry. I'm ready to pay a veteran for the truth."
             </p>
             <div className="pt-4">
               <span className="inline-flex h-14 px-10 rounded-2xl bg-primary text-white items-center gap-3 font-black text-xs uppercase tracking-[0.2em] shadow-xl shadow-primary/20 hover:bg-accent transition-colors">
-                Start Learning <ArrowRight className="h-4 w-4" />
+                Fund My Mastery <ArrowRight className="h-4 w-4" />
               </span>
             </div>
           </div>
@@ -145,9 +144,9 @@ export function HeroChat() {
     return (
       <Card className="border-none shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] rounded-[3rem] overflow-hidden bg-white animate-in zoom-in duration-500">
         <CardHeader className="bg-secondary text-white p-10 md:p-14">
-          <Badge className="bg-primary text-white border-none px-4 py-1.5 mb-6 rounded-full text-xs font-black uppercase tracking-widest">Blueprint Ready</Badge>
-          <CardTitle className="text-4xl md:text-6xl font-black leading-[0.9] tracking-tighter">Your Guild <span className="text-primary italic">Drafted.</span></CardTitle>
-          <p className="text-white/50 text-xl mt-4 font-bold italic">Proctor has architecturalized your exchange.</p>
+          <Badge className="bg-primary text-white border-none px-4 py-1.5 mb-6 rounded-full text-xs font-black uppercase tracking-widest">Paid Blueprint Ready</Badge>
+          <CardTitle className="text-4xl md:text-6xl font-black leading-[0.9] tracking-tighter">Your Side-Hustle <span className="text-primary italic">Drafted.</span></CardTitle>
+          <p className="text-white/50 text-xl mt-4 font-bold italic">Proctor has structured your professional exchange.</p>
         </CardHeader>
         <CardContent className="p-10 md:p-14 space-y-10">
           <div className="p-8 rounded-[2rem] bg-muted/50 border border-border/50">
@@ -159,7 +158,7 @@ export function HeroChat() {
             {[
               { icon: Zap, label: "Mastery Domain", value: draft.masteryDomain },
               { icon: MapPin, label: "Format", value: draft.logistics.format },
-              { icon: Calendar, label: "Frequency", value: draft.logistics.frequency },
+              { icon: Star, label: "Tuition Model", value: draft.logistics.price },
               { icon: Users, label: "Enrollment", value: draft.logistics.enrollmentMode },
             ].map((item, idx) => (
               <div key={idx} className="flex items-center gap-6 p-6 rounded-[2rem] bg-muted/30 border border-transparent hover:border-primary/30 transition-all group">
@@ -177,7 +176,7 @@ export function HeroChat() {
         <CardFooter className="p-10 md:p-14 bg-muted/20 border-t border-border/50">
           <Button asChild className="w-full h-20 text-2xl font-black rounded-[2rem] bg-primary hover:bg-accent text-white shadow-2xl shadow-primary/20 transition-all hover:scale-[1.02]">
             <Link href="/teacher/dashboard">
-              Launch Guild Studio <ArrowRight className="ml-3 h-8 w-8" />
+              Launch Paid Guild <ArrowRight className="ml-3 h-8 w-8" />
             </Link>
           </Button>
         </CardFooter>
@@ -200,7 +199,7 @@ export function HeroChat() {
               </div>
               <div className="flex items-center gap-2 mt-1">
                 <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-                <span className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">Architecting {role} legacy</span>
+                <span className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">Direct Exchange Consultant</span>
               </div>
             </div>
           </div>
@@ -211,7 +210,7 @@ export function HeroChat() {
               onClick={handleFastTrack}
               className="text-[10px] font-black uppercase tracking-widest text-primary hover:bg-primary/10 rounded-full px-4"
             >
-              <FastForward className="mr-2 h-3 w-3" /> {role === 'mentor' ? 'Skip to Blueprint' : 'Skip to Registry'}
+              <FastForward className="mr-2 h-3 w-3" /> {role === 'mentor' ? 'Skip to Paid Model' : 'Skip to Access'}
             </Button>
             <Button variant="ghost" size="sm" onClick={() => setRole(null)} className="h-8 w-8 p-0 rounded-full hover:bg-muted">
               <ArrowRight className="h-4 w-4 rotate-180" />
@@ -255,7 +254,7 @@ export function HeroChat() {
           }}
         >
           <Input 
-            placeholder={role === 'mentor' ? "State your domain of mastery..." : "What do you want to master?"}
+            placeholder={role === 'mentor' ? "State your industry domain..." : "What industry are you locked out of?"}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={loading}

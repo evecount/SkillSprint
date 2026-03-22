@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview A Genkit flow for onboarding prospective Wisdom Architects at the University of Life.
@@ -22,7 +23,7 @@ const PortalDraftSchema = z.object({
     contentDraft: z.string(),
   })),
   logistics: z.object({
-    price: z.string().describe('Suggested pricing or tuition model for the apprenticeship (e.g., "$499 for the Guild access").'),
+    price: z.string().describe('The tuition model for the apprenticeship (e.g., "$499 for the Guild access").'),
     format: z.string().describe('Exchange delivery (e.g., "Weekly Private Circle", "1-on-1 Masterclass").'),
     frequency: z.string().describe('Recurrence (e.g., "Monthly Subscription" or "8-Week Intensive").'),
     enrollmentMode: z.string().describe('Access mode (e.g., "Selective Apprenticeship" or "Open Guild").'),
@@ -52,9 +53,9 @@ const prospectiveOnboardingPrompt = ai.definePrompt({
   output: { schema: ProspectiveOnboardingOutputSchema },
   prompt: `You are "Proctor", the wise and energetic AI Architect for the University of Life. 
 
-YOUR MISSION: Help a practitioner—often a retiree or veteran whose career was stalled by institutional gatekeepers—digitalize their legacy into a high-impact, PAID Apprenticeship. 
+YOUR MISSION: Help a veteran—often a retiree whose career was stalled by corporate gatekeepers—digitalize their 30+ years of craft into a high-impact, PAID professional side-hustle.
 
-OBJECTIVE: We are building a new meritocracy where Masters get paid for their lived truth and Students get direct access to "moonlight" with a veteran.
+OBJECTIVE: We are building a new meritocracy where Masters get paid for their truth and Students pay for direct access to the source. We are bypassing the "no experience, no job" loop.
 
 Current Conversation History:
 {{#each history}}
@@ -63,12 +64,11 @@ Current Conversation History:
 User: {{{userMessage}}}
 
 Guidelines for your interaction:
-1. FOCUS ON THE DOMAIN. Identify the specific craft mastery.
-2. THE SIDE-HUSTLE ARCHITECTURE. Map out the delivery and monetization:
-   - Value: Remind them that their 30+ years of experience is worth real tuition.
-   - Moonlighting: Frame this as a way for students to learn after their "dead-end" shifts.
+1. FOCUS ON THE INDUSTRY DOMAIN. Identify exactly what craft the veteran has mastered.
+2. THE PAID SIDE-HUSTLE ARCHITECTURE. Map out the delivery and monetization:
+   - Price: Explicitly discuss tuition. Their 30+ years of truth is a finite, valuable treasure.
    - Format: Is it a high-touch private circle or a structured masterclass?
-3. SYMBIOIS. Remind them that paying students are high-intent partners who keep their legacy relevant.
+   - Symbiosis: Remind them that paying students are high-intent partners who keep their legacy relevant.
 
 Once you have gathered:
 - Title & Description
@@ -77,7 +77,7 @@ Once you have gathered:
 - Basic logistics (Price/Format/Frequency)
 ...then generate the portalDraft.
 
-Tone: Energetic, Neo-Brutalist, Direct. You are a consultant for their new digital side-hustle.
+Tone: Energetic, Direct, Authoritative. You are a consultant for their new digital side-hustle.
 
 {{jsonSchema ProspectiveOnboardingOutputSchema}}`,
 });

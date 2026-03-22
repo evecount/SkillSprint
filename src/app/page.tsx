@@ -25,7 +25,7 @@ export default function Home() {
               <span className="text-primary italic">The Source.</span>
             </h1>
             <p className="text-lg md:text-2xl text-white/60 font-medium max-w-2xl leading-relaxed mt-6 italic">
-              "Bypassing institutional gatekeepers. A professional meritocracy for those who value practical truth over paper credentials."
+              "Retirees: Turn your 30+ years of craft into a paid side-hustle. Students: Pay for direct access to the industries currently locking you out."
             </p>
           </div>
 
@@ -41,7 +41,7 @@ export default function Home() {
                 <Zap className="h-8 w-8 text-primary" />
               </div>
               <h3 className="font-black text-3xl mb-4 tracking-tight">Paid Legacy</h3>
-              <p className="text-white/50 text-base font-medium leading-relaxed italic">Retirees and veterans: turn 30+ years of craft into a professional side-hustle. You are the source.</p>
+              <p className="text-white/50 text-base font-medium leading-relaxed italic">Retirees and veterans: turn your practical truth into a professional side-hustle. You are the source, you set the price.</p>
             </div>
             
             <div className="p-10 rounded-[3rem] bg-primary text-white shadow-[0_0_50px_-12px_rgba(162,84,28,0.4)] relative overflow-hidden group">
@@ -52,7 +52,7 @@ export default function Home() {
                 <GraduationCap className="h-8 w-8 text-white" />
               </div>
               <h3 className="font-black text-3xl mb-4 tracking-tight">Direct Access</h3>
-              <p className="text-white/90 text-base font-medium leading-relaxed italic">Students: bypass corporate internships. Moonlight with a master after your shift. Mastery that fits your life.</p>
+              <p className="text-white/90 text-base font-medium leading-relaxed italic">Bypass the corporate gatekeepers. Pay for direct access to moonlight with a master. Mastery that fits your life.</p>
             </div>
 
             <div className="p-10 rounded-[3rem] bg-white/5 border border-white/10 hover:border-primary/50 transition-all duration-500 group">
@@ -60,7 +60,7 @@ export default function Home() {
                 <Shield className="h-8 w-8 text-primary" />
               </div>
               <h3 className="font-black text-3xl mb-4 tracking-tight">Reciprocity</h3>
-              <p className="text-white/50 text-base font-medium leading-relaxed italic">No hierarchy. No nepotism. A symbiotic exchange where the hungry student keeps the master's legacy alive.</p>
+              <p className="text-white/50 text-base font-medium leading-relaxed italic">No hierarchy. No nepotism. A symbiotic exchange where your investment keeps a master's legacy alive.</p>
             </div>
           </div>
         </section>
