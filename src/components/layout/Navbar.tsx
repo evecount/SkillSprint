@@ -42,7 +42,7 @@ export function Navbar({ role = 'learner' }: NavbarProps) {
           <div className="flex items-center gap-14">
             {navItems.map((item) => (
               <Link 
-                key={item.href}
+                key={item.label} // Use label as key to ensure uniqueness even if href is duplicated for MVP
                 href={item.href} 
                 className={cn(
                   "flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.3em] transition-all relative group py-2",
@@ -68,7 +68,7 @@ export function Navbar({ role = 'learner' }: NavbarProps) {
         <div className="grid h-full w-full grid-cols-3 gap-4">
           {navItems.map((item) => (
             <Link 
-              key={item.href}
+              key={item.label} // Unique key
               href={item.href}
               className={cn(
                 "flex flex-col items-center justify-center gap-2 transition-all active:scale-90 rounded-[2.5rem]",
