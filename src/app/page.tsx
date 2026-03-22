@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Navbar } from '@/components/layout/Navbar';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowRight, CheckCircle, Shield, Sparkles, Landmark, GraduationCap, Users, Zap, DollarSign } from 'lucide-react';
+import { ArrowRight, CheckCircle, Shield, Sparkles, Landmark, GraduationCap, Users, Zap, DollarSign, Clock } from 'lucide-react';
 import { HeroChat } from '@/components/home/HeroChat';
 
 export default function Home() {
@@ -18,10 +18,10 @@ export default function Home() {
               The Global Registry of Direct Human Mastery
             </Badge>
             <h1 className="font-headline text-6xl md:text-9xl font-black tracking-tighter text-foreground leading-[0.85] max-w-5xl uppercase italic">
-              Bypass the gatekeepers. <span className="text-secondary">Pay the master.</span>
+              Stop Moonlighting in <span className="text-secondary">Dead Ends.</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground font-bold max-w-3xl leading-relaxed italic">
-              Direct access to practitioners who built the industries. In the University of Life, those who have done, can now teach. A paid apprenticeship model for the next generation of excellence.
+              Bypass the institutional gatekeepers. Pay the Master directly. The University of Life turns 30 years of lived experience into the new economy of paid apprenticeships.
             </p>
           </div>
 
@@ -42,49 +42,49 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pt-16 border-t-8 border-black">
             <div className="space-y-4 p-4 hover:bg-muted/30 transition-colors">
               <div className="h-14 w-14 rounded-none bg-black flex items-center justify-center border-4 border-white shadow-none">
-                <Landmark className="h-7 w-7 text-white" />
+                <Clock className="h-7 w-7 text-white" />
               </div>
-              <h3 className="font-black uppercase tracking-tight text-2xl italic">Direct Source</h3>
-              <p className="text-sm font-bold text-muted-foreground italic">No academics. Just practitioners who lived the career and are ready to mentor.</p>
+              <h3 className="font-black uppercase tracking-tight text-2xl italic">Moonlight Mastery</h3>
+              <p className="text-sm font-bold text-muted-foreground italic">Work your shift, then master your craft with a practitioner who has actually done the work.</p>
             </div>
             <div className="space-y-4 p-4 hover:bg-muted/30 transition-colors">
               <div className="h-14 w-14 rounded-none bg-secondary flex items-center justify-center border-4 border-white shadow-none">
                 <DollarSign className="h-7 w-7 text-white" />
               </div>
               <h3 className="font-black uppercase tracking-tight text-2xl italic">Master Side-Hustle</h3>
-              <p className="text-sm font-bold text-muted-foreground italic">Retirees finally monetize their 30+ years of truth. Students invest in direct-from-source mastery.</p>
+              <p className="text-sm font-bold text-muted-foreground italic">Retirees finally monetize their legacy. Students invest in direct-from-source truth.</p>
             </div>
             <div className="space-y-4 p-4 hover:bg-muted/30 transition-colors">
               <div className="h-14 w-14 rounded-none bg-black flex items-center justify-center border-4 border-white shadow-none">
                 <Shield className="h-7 w-7 text-white" />
               </div>
-              <h3 className="font-black uppercase tracking-tight text-2xl italic">Bypass Barriers</h3>
-              <p className="text-sm font-bold text-muted-foreground italic">Master the skills institutional gatekeepers won't teach you. No internships. No hierarchy.</p>
+              <h3 className="font-black uppercase tracking-tight text-2xl italic">Bypass Gatekeepers</h3>
+              <p className="text-sm font-bold text-muted-foreground italic">No internships. No hierarchy. Just a paid apprenticeship with the industry's veterans.</p>
             </div>
             <div className="space-y-4 p-4 hover:bg-muted/30 transition-colors">
               <div className="h-14 w-14 rounded-none bg-secondary flex items-center justify-center border-4 border-white shadow-none">
                 <Users className="h-7 w-7 text-white" />
               </div>
               <h3 className="font-black uppercase tracking-tight text-2xl italic">Paid Guilds</h3>
-              <p className="text-sm font-bold text-muted-foreground italic">Join high-impact, high-intent cohorts where mastery is the only currency.</p>
+              <p className="text-sm font-bold text-muted-foreground italic">Join high-impact, high-intent cohorts where human wisdom is the only currency.</p>
             </div>
           </div>
         </section>
 
-        {/* Roles Section - The Contribution */}
+        {/* Roles Section - The Exchange */}
         <section id="path" className="py-32 mt-32 border-t-8 border-black bg-black text-white">
           <div className="container mx-auto px-4 text-center">
             <h2 className="font-headline text-6xl md:text-8xl font-black tracking-tighter uppercase italic mb-8">Identify Your Exchange</h2>
-            <p className="max-w-2xl mx-auto text-white/60 text-xl font-bold mb-20 italic">A symbiotic marketplace of human mastery. Monetize your truth or invest in your future.</p>
+            <p className="max-w-2xl mx-auto text-white/60 text-xl font-bold mb-20 italic">A symbiotic marketplace for the new workforce. Own your legacy or fund your future.</p>
             
             <div className="grid gap-12 sm:grid-cols-3">
               {/* Teacher Path */}
               <div className="p-10 border-8 border-white rounded-none hover:bg-secondary transition-colors group cursor-default">
                 <Sparkles className="h-16 w-16 mb-8 mx-auto group-hover:scale-110 transition-transform text-white" />
                 <h3 className="text-3xl font-black uppercase mb-4 tracking-tight text-white italic">Wisdom Architect</h3>
-                <p className="text-white/70 font-bold mb-10 italic">"I have done it." Digitalize your legacy into a paid apprenticeship and own your value.</p>
+                <p className="text-white/70 font-bold mb-10 italic">"I have done the work." Digitalize your legacy into a paid side-hustle. You earn what you're worth.</p>
                 <Button asChild variant="outline" className="w-full h-16 text-xl text-white border-4 border-white bg-transparent rounded-none hover:bg-white hover:text-black font-black uppercase tracking-widest italic">
-                  <Link href="/teacher/dashboard">Start Side-Hustle</Link>
+                  <Link href="/teacher/dashboard">Architect Side-Hustle</Link>
                 </Button>
               </div>
               
@@ -92,7 +92,7 @@ export default function Home() {
               <div className="p-10 border-8 border-secondary rounded-none hover:bg-white transition-colors group cursor-default bg-secondary text-white hover:text-black">
                 <GraduationCap className="h-16 w-16 mb-8 mx-auto group-hover:scale-110 transition-transform text-white group-hover:text-black" />
                 <h3 className="text-3xl font-black uppercase mb-4 tracking-tight text-white group-hover:text-black italic">Source Apprentice</h3>
-                <p className="text-white group-hover:text-black font-bold mb-10 italic">"I want mastery." Invest in direct access to a veteran practitioner. Skip the gatekeepers.</p>
+                <p className="text-white group-hover:text-black font-bold mb-10 italic">"I want mastery." Invest in direct access to a veteran. Moonlight your way to a real career.</p>
                 <Button asChild className="w-full h-16 text-xl bg-black text-white rounded-none hover:bg-secondary font-black uppercase tracking-widest border-4 border-black italic">
                   <Link href="/learner/dashboard">Fund Your Mastery</Link>
                 </Button>
@@ -102,7 +102,7 @@ export default function Home() {
               <div className="p-10 border-8 border-white rounded-none hover:bg-secondary transition-colors group cursor-default">
                 <Landmark className="h-16 w-16 mb-8 mx-auto group-hover:scale-110 transition-transform text-white" />
                 <h3 className="text-3xl font-black uppercase mb-4 tracking-tight text-white italic">Registry Champion</h3>
-                <p className="text-white/70 font-bold mb-10 italic">"I bring the guild." Scale access to direct mastery. Build the bridge between veterans and the new workforce.</p>
+                <p className="text-white/70 font-bold mb-10 italic">"I bring the guild." Scale access to direct mastery. Bridge the gap for the new workforce.</p>
                 <Button asChild variant="outline" className="w-full h-16 text-xl text-white border-4 border-white bg-transparent rounded-none hover:bg-white hover:text-black font-black uppercase tracking-widest italic">
                   <Link href="/admin/dashboard">Champion Registry</Link>
                 </Button>
@@ -120,9 +120,9 @@ export default function Home() {
             </div>
             <div className="max-w-2xl space-y-6">
               <p className="font-black uppercase tracking-[0.6em] text-sm">University of Life</p>
-              <p className="text-2xl font-bold text-black/60 italic leading-relaxed">"Retirees aren't all billionaires. Their wisdom is our greatest untapped economy."</p>
+              <p className="text-2xl font-bold text-black/60 italic leading-relaxed">"Retirees aren't all billionaires. Their lived wisdom is our greatest untapped economy."</p>
             </div>
-            <p className="opacity-40 font-black text-[10px] uppercase tracking-widest">© 2024 University of Life. All wisdom rights reserved.</p>
+            <p className="opacity-40 font-black text-[10px] uppercase tracking-widest">© 2024 University of Life. All mastery rights reserved.</p>
           </div>
         </div>
       </footer>

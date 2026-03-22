@@ -3,7 +3,7 @@
 import { Navbar } from '@/components/layout/Navbar';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Plus, BookOpen, Users, Sparkles, ArrowRight, Landmark, DollarSign, TrendingUp } from 'lucide-react';
+import { Plus, BookOpen, Users, Sparkles, ArrowRight, Landmark, DollarSign, TrendingUp, Clock } from 'lucide-react';
 import Link from 'next/link';
 import { AIConsultant } from '@/components/consultant/AIConsultant';
 import { mockCourses, mockTeacher, mockOrg } from '@/lib/mock-data';
@@ -57,7 +57,7 @@ export default function TeacherDashboard() {
           </Card>
           <Card className="shadow-none border-4 border-black bg-white rounded-none">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-              <CardTitle className="text-xs font-black uppercase tracking-widest">Growth Rate</CardTitle>
+              <CardTitle className="text-xs font-black uppercase tracking-widest">Mastery Impact</CardTitle>
               <TrendingUp className="h-5 w-5 text-black" />
             </CardHeader>
             <CardContent>
@@ -67,12 +67,12 @@ export default function TeacherDashboard() {
           </Card>
           <Card className="shadow-none border-4 border-black bg-white rounded-none">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-              <CardTitle className="text-xs font-black uppercase tracking-widest">Wisdom Impact</CardTitle>
-              <Sparkles className="h-5 w-5 text-secondary" />
+              <CardTitle className="text-xs font-black uppercase tracking-widest">Moonlight Hours</CardTitle>
+              <Clock className="h-5 w-5 text-secondary" />
             </CardHeader>
             <CardContent>
-              <div className="text-4xl font-black italic">84%</div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-2">Direct mastery validated</p>
+              <div className="text-4xl font-black italic">84h</div>
+              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-2">Direct engagement hours</p>
             </CardContent>
           </Card>
         </div>
