@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState } from 'react';
@@ -6,6 +5,9 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
 import { 
   Plus, 
   BookOpen, 
@@ -16,9 +18,10 @@ import {
   Clock, 
   Video,
   X,
-  CheckCircle2
+  CheckCircle2,
+  Sparkles,
+  Loader2
 } from 'lucide-react';
-import Link from 'next/link';
 import { mockCourses, mockTeacher } from '@/lib/mock-data';
 import Image from 'next/image';
 import { 
@@ -26,11 +29,29 @@ import {
   DialogContent, 
   DialogHeader, 
   DialogTitle, 
-  DialogDescription 
+  DialogDescription,
+  DialogFooter
 } from '@/components/ui/dialog';
+import { useToast } from '@/hooks/use-toast';
+import { improveStudioContent } from '@/ai/flows/improve-studio-content';
+
+type ActionType = 'experience' | 'workshop' | 'event' | null;
 
 export default function PractitionerStudio() {
+  const { toast } = useToast();
   const [selectedCycle, setSelectedCycle] = useState<any>(null);
+  const [activeAction, setActiveAction] = useState<ActionType>(null);
+  const [isImproving, setIsImproving] = useState(false);
+  
+  const [formData, setFormData] = useState<any>({
+    title: '',
+    description: '',
+    domain: '',
+    date: '',
+    topic: '',
+    name: ''
+  });
+
   const teacherCourses = mockCourses.filter(c => c.authorId === mockTeacher.id);
 
   const stats = [
@@ -40,12 +61,58 @@ export default function PractitionerStudio() {
     { label: 'Active Hours', value: '84h', icon: Clock, color: 'text-secondary' },
   ];
 
+  const handleImproveWithAI = async () => {
+    if (!activeAction) return;
+    
+    setIsImproving(true);
+    try {
+      const result = await improveStudioContent({
+        contentType: activeAction,
+        currentDraft: formData
+      });
+      
+      setFormData(result.improvedDraft);
+      toast({
+        title: "Proctor Enhanced Your Draft",
+        description: result.proctorNote,
+      });
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "AI Enhancement Failed",
+        description: "The Registry connection was interrupted. Please try again.",
+      });
+    } finally {
+      setIsImproving(false);
+    }
+  };
+
+  const handleActionClick = (type: ActionType) => {
+    setFormData({
+      title: '',
+      description: '',
+      domain: '',
+      date: '',
+      topic: '',
+      name: ''
+    });
+    setActiveAction(type);
+  };
+
+  const handleFormSubmit = () => {
+    toast({
+      title: "Registry Entry Created",
+      description: "Your professional asset has been structured and added to the Registry.",
+    });
+    setActiveAction(null);
+  };
+
   return (
     <div className="min-h-screen bg-background pb-32 pt-24 md:pt-24">
       <Navbar role="teacher" />
       
       <main className="container mx-auto px-4 max-w-6xl">
-        {/* Header & Stats Section - Compact */}
+        {/* Header & Stats Section */}
         <div className="mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl font-black text-secondary tracking-tighter leading-none mb-1">Practitioner <span className="text-primary italic">Studio.</span></h1>
@@ -65,19 +132,28 @@ export default function PractitionerStudio() {
           </div>
         </div>
 
-        {/* Action Pillar Buttons - Compact */}
+        {/* Action Pillar Buttons */}
         <div className="mb-10 grid grid-cols-1 md:grid-cols-3 gap-3">
-          <Button asChild className="h-20 rounded-[1.5rem] bg-secondary hover:bg-black text-white flex flex-col items-center justify-center gap-0.5 group transition-all hover:scale-[1.02] shadow-xl shadow-secondary/10">
-            <Link href="/admin/courses/new">
-              <Plus className="h-5 w-5 mb-0.5 group-hover:rotate-90 transition-transform" />
-              <span className="font-black uppercase tracking-widest text-[9px]">Structure an Experience</span>
-            </Link>
+          <Button 
+            onClick={() => handleActionClick('experience')}
+            className="h-20 rounded-[1.5rem] bg-secondary hover:bg-black text-white flex flex-col items-center justify-center gap-0.5 group transition-all hover:scale-[1.02] shadow-xl shadow-secondary/10"
+          >
+            <Plus className="h-5 w-5 mb-0.5 group-hover:rotate-90 transition-transform" />
+            <span className="font-black uppercase tracking-widest text-[9px]">Structure an Experience</span>
           </Button>
-          <Button variant="outline" className="h-20 rounded-[1.5rem] border-2 border-black bg-white hover:bg-muted text-black flex flex-col items-center justify-center gap-0.5 group transition-all hover:scale-[1.02]">
+          <Button 
+            variant="outline" 
+            onClick={() => handleActionClick('workshop')}
+            className="h-20 rounded-[1.5rem] border-2 border-black bg-white hover:bg-muted text-black flex flex-col items-center justify-center gap-0.5 group transition-all hover:scale-[1.02]"
+          >
             <Video className="h-5 w-5 mb-0.5 text-primary" />
             <span className="font-black uppercase tracking-widest text-[9px]">Create a Workshop</span>
           </Button>
-          <Button variant="outline" className="h-20 rounded-[1.5rem] border-2 border-black bg-white hover:bg-muted text-black flex flex-col items-center justify-center gap-0.5 group transition-all hover:scale-[1.02]">
+          <Button 
+            variant="outline" 
+            onClick={() => handleActionClick('event')}
+            className="h-20 rounded-[1.5rem] border-2 border-black bg-white hover:bg-muted text-black flex flex-col items-center justify-center gap-0.5 group transition-all hover:scale-[1.02]"
+          >
             <Calendar className="h-5 w-5 mb-0.5 text-secondary" />
             <span className="font-black uppercase tracking-widest text-[9px]">Schedule an Event</span>
           </Button>
@@ -122,7 +198,7 @@ export default function PractitionerStudio() {
       {/* Cycle Detail Dialog */}
       <Dialog open={!!selectedCycle} onOpenChange={() => setSelectedCycle(null)}>
         {selectedCycle && (
-          <DialogContent className="max-w-2xl rounded-[2.5rem] p-0 overflow-hidden border-none shadow-2xl animate-in zoom-in-95 duration-300">
+          <DialogContent className="max-w-2xl rounded-[2.5rem] p-0 overflow-hidden border-none shadow-2xl">
             <div className="relative aspect-video w-full">
                <Image 
                 src={selectedCycle.thumbnail} 
@@ -176,6 +252,137 @@ export default function PractitionerStudio() {
             </div>
           </DialogContent>
         )}
+      </Dialog>
+
+      {/* Action Dialogs */}
+      <Dialog open={!!activeAction} onOpenChange={() => setActiveAction(null)}>
+        <DialogContent className="max-w-md rounded-[2rem] p-8 border-4 border-black shadow-none bg-white">
+          <DialogHeader className="mb-6">
+            <DialogTitle className="text-2xl font-black uppercase italic tracking-tighter">
+              {activeAction === 'experience' ? 'Structure Experience' : 
+               activeAction === 'workshop' ? 'Create Workshop' : 'Schedule Event'}
+            </DialogTitle>
+            <DialogDescription className="font-bold italic">
+              Digitalize your legacy. Let Proctor refine the professional truth.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4">
+            {activeAction === 'experience' && (
+              <>
+                <div className="space-y-1.5">
+                  <Label className="text-[10px] font-black uppercase tracking-widest">Experience Title</Label>
+                  <Input 
+                    value={formData.title} 
+                    onChange={(e) => setFormData({...formData, title: e.target.value})}
+                    placeholder="e.g. 30 Years of Civil Engineering Truth" 
+                    className="border-2 border-black rounded-none h-12 font-bold focus-visible:ring-primary"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label className="text-[10px] font-black uppercase tracking-widest">Mastery Domain</Label>
+                  <Input 
+                    value={formData.domain}
+                    onChange={(e) => setFormData({...formData, domain: e.target.value})}
+                    placeholder="e.g. Structural Engineering" 
+                    className="border-2 border-black rounded-none h-12 font-bold"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label className="text-[10px] font-black uppercase tracking-widest">Professional Description</Label>
+                  <Textarea 
+                    value={formData.description}
+                    onChange={(e) => setFormData({...formData, description: e.target.value})}
+                    placeholder="What lived wisdom will you impart?" 
+                    className="border-2 border-black rounded-none min-h-[100px] font-bold"
+                  />
+                </div>
+              </>
+            )}
+
+            {activeAction === 'workshop' && (
+              <>
+                <div className="space-y-1.5">
+                  <Label className="text-[10px] font-black uppercase tracking-widest">Workshop Topic</Label>
+                  <Input 
+                    value={formData.topic}
+                    onChange={(e) => setFormData({...formData, topic: e.target.value})}
+                    placeholder="e.g. Practical Bridge Stress Analysis" 
+                    className="border-2 border-black rounded-none h-12 font-bold"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label className="text-[10px] font-black uppercase tracking-widest">Workshop Date</Label>
+                  <Input 
+                    type="date"
+                    value={formData.date}
+                    onChange={(e) => setFormData({...formData, date: e.target.value})}
+                    className="border-2 border-black rounded-none h-12 font-bold"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label className="text-[10px] font-black uppercase tracking-widest">Workshop Goal</Label>
+                  <Textarea 
+                    value={formData.description}
+                    onChange={(e) => setFormData({...formData, description: e.target.value})}
+                    placeholder="Describe the practical outcome..." 
+                    className="border-2 border-black rounded-none min-h-[100px] font-bold"
+                  />
+                </div>
+              </>
+            )}
+
+            {activeAction === 'event' && (
+              <>
+                <div className="space-y-1.5">
+                  <Label className="text-[10px] font-black uppercase tracking-widest">Event Name</Label>
+                  <Input 
+                    value={formData.name}
+                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    placeholder="e.g. Masterclass Q&A with Dr. Chen" 
+                    className="border-2 border-black rounded-none h-12 font-bold"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label className="text-[10px] font-black uppercase tracking-widest">Event Date</Label>
+                  <Input 
+                    type="date"
+                    value={formData.date}
+                    onChange={(e) => setFormData({...formData, date: e.target.value})}
+                    className="border-2 border-black rounded-none h-12 font-bold"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label className="text-[10px] font-black uppercase tracking-widest">Event Description</Label>
+                  <Textarea 
+                    value={formData.description}
+                    onChange={(e) => setFormData({...formData, description: e.target.value})}
+                    placeholder="What high-stakes knowledge will be shared?" 
+                    className="border-2 border-black rounded-none min-h-[100px] font-bold"
+                  />
+                </div>
+              </>
+            )}
+          </div>
+
+          <DialogFooter className="mt-8 flex flex-col sm:flex-row gap-3">
+            <Button 
+              onClick={handleImproveWithAI} 
+              disabled={isImproving}
+              variant="outline" 
+              className="w-full border-2 border-black rounded-none h-12 font-black uppercase tracking-widest text-[9px] hover:bg-black hover:text-white"
+            >
+              {isImproving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Sparkles className="h-4 w-4 mr-2" />}
+              Improve with AI
+            </Button>
+            <Button 
+              onClick={handleFormSubmit}
+              className="w-full bg-black text-white rounded-none h-12 font-black uppercase tracking-widest text-[9px] shadow-none"
+            >
+              Finalize Registry Entry
+            </Button>
+          </DialogFooter>
+        </DialogContent>
       </Dialog>
     </div>
   );
