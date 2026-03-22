@@ -5,14 +5,16 @@ import { HeroChat } from '@/components/home/HeroChat';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-secondary text-white selection:bg-primary/30 flex flex-col">
+    <div className="min-h-screen bg-secondary text-white selection:bg-primary/30 flex flex-col overflow-hidden">
       <Navbar />
       
-      {/* Main content area optimized for high-density Discovery engine */}
-      <main className="flex-1 pt-16 pb-20 md:pb-8">
-        <div className="container mx-auto px-4 min-h-[calc(100vh-64px)] max-w-5xl flex items-center justify-center py-8">
-          <div className="w-full max-w-[800px] flex flex-col">
-            <HeroChat />
+      {/* Discovery Stage optimized for high-density professional matching */}
+      <main className="flex-1 pt-20 pb-4 overflow-y-auto lg:overflow-hidden scrollbar-hide">
+        <div className="container mx-auto px-4 h-full max-w-5xl">
+          <div className="h-full flex items-center justify-center">
+            <div className="w-full max-w-[800px] h-full min-h-[500px] flex flex-col">
+              <HeroChat />
+            </div>
           </div>
         </div>
       </main>

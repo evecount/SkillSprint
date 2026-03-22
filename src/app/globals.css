@@ -43,25 +43,36 @@
   @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-xl;
 }
 
-.dynamic-gradient {
-  @apply bg-gradient-to-br from-secondary via-secondary to-primary;
-}
-
 .mobile-nav-shadow {
   box-shadow: 0 -10px 30px -5px rgba(0, 0, 0, 0.15);
 }
 
-.animate-float {
-  animation: float 6s ease-in-out infinite;
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+@keyframes swipe-out-left-tilt {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+  100% { transform: translate(-1000px, 100px) rotate(-20deg); opacity: 0; }
 }
 
-/* For mobile accessibility */
+@keyframes swipe-out-right-tilt {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+  100% { transform: translate(1000px, 100px) rotate(20deg); opacity: 0; }
+}
+
+.animate-swipe-out-left-tilt {
+  animation: swipe-out-left-tilt 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.animate-swipe-out-right-tilt {
+  animation: swipe-out-right-tilt 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
 @media (max-width: 768px) {
   .container {
     @apply px-6;

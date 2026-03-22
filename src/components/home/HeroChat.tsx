@@ -162,8 +162,8 @@ export function HeroChat() {
 
   if (!role) {
     return (
-      <div className="w-full flex flex-col gap-8 animate-in fade-in slide-in-from-bottom-8 duration-700">
-        <div className="relative w-full h-[600px] md:h-[700px] perspective-1000">
+      <div className="w-full h-full flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
+        <div className="relative w-full flex-1 min-h-[500px] md:min-h-[600px] perspective-1000">
           {MOCK_EXPERIENCES.map((item: any, idx) => {
             const isTop = idx === stackIndex;
             const isNext = idx === (stackIndex + 1) % MOCK_EXPERIENCES.length;
@@ -180,26 +180,26 @@ export function HeroChat() {
                 )}
               >
                 {item.type === 'hero' ? (
-                  <Card className="h-full w-full rounded-[2.5rem] bg-secondary border-white/10 p-10 flex flex-col justify-between shadow-2xl relative overflow-hidden">
+                  <Card className="h-full w-full rounded-[2.5rem] bg-secondary border-white/10 p-8 md:p-12 flex flex-col justify-between shadow-2xl relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -mr-32 -mt-32" />
                     <div>
-                      <Badge className="bg-primary/20 text-primary border-primary/30 px-5 py-1.5 text-[9px] font-black tracking-[0.3em] uppercase rounded-full mb-8">
+                      <Badge className="bg-primary/20 text-primary border-primary/30 px-5 py-1.5 text-[9px] font-black tracking-[0.3em] uppercase rounded-full mb-6">
                         SkillSprint Registry
                       </Badge>
-                      <h1 className="font-headline text-4xl md:text-6xl font-black tracking-tighter leading-[0.85] text-white mb-6">
+                      <h1 className="font-headline text-3xl md:text-5xl font-black tracking-tighter leading-[0.85] text-white mb-6">
                         Master the Craft, <br />
                         <span className="text-primary italic">Skip the Loop.</span>
                       </h1>
                       <div className="space-y-3 max-w-sm">
                         <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-sm">
-                          <Zap className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                          <p className="text-xs font-medium leading-relaxed text-white/60">
+                          <Zap className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                          <p className="text-[11px] font-medium leading-relaxed text-white/60">
                             Trade money for time. Buy back years of struggle to get real work in the field.
                           </p>
                         </div>
                         <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-sm">
-                          <ShieldCheck className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                          <p className="text-xs font-medium leading-relaxed text-white/60">
+                          <ShieldCheck className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                          <p className="text-[11px] font-medium leading-relaxed text-white/60">
                             Practical Excellence over paper credentials. No gatekeepers, just truth.
                           </p>
                         </div>
@@ -213,7 +213,7 @@ export function HeroChat() {
                   </Card>
                 ) : item.type === 'role' ? (
                   <Card className={cn(
-                    "h-full w-full rounded-[2.5rem] p-12 flex flex-col items-center justify-center text-center shadow-2xl border-4 transition-all",
+                    "h-full w-full rounded-[2.5rem] p-10 md:p-16 flex flex-col items-center justify-center text-center shadow-2xl border-4 transition-all",
                     item.role === 'mentor' ? "bg-white border-primary/20 text-secondary" : "bg-secondary border-white/5 text-white"
                   )}>
                      <div className={cn(
@@ -222,7 +222,7 @@ export function HeroChat() {
                      )}>
                        {item.role === 'mentor' ? <Heart className="h-10 w-10" /> : <Briefcase className="h-10 w-10" />}
                      </div>
-                     <h3 className="text-4xl md:text-5xl font-black tracking-tighter leading-none mb-4">
+                     <h3 className="text-3xl md:text-5xl font-black tracking-tighter leading-none mb-4">
                        {item.role === 'mentor' ? "Veteran Practitioner" : "Direct Apprentice"}
                      </h3>
                      <p className={cn(
@@ -231,7 +231,7 @@ export function HeroChat() {
                      )}>
                        {item.role === 'mentor' ? "Monetize Career Legacy" : "Buy Back Professional Time"}
                      </p>
-                     <p className="text-sm font-bold opacity-60 max-w-[240px] leading-relaxed italic">
+                     <p className="text-xs font-bold opacity-60 max-w-[240px] leading-relaxed italic">
                        "Swipe RIGHT to enter the Registry and architect your path as a {item.role === 'mentor' ? 'Practitioner' : 'Apprentice'}."
                      </p>
                   </Card>
@@ -252,7 +252,7 @@ export function HeroChat() {
                         </Badge>
                         <span className="text-[11px] font-black text-white/60 uppercase tracking-widest">{item.price}</span>
                       </div>
-                      <h4 className="text-3xl md:text-4xl font-black text-white leading-none tracking-tighter mb-2">{item.title}</h4>
+                      <h4 className="text-2xl md:text-4xl font-black text-white leading-none tracking-tighter mb-2">{item.title}</h4>
                       <p className="text-[10px] font-black text-primary uppercase tracking-[0.3em] flex items-center gap-2">
                         <Users className="h-4 w-4" /> practitioner: {item.author}
                       </p>
@@ -264,22 +264,22 @@ export function HeroChat() {
           })}
         </div>
         
-        <div className="flex items-center justify-center gap-10">
+        <div className="flex items-center justify-center gap-8 py-4">
           <Button 
             variant="outline" 
             size="icon" 
             onClick={() => handleSwipe('left')}
-            className="h-20 w-20 rounded-full bg-secondary/80 backdrop-blur-md border-white/10 text-white hover:bg-destructive hover:border-destructive transition-all hover:scale-110 active:scale-95 shadow-2xl"
+            className="h-16 w-16 md:h-20 md:w-20 rounded-full bg-secondary/80 backdrop-blur-md border-white/10 text-white hover:bg-destructive hover:border-destructive transition-all hover:scale-110 active:scale-95 shadow-2xl"
           >
-            <X className="h-10 w-10" />
+            <X className="h-8 w-8 md:h-10 md:w-10" />
           </Button>
           <Button 
             variant="outline" 
             size="icon" 
             onClick={() => handleSwipe('right')}
-            className="h-20 w-20 rounded-full bg-primary text-white border-none shadow-xl shadow-primary/20 hover:bg-accent transition-all hover:scale-110 active:scale-95"
+            className="h-16 w-16 md:h-20 md:w-20 rounded-full bg-primary text-white border-none shadow-xl shadow-primary/20 hover:bg-accent transition-all hover:scale-110 active:scale-95"
           >
-            <Check className="h-10 w-10" />
+            <Check className="h-8 w-8 md:h-10 md:w-10" />
           </Button>
         </div>
       </div>
@@ -288,12 +288,12 @@ export function HeroChat() {
 
   if (draft) {
     return (
-      <Card className="w-full border-none shadow-2xl rounded-[3rem] overflow-hidden bg-white animate-in zoom-in duration-500 flex flex-col">
-        <CardHeader className="bg-secondary text-white p-10 shrink-0">
+      <Card className="w-full border-none shadow-2xl rounded-[3rem] overflow-hidden bg-white animate-in zoom-in duration-500 flex flex-col h-full max-h-[700px]">
+        <CardHeader className="bg-secondary text-white p-8 md:p-12 shrink-0">
           <Badge className="bg-primary text-white border-none px-4 py-1.5 mb-4 rounded-full text-[8px] font-black uppercase tracking-widest">Registry Blueprint</Badge>
-          <CardTitle className="text-4xl md:text-5xl font-black leading-[0.85] tracking-tighter">Your Side-Hustle <br /><span className="text-primary italic">Drafted.</span></CardTitle>
+          <CardTitle className="text-3xl md:text-5xl font-black leading-[0.85] tracking-tighter">Your Side-Hustle <br /><span className="text-primary italic">Drafted.</span></CardTitle>
         </CardHeader>
-        <CardContent className="p-10 space-y-6 flex-1 overflow-y-auto max-h-[400px]">
+        <CardContent className="p-8 md:p-12 space-y-6 flex-1 overflow-y-auto">
           <div className="p-6 rounded-[2rem] bg-muted/50 border border-border/50 text-left">
             <h3 className="font-black text-xl text-secondary tracking-tight">{draft.title}</h3>
             <p className="text-muted-foreground mt-3 text-sm leading-relaxed italic">"{draft.description}"</p>
@@ -305,19 +305,19 @@ export function HeroChat() {
               { icon: Star, label: "Tuition", value: draft.logistics.price },
               { icon: Users, label: "Access", value: draft.logistics.enrollmentMode },
             ].map((item, idx) => (
-              <div key={idx} className="flex items-center gap-4 p-4 rounded-2xl bg-muted/30 border border-transparent hover:border-primary/30 transition-all group text-left">
+              <div key={idx} className="flex items-center gap-3 p-4 rounded-2xl bg-muted/30 border border-transparent hover:border-primary/30 transition-all group text-left">
                 <div className="h-10 w-10 rounded-xl bg-white shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform">
                   <item.icon className="h-4 w-4 text-primary" />
                 </div>
                 <div className="overflow-hidden">
                   <p className="text-[7px] font-black text-muted-foreground uppercase tracking-[0.3em] mb-1">{item.label}</p>
-                  <p className="text-[11px] font-black text-secondary truncate">{item.value}</p>
+                  <p className="text-[10px] font-black text-secondary truncate">{item.value}</p>
                 </div>
               </div>
             ))}
           </div>
         </CardContent>
-        <CardFooter className="p-10 bg-muted/20 border-t border-border/50 shrink-0">
+        <CardFooter className="p-8 md:p-12 bg-muted/20 border-t border-border/50 shrink-0">
           <Button asChild className="w-full h-16 text-xs font-black uppercase tracking-[0.4em] rounded-[1.5rem] bg-primary hover:bg-accent text-white shadow-xl shadow-primary/20 transition-all">
             <Link href="/teacher/dashboard">
               Launch Paid Apprenticeship <ArrowRight className="ml-3 h-5 w-5" />
@@ -329,14 +329,14 @@ export function HeroChat() {
   }
 
   return (
-    <Card className="w-full border-none shadow-2xl rounded-[3rem] overflow-hidden bg-white flex flex-col animate-in slide-in-from-right duration-500">
-      <CardHeader className="border-b border-border/10 bg-muted/30 px-10 py-5 shrink-0">
+    <Card className="w-full border-none shadow-2xl rounded-[3rem] overflow-hidden bg-white flex flex-col h-full max-h-[750px] animate-in slide-in-from-right duration-500">
+      <CardHeader className="border-b border-border/10 bg-muted/30 px-8 py-5 shrink-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="h-12 w-12 rounded-2xl bg-secondary text-white flex items-center justify-center font-black text-xl shadow-xl shadow-secondary/20">P</div>
             <div className="text-left">
               <div className="flex items-center gap-2">
-                <CardTitle className="text-lg font-black text-secondary tracking-tight">Proctor</CardTitle>
+                <CardTitle className="text-base font-black text-secondary tracking-tight">Proctor</CardTitle>
                 <Badge variant="outline" className="rounded-full px-2 py-0 text-[8px] font-black uppercase tracking-widest border-primary/30 text-primary">Consultant</Badge>
               </div>
               <div className="flex items-center gap-1.5 mt-0.5">
@@ -350,11 +350,11 @@ export function HeroChat() {
           </Button>
         </div>
       </CardHeader>
-      <CardContent ref={scrollRef} className="flex-1 overflow-y-auto p-10 space-y-6 scroll-smooth min-h-[400px] max-h-[500px]">
+      <CardContent ref={scrollRef} className="flex-1 overflow-y-auto p-8 md:p-10 space-y-6 scroll-smooth">
         {messages.map((m, i) => (
           <div key={i} className={cn("flex w-full animate-in slide-in-from-bottom-4 duration-300", m.role === 'user' ? "justify-end" : "justify-start")}>
             <div className={cn(
-              "max-w-[85%] rounded-[1.5rem] px-5 py-3 text-sm font-bold leading-relaxed text-left",
+              "max-w-[85%] rounded-[1.5rem] px-5 py-3 text-[13px] font-bold leading-relaxed text-left",
               m.role === 'user' ? "bg-primary text-white" : "bg-muted/80 text-secondary border border-border/5"
             )}>
               {m.text}
