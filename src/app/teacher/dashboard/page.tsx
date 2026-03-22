@@ -105,7 +105,7 @@ export default function TeacherDashboard() {
               </div>
               <div>
                 <p className="font-bold">Architect New Portal</p>
-                <p className="text-xs text-muted-foreground">Use Captain Sprint to curate your wisdom</p>
+                <p className="text-xs text-muted-foreground">Use Proctor to curate your wisdom</p>
               </div>
             </Link>
           </div>

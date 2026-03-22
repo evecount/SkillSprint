@@ -49,7 +49,7 @@ export function AIConsultant({ userName, role, orgName }: AIConsultantProps) {
           <CardHeader className="bg-primary text-primary-foreground rounded-t-lg flex flex-row items-center justify-between py-3">
             <div className="flex items-center gap-2">
               <Bot className="h-5 w-5" />
-              <CardTitle className="text-sm font-bold">Captain Sprint</CardTitle>
+              <CardTitle className="text-sm font-bold">Proctor</CardTitle>
             </div>
             <Button variant="ghost" size="icon" className="h-8 w-8 hover:bg-white/20 text-primary-foreground" onClick={() => setIsOpen(false)}>
               <X className="h-4 w-4" />

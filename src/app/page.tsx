@@ -25,7 +25,7 @@ export default function Home() {
                   Your Wisdom is a <span className="text-primary italic">Legacy</span>.
                 </h1>
                 <p className="text-xl text-muted-foreground leading-relaxed">
-                  The University of Life helps masters and practitioners transform a lifetime of wisdom into private learning portals. No tech skills needed—just your passion and Captain Sprint's architectural guidance.
+                  The University of Life helps masters and practitioners transform a lifetime of wisdom into private learning portals. No tech skills needed—just your passion and Proctor's architectural guidance.
                 </p>
               </div>
               
@@ -154,7 +154,7 @@ export default function Home() {
               {[
                 { title: 'Source Wisdom', desc: 'Direct access to masters and veterans.', icon: BookOpenCheck },
                 { title: 'Gamified Growth', desc: 'Engage with streaks and scores.', icon: TrendingUp },
-                { title: 'AI Architect', desc: 'Captain Sprint builds your portal draft.', icon: Sparkles },
+                { title: 'AI Proctor', desc: 'Proctor builds your portal draft.', icon: Sparkles },
                 { title: 'Private Circles', icon: Shield, desc: 'Complete control over your audience and price.' },
               ].map((f, i) => (
                 <Card key={i} className="border-none shadow-sm transition-transform hover:-translate-y-1 bg-white">

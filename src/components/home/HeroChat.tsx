@@ -17,7 +17,7 @@ type Message = {
 
 export function HeroChat() {
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'model', text: "Welcome! I'm Captain Sprint. I believe the world needs your unique wisdom. If you were to open your own private 'Higher Education' portal today—whether for the literature of Poe or the art of leadership—what's the one thing you'd love to share with the next generation?" }
+    { role: 'model', text: "Welcome! I'm Proctor. I believe the world needs your unique wisdom. If you were to open your own private 'Higher Education' portal today—whether for the literature of Poe or the art of leadership—what's the one thing you'd love to share with the next generation?" }
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -65,7 +65,7 @@ export function HeroChat() {
             <Badge variant="secondary" className="bg-white/20 text-white border-none">Democratizing Knowledge</Badge>
           </div>
           <CardTitle className="text-2xl font-bold">Your Legacy Portal is Ready!</CardTitle>
-          <p className="text-primary-foreground/80 text-sm">Captain Sprint has architected your higher education draft.</p>
+          <p className="text-primary-foreground/80 text-sm">Proctor has architected your higher education draft.</p>
         </CardHeader>
         <CardContent className="p-6 space-y-6">
           <div className="rounded-xl border-2 border-primary/10 bg-primary/5 p-4">
@@ -139,7 +139,7 @@ export function HeroChat() {
               <Bot className="h-6 w-6" />
             </div>
             <div>
-              <CardTitle className="text-sm font-bold">Captain Sprint</CardTitle>
+              <CardTitle className="text-sm font-bold">Proctor</CardTitle>
               <div className="flex items-center gap-1.5">
                 <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
                 <span className="text-[10px] text-muted-foreground">Architecting Higher Education</span>
@@ -185,7 +185,7 @@ export function HeroChat() {
           }}
         >
           <Input 
-            placeholder="Tell Captain Sprint about your passion..." 
+            placeholder="Tell Proctor about your passion..." 
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={loading}

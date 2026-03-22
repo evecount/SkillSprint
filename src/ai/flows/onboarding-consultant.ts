@@ -1,6 +1,6 @@
 'use server';
 /**
- * @fileOverview A Genkit flow for the AI Onboarding Consultant (Captain Sprint) for the University of Life.
+ * @fileOverview A Genkit flow for the AI Onboarding Consultant (Proctor) for the University of Life.
  *
  * - onboardingConsultant - A function that handles onboarding guidance and queries.
  * - OnboardingConsultantInput - The input type for the onboardingConsultant function.
@@ -21,7 +21,7 @@ export type OnboardingConsultantInput = z.infer<typeof OnboardingConsultantInput
 const OnboardingConsultantOutputSchema = z.object({
   response: z.string().describe('The AI consultant\'s response or guidance text.'),
   suggestedActions: z.array(z.string()).describe('A list of recommended next steps for the user.'),
-  persona: z.string().describe('The name/persona of the assistant, e.g., "Captain Sprint".'),
+  persona: z.string().describe('The name/persona of the assistant, e.g., "Proctor".'),
 });
 export type OnboardingConsultantOutput = z.infer<typeof OnboardingConsultantOutputSchema>;
 
@@ -33,7 +33,7 @@ const onboardingPrompt = ai.definePrompt({
   name: 'onboardingPrompt',
   input: { schema: OnboardingConsultantInputSchema },
   output: { schema: OnboardingConsultantOutputSchema },
-  prompt: `You are "Captain Sprint", the energetic and wise AI Architectural Captain for the University of Life.
+  prompt: `You are "Proctor", the energetic and wise AI Architectural Proctor for the University of Life.
 
 Your goal is to help experts and students succeed in democratizing higher education:
 - Registry Admins: Focus on the health of your learning ecosystem and community metrics.
