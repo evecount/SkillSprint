@@ -1,4 +1,3 @@
-
 "use client"
 
 import { Navbar } from '@/components/layout/Navbar';
@@ -8,7 +7,7 @@ import { Plus, BookOpen, Users, ArrowRight, Landmark, DollarSign, TrendingUp, Cl
 import Link from 'next/link';
 import { AIConsultant } from '@/components/consultant/AIConsultant';
 import { mockCourses, mockTeacher, mockOrg } from '@/lib/mock-data';
-import Image from 'next/image';
+import Image from 'image';
 import { Badge } from '@/components/ui/badge';
 
 export default function TeacherDashboard() {
