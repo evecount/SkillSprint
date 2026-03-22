@@ -8,10 +8,10 @@ export default function Home() {
     <div className="min-h-screen bg-secondary text-white selection:bg-primary/30 flex flex-col overflow-hidden">
       <Navbar />
       
-      {/* Reduced Top Padding */}
-      <main className="flex-1 pt-24 pb-4 overflow-y-auto lg:overflow-hidden scrollbar-hide">
+      {/* Reduced Top Padding for immediate content entry */}
+      <main className="flex-1 pt-20 pb-4 overflow-y-auto lg:overflow-hidden scrollbar-hide">
         <div className="container mx-auto px-4 h-full max-w-5xl">
-          <div className="h-full flex items-stretch justify-center">
+          <div className="h-full flex items-center justify-center">
             {/* The HomeDiscovery engine */}
             <div className="w-full max-w-[800px] h-full min-h-[500px] flex flex-col">
               <HeroChat />
