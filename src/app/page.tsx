@@ -18,13 +18,13 @@ export default function Home() {
             <div className="space-y-8">
               <div className="space-y-4">
                 <Badge className="bg-secondary/10 text-secondary hover:bg-secondary/20 px-3 py-1">
-                  Democratizing Access to Mastery
+                  Those who have done, can now teach.
                 </Badge>
                 <h1 className="font-headline text-5xl font-extrabold tracking-tight text-foreground md:text-7xl leading-tight">
                   Your Wisdom is a <span className="text-primary italic">Legacy</span>.
                 </h1>
                 <p className="text-xl text-muted-foreground leading-relaxed">
-                  The University of Life is a guild where practitioners and masters—from retired ad execs to veteran engineers—democratize access to their life's work. Build your own private learning portal and mentor the next generation directly.
+                  The University of Life is where mastery bypasses the gatekeepers. We help practitioners—from veteran ad execs to master engineers—build private portals to mentor the next generation directly.
                 </p>
               </div>
               
@@ -37,12 +37,12 @@ export default function Home() {
                 <div className="flex items-center gap-6 px-4">
                   <div className="flex flex-col text-center">
                     <span className="text-2xl font-bold text-primary">12k+</span>
-                    <span className="text-[10px] uppercase font-bold text-muted-foreground tracking-widest">Global Students</span>
+                    <span className="text-[10px] uppercase font-bold text-muted-foreground tracking-widest">Active Students</span>
                   </div>
                   <div className="h-10 w-px bg-border" />
                   <div className="flex flex-col text-center">
                     <span className="text-2xl font-bold text-secondary">800+</span>
-                    <span className="text-[10px] uppercase font-bold text-muted-foreground tracking-widest">Wisdom Masters</span>
+                    <span className="text-[10px] uppercase font-bold text-muted-foreground tracking-widest">Lived Masters</span>
                   </div>
                 </div>
               </div>
@@ -54,11 +54,11 @@ export default function Home() {
                 </div>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>No Gatekeepers</span>
+                  <span>Bypass the Internships</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>Full Financial Control</span>
+                  <span>Full Ownership</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <CheckCircle className="h-4 w-4 text-green-500" />
@@ -79,19 +79,27 @@ export default function Home() {
                 </div>
                 <div>
                   <p className="text-xs font-bold text-foreground">Verified Master</p>
-                  <p className="text-[10px] text-muted-foreground">Legacy Architect Active</p>
+                  <p className="text-[10px] text-muted-foreground">Lived Mastery Active</p>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
+        {/* Philosophy Section */}
+        <section className="bg-primary/5 py-24 border-y">
+          <div className="container mx-auto px-4 text-center max-w-4xl">
+            <h2 className="font-headline text-4xl font-bold mb-6 italic">"The gatekeepers told you that you weren't ready. We're here to connect you with the person who has actually done the work."</h2>
+            <p className="text-xl text-muted-foreground">In the University of Life, we don't follow the old saying "those who can't do, teach." Here, we believe that <strong>those who have done, can now teach.</strong> We are democratizing access to the library of lived human experience.</p>
+          </div>
+        </section>
+
         {/* Roles Section */}
-        <section className="bg-white/50 py-24 border-y">
+        <section className="py-24">
           <div className="container mx-auto px-4">
             <div className="mb-16 text-center max-w-2xl mx-auto">
               <h2 className="font-headline text-3xl font-bold">A Guild of Global Practitioners</h2>
-              <p className="mt-4 text-muted-foreground">Connecting deep, lived wisdom with those who were never given an internship or a seat at the table.</p>
+              <p className="mt-4 text-muted-foreground">Connecting deep, lived wisdom with those who were denied a seat at the traditional table.</p>
             </div>
             <div className="grid gap-8 sm:grid-cols-3">
               <Card className="border-none shadow-md hover:shadow-xl transition-all group bg-white">
@@ -100,7 +108,7 @@ export default function Home() {
                     <Sparkles className="h-7 w-7" />
                   </div>
                   <CardTitle>Wisdom Architects</CardTitle>
-                  <CardDescription>Turn your career experience into interactive legacy portals. Mentor the next generation on your terms.</CardDescription>
+                  <CardDescription>You've spent decades mastering your craft. Now, own your legacy and mentor the next generation on your terms.</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <Button asChild variant="outline" className="w-full">
@@ -141,38 +149,10 @@ export default function Home() {
             </div>
           </div>
         </section>
-
-        {/* Features Grid */}
-        <section className="py-24">
-          <div className="container mx-auto px-4">
-            <div className="mb-16 text-center">
-              <h2 className="font-headline text-3xl font-bold">Why the University of Life?</h2>
-              <p className="mt-4 text-muted-foreground">Building the bridges of knowledge beyond institutional walls.</p>
-            </div>
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-              {[
-                { title: 'Lived Wisdom', desc: 'Direct access to masters, not just theory.', icon: BookOpenCheck },
-                { title: 'Gamified Growth', desc: 'Engage with streaks and mastery scores.', icon: TrendingUp },
-                { title: 'Proctor AI', desc: 'Proctor helps you architect your legacy.', icon: Sparkles },
-                { title: 'Full Ownership', icon: Shield, desc: 'Complete control over your audience, price, and schedule.' },
-              ].map((f, i) => (
-                <Card key={i} className="border-none shadow-sm transition-transform hover:-translate-y-1 bg-white">
-                  <CardHeader>
-                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                      <f.icon className="h-6 w-6" />
-                    </div>
-                    <CardTitle className="text-lg">{f.title}</CardTitle>
-                    <CardDescription>{f.desc}</CardDescription>
-                  </CardHeader>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
       </main>
       
       <footer className="border-t py-12 text-center text-sm text-muted-foreground bg-white">
-        <p>© 2024 University of Life. Built to democratize access to wisdom and protect legacy mastery.</p>
+        <p>© 2024 University of Life. Built to democratize access to lived mastery.</p>
       </footer>
     </div>
   );
