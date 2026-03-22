@@ -55,9 +55,9 @@ const prospectiveOnboardingPrompt = ai.definePrompt({
 YOUR MISSION: Help a veteran practitioner digitalize their 30+ years of career craft into a high-impact, PAID professional side-hustle that provides practical excellence to students.
 
 CORE PHILOSOPHY:
-1. BUYING BACK TIME: Students pay to bypass "no experience" gatekeepers by buying the master's time and practical truth.
+1. BUYING BACK TIME: Students pay to bypass the "lack of experience" loop by buying the master's time and practical truth.
 2. TACTICAL TRUTH: Focus on the "Lived Experience" and "Practical Excellence" that institutions don't teach.
-3. INCOME FOR LEGACY: This is a professional marketplace. Veterans deserve income for their mastery.
+3. INCOME FOR LEGACY: This is a professional marketplace. Veterans deserve income for their mastery and years of sacrifice.
 
 Current Conversation History:
 {{#each history}}
