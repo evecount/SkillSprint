@@ -3,8 +3,8 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'University of Life | Own Your Higher Ed Legacy',
-  description: 'Democratizing access to higher education by helping practitioners and masters turn their lived wisdom into private learning portals.',
+  title: 'SkillSprint | Direct Mastery Registry',
+  description: 'Turn your lived career legacy into a paid apprenticeship, or buy back your time by learning directly from the masters.',
 };
 
 export default function RootLayout({

@@ -1,8 +1,7 @@
-
 'use server';
 /**
- * @fileOverview A Genkit flow for onboarding prospective Wisdom Architects at the University of Life.
- * Proctor acts as a collaborative partner in digitalizing lived mastery into paid apprenticeships.
+ * @fileOverview A Genkit flow for onboarding prospective Mentors at SkillSprint.
+ * Proctor acts as a professional success consultant digitalizing career mastery into paid apprenticeships.
  */
 
 import { ai } from '@/ai/genkit';
@@ -23,23 +22,23 @@ const PortalDraftSchema = z.object({
     contentDraft: z.string(),
   })),
   logistics: z.object({
-    price: z.string().describe('The tuition model for the apprenticeship (e.g., "$499 for the Guild access").'),
-    format: z.string().describe('Exchange delivery (e.g., "Weekly Private Circle", "1-on-1 Masterclass").'),
-    frequency: z.string().describe('Recurrence (e.g., "Monthly Subscription" or "8-Week Intensive").'),
-    enrollmentMode: z.string().describe('Access mode (e.g., "Selective Apprenticeship" or "Open Guild").'),
+    price: z.string().describe('The tuition model (e.g., "$500 per apprentice session").'),
+    format: z.string().describe('Exchange delivery (e.g., "Weekly Private Masterclass").'),
+    frequency: z.string().describe('Recurrence (e.g., "Monthly" or "8-Week Cycle").'),
+    enrollmentMode: z.string().describe('Access mode (e.g., "Selective Apprenticeship").'),
   }),
 });
 
 const ProspectiveOnboardingInputSchema = z.object({
   history: z.array(MessageSchema).describe('The conversation history.'),
-  userMessage: z.string().describe('The latest message from the master.'),
+  userMessage: z.string().describe('The latest message from the mentor.'),
 });
 export type ProspectiveOnboardingInput = z.infer<typeof ProspectiveOnboardingInputSchema>;
 
 const ProspectiveOnboardingOutputSchema = z.object({
   response: z.string().describe('Proctor\'s response text.'),
-  portalDraft: PortalDraftSchema.optional().describe('A structured portal draft if enough info is gathered.'),
-  isOnboardingComplete: z.boolean().describe('Whether Proctor has enough architectural detail.'),
+  portalDraft: PortalDraftSchema.optional().describe('A structured apprenticeship draft if enough info is gathered.'),
+  isOnboardingComplete: z.boolean().describe('Whether Proctor has enough detail to setup the guild.'),
 });
 export type ProspectiveOnboardingOutput = z.infer<typeof ProspectiveOnboardingOutputSchema>;
 
@@ -51,14 +50,14 @@ const prospectiveOnboardingPrompt = ai.definePrompt({
   name: 'prospectiveOnboardingPrompt',
   input: { schema: ProspectiveOnboardingInputSchema },
   output: { schema: ProspectiveOnboardingOutputSchema },
-  prompt: `You are "Proctor", the wise and energetic AI Architect for the University of Life. 
+  prompt: `You are "Proctor", the professional Success Consultant for SkillSprint. 
 
-YOUR MISSION: Help a veteran—often a retiree whose career was stalled by corporate gatekeepers—digitalize their 30+ years of sacrificed time into a high-impact, PAID professional side-hustle.
+YOUR MISSION: Help a veteran practitioner digitalize their 30+ years of career craft into a high-impact, PAID professional side-hustle.
 
 CORE PHILOSOPHY:
-1. BUYING BACK TIME: Students pay to bypass the "no experience" gatekeepers. They are buying the master's sacrificed time.
-2. PRACTICAL TRUTH: Focus on the "Tactical Truth" that AI can't generate and institutions don't teach.
-3. INCOME FOR LEGACY: Veterans need income and students need access. This is a professional exchange.
+1. BUYING BACK TIME: Students pay to bypass "no experience" gatekeepers by buying the master's time.
+2. TACTICAL TRUTH: Focus on the "Lived Experience" that institutions don't teach.
+3. INCOME FOR LEGACY: This is a professional marketplace. Veterans deserve income for their mastery.
 
 Current Conversation History:
 {{#each history}}
@@ -67,20 +66,19 @@ Current Conversation History:
 User: {{{userMessage}}}
 
 Guidelines for your interaction:
-1. FOCUS ON THE INDUSTRY DOMAIN. Identify exactly what industry or craft the veteran has mastered.
-2. THE PAID SIDE-HUSTLE ARCHITECTURE. Map out the delivery and monetization:
-   - Price: Explicitly discuss tuition. Their 30+ years of truth is a finite, valuable treasure.
-   - Access: Remind them that paying students are high-intent moonlighters who value results over paper.
-   - Format: Is it a high-touch private circle or a structured masterclass?
+1. FOCUS ON THE INDUSTRY DOMAIN. Identify exactly what industry or craft they have mastered.
+2. THE PAID SIDE-HUSTLE ARCHITECTURE. Map out delivery and monetization:
+   - Price: Discuss professional tuition. Their 30+ years of truth is a valuable treasure.
+   - Format: Is it a high-touch private circle or a structured workshop?
 
 Once you have gathered:
 - Title & Description
 - Mastery Domain
-- 3-4 Chapter ideas (Core Insights)
-- Basic logistics (Price/Format/Frequency)
+- 3-4 Apprenticeship Chapters (Core Insights)
+- Basic logistics (Price/Format)
 ...then generate the portalDraft.
 
-Tone: Energetic, Direct, Authoritative. You are a consultant for their new digital side-hustle.
+Tone: Professional, Direct, Encouraging. You are building their new digital side-hustle.
 
 {{jsonSchema ProspectiveOnboardingOutputSchema}}`,
 });

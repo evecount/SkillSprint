@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState, useRef, useEffect } from 'react';
@@ -36,8 +35,8 @@ export function HeroChat() {
   const handleRoleSelect = (selectedRole: UserRole) => {
     setRole(selectedRole);
     const initialMsg = selectedRole === 'mentor' 
-      ? "Registry initiated. I am Proctor. Your 30+ years of sacrificed time is a treasure. I help you digitalize that truth into a paid side-hustle. What industry domain are we digitalizing today?"
-      : "Student Registry initiated. I am Proctor. You're here to buy back your time. Stop begging for 'experience'—which industry has locked you out that you're ready to pay a Master to enter?";
+      ? "Welcome to SkillSprint. I am Proctor. Your 30+ years of craft is a finite treasure. Let's build your professional side-hustle. What industry domain are we digitalizing today?"
+      : "Welcome seeker. I am Proctor. You're here to buy back your time. Which industry has locked you out that you're ready to pay a Master to enter directly?";
     
     setMessages([{ role: 'model', text: initialMsg }]);
   };
@@ -66,7 +65,7 @@ export function HeroChat() {
         const result = await onboardingConsultant({
           userName: "Seeker",
           role: 'learner',
-          orgName: "University of Life",
+          orgName: "SkillSprint",
           userMessage: textToSend
         });
         setMessages(prev => [...prev, { role: 'model', text: result.response }]);
@@ -80,7 +79,7 @@ export function HeroChat() {
 
   const handleFastTrack = () => {
     if (role === 'mentor') {
-      handleSend("I'm ready. Generate my paid blueprint now based on what we've discussed.");
+      handleSend("I'm ready. Generate my paid blueprint now.");
     } else {
       window.location.href = "/learner/dashboard";
     }
@@ -100,14 +99,14 @@ export function HeroChat() {
             </div>
             <div>
               <h3 className="text-4xl font-black tracking-tight mb-2">Mentor / Lecturer</h3>
-              <p className="text-secondary/40 font-black uppercase tracking-[0.3em] text-[10px]">Turn Lived Truth Into a Paid Side-Hustle</p>
+              <p className="text-secondary/40 font-black uppercase tracking-[0.3em] text-[10px]">Launch Your Side-Hustle</p>
             </div>
             <p className="text-secondary/70 font-medium italic leading-relaxed text-sm md:text-base">
-              "My sacrificed time is a treasure. I'm ready to be funded for my mastery."
+              "I&apos;m ready to monetize my career legacy and mentor the next generation."
             </p>
             <div className="pt-4">
               <span className="inline-flex h-14 px-10 rounded-2xl bg-secondary text-white items-center gap-3 font-black text-xs uppercase tracking-[0.2em] shadow-xl group-hover:bg-primary transition-colors">
-                Structure Side-Hustle <ArrowRight className="h-4 w-4" />
+                Become a Mentor <ArrowRight className="h-4 w-4" />
               </span>
             </div>
           </div>
@@ -124,14 +123,14 @@ export function HeroChat() {
             </div>
             <div>
               <h3 className="text-4xl font-black tracking-tight mb-2">Apprentice / Student</h3>
-              <p className="text-white/40 font-black uppercase tracking-[0.3em] text-[10px]">Buy Back Your Time with Direct Access</p>
+              <p className="text-white/40 font-black uppercase tracking-[0.3em] text-[10px]">Buy Back Your Time</p>
             </div>
             <p className="text-white/80 font-medium italic leading-relaxed text-sm md:text-base">
-              "I'm done begging for 'experience'. I'm ready to pay a Master to learn how to DO."
+              "I&apos;m ready to pay a Master to learn how to DO and skip the unpaid loops."
             </p>
             <div className="pt-4">
               <span className="inline-flex h-14 px-10 rounded-2xl bg-primary text-white items-center gap-3 font-black text-xs uppercase tracking-[0.2em] shadow-xl shadow-primary/20 hover:bg-accent transition-colors">
-                Bypass Gatekeepers <ArrowRight className="h-4 w-4" />
+                Find an Apprenticeship <ArrowRight className="h-4 w-4" />
               </span>
             </div>
           </div>
@@ -144,7 +143,7 @@ export function HeroChat() {
     return (
       <Card className="border-none shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] rounded-[3rem] overflow-hidden bg-white animate-in zoom-in duration-500">
         <CardHeader className="bg-secondary text-white p-10 md:p-14">
-          <Badge className="bg-primary text-white border-none px-4 py-1.5 mb-6 rounded-full text-xs font-black uppercase tracking-widest">Paid Blueprint Ready</Badge>
+          <Badge className="bg-primary text-white border-none px-4 py-1.5 mb-6 rounded-full text-xs font-black uppercase tracking-widest">Apprenticeship Blueprint</Badge>
           <CardTitle className="text-4xl md:text-6xl font-black leading-[0.9] tracking-tighter">Your Side-Hustle <span className="text-primary italic">Drafted.</span></CardTitle>
           <p className="text-white/50 text-xl mt-4 font-bold italic">Proctor has structured your professional exchange.</p>
         </CardHeader>
@@ -176,7 +175,7 @@ export function HeroChat() {
         <CardFooter className="p-10 md:p-14 bg-muted/20 border-t border-border/50">
           <Button asChild className="w-full h-20 text-2xl font-black rounded-[2rem] bg-primary hover:bg-accent text-white shadow-2xl shadow-primary/20 transition-all hover:scale-[1.02]">
             <Link href="/teacher/dashboard">
-              Launch Paid Guild <ArrowRight className="ml-3 h-8 w-8" />
+              Launch Paid Apprenticeship <ArrowRight className="ml-3 h-8 w-8" />
             </Link>
           </Button>
         </CardFooter>
@@ -195,11 +194,11 @@ export function HeroChat() {
             <div>
               <div className="flex items-center gap-3">
                 <CardTitle className="text-xl font-black text-secondary tracking-tight">Proctor</CardTitle>
-                <Badge variant="outline" className="rounded-full px-3 text-[9px] font-black uppercase tracking-widest border-primary/30 text-primary">Registry Agent</Badge>
+                <Badge variant="outline" className="rounded-full px-3 text-[9px] font-black uppercase tracking-widest border-primary/30 text-primary">Success Consultant</Badge>
               </div>
               <div className="flex items-center gap-2 mt-1">
                 <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-                <span className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">Time-for-Mastery Consultant</span>
+                <span className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">Professional Mastery Agent</span>
               </div>
             </div>
           </div>
@@ -210,7 +209,7 @@ export function HeroChat() {
               onClick={handleFastTrack}
               className="text-[10px] font-black uppercase tracking-widest text-primary hover:bg-primary/10 rounded-full px-4"
             >
-              <FastForward className="mr-2 h-3 w-3" /> {role === 'mentor' ? 'Skip to Paid Model' : 'Skip to Access'}
+              <FastForward className="mr-2 h-3 w-3" /> {role === 'mentor' ? 'Skip to Setup' : 'Explore Registry'}
             </Button>
             <Button variant="ghost" size="sm" onClick={() => setRole(null)} className="h-8 w-8 p-0 rounded-full hover:bg-muted">
               <ArrowRight className="h-4 w-4 rotate-180" />
@@ -254,7 +253,7 @@ export function HeroChat() {
           }}
         >
           <Input 
-            placeholder={role === 'mentor' ? "State your industry domain..." : "What industry are you locked out of?"}
+            placeholder={role === 'mentor' ? "What is your mastery domain?" : "What industry are you targeting?"}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={loading}
