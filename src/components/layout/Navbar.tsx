@@ -20,25 +20,16 @@ export function Navbar({ role = 'learner', userName, orgName }: NavbarProps) {
   const pathname = usePathname();
   const [isProctorOpen, setIsProctorOpen] = useState(false);
 
-  // Use provided names or fallback to mocks
   const finalUserName = userName || (role === 'learner' ? mockLearner.name : role === 'teacher' ? mockTeacher.name : mockAdmin.name);
   const finalOrgName = orgName || mockOrg.name;
 
-  // Unified 5-pillar navigation for the professional registry
+  // Unified 5-pillar professional navigation
   const navItems = [
-    { label: 'Explore', icon: Compass, href: '/learner/dashboard' },
+    { label: 'Explore', icon: Compass, href: '/' },
     { label: 'Guilds', icon: BookOpen, href: '/learner/dashboard' },
     { label: 'Studio', icon: LayoutDashboard, href: '/teacher/dashboard' },
-    { label: 'Identity', icon: User, href: '/learner/dashboard' }, // Simplified mapping for prototype
+    { label: 'Identity', icon: User, href: '/learner/dashboard' }, 
   ];
-
-  const getIcon = (label: string) => {
-    if (label === 'Explore') return Compass;
-    if (label === 'Guilds') return BookOpen;
-    if (label === 'Studio') return LayoutDashboard;
-    if (label === 'Identity') return User;
-    return Compass;
-  };
 
   return (
     <>
@@ -64,25 +55,22 @@ export function Navbar({ role = 'learner', userName, orgName }: NavbarProps) {
           </Link>
 
           <div className="flex items-center gap-10">
-            {navItems.map((item) => {
-              const Icon = getIcon(item.label);
-              return (
-                <Link 
-                  key={item.label}
-                  href={item.href} 
-                  className={cn(
-                    "flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.3em] transition-all relative group py-2",
-                    pathname === item.href ? "text-primary" : "text-white/60 hover:text-primary"
-                  )}
-                >
-                  <Icon className={cn("h-4 w-4", pathname === item.href ? "fill-primary/20" : "")} />
-                  {item.label}
-                  {pathname === item.href && (
-                    <span className="absolute -bottom-1 left-0 w-full h-1 bg-primary rounded-full shadow-[0_0_10px_rgba(162,84,28,0.5)]" />
-                  )}
-                </Link>
-              );
-            })}
+            {navItems.map((item) => (
+              <Link 
+                key={item.label}
+                href={item.href} 
+                className={cn(
+                  "flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.3em] transition-all relative group py-2",
+                  pathname === item.href ? "text-primary" : "text-white/60 hover:text-primary"
+                )}
+              >
+                <item.icon className={cn("h-4 w-4", pathname === item.href ? "fill-primary/20" : "")} />
+                {item.label}
+                {pathname === item.href && (
+                  <span className="absolute -bottom-1 left-0 w-full h-1 bg-primary rounded-full shadow-[0_0_10px_rgba(162,84,28,0.5)]" />
+                )}
+              </Link>
+            ))}
             <button 
               onClick={() => setIsProctorOpen(true)}
               className="flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.3em] text-white/60 hover:text-primary transition-all group"
@@ -103,25 +91,15 @@ export function Navbar({ role = 'learner', userName, orgName }: NavbarProps) {
       {/* Mobile Bottom Navigation - 5 Pillars */}
       <nav className="fixed bottom-0 left-0 right-0 z-[100] flex h-24 items-center border-t border-white/10 bg-secondary/95 backdrop-blur-3xl md:hidden mobile-nav-shadow px-2 pb-2">
         <div className="grid h-full w-full grid-cols-5 gap-0.5">
-          {/* First Two: Discovery & Learning */}
-          {navItems.slice(0, 2).map((item) => {
-            const Icon = getIcon(item.label);
-            return (
-              <Link 
-                key={item.label}
-                href={item.href}
-                className={cn(
-                  "flex flex-col items-center justify-center gap-1 transition-all active:scale-90",
-                  pathname === item.href ? "text-primary" : "text-white/40"
-                )}
-              >
-                <Icon className={cn("h-5 w-5", pathname === item.href && "fill-primary/20")} />
-                <span className="text-[7px] font-black uppercase tracking-[0.1em]">{item.label}</span>
-              </Link>
-            );
-          })}
+          <Link href="/" className={cn("flex flex-col items-center justify-center gap-1 transition-all active:scale-90", pathname === '/' ? "text-primary" : "text-white/40")}>
+            <Compass className="h-5 w-5" />
+            <span className="text-[7px] font-black uppercase tracking-[0.1em]">Explore</span>
+          </Link>
+          <Link href="/learner/dashboard" className={cn("flex flex-col items-center justify-center gap-1 transition-all active:scale-90", pathname === '/learner/dashboard' ? "text-primary" : "text-white/40")}>
+            <BookOpen className="h-5 w-5" />
+            <span className="text-[7px] font-black uppercase tracking-[0.1em]">Guilds</span>
+          </Link>
           
-          {/* Proctor Central Pillar */}
           <button 
             onClick={() => setIsProctorOpen(true)}
             className="flex flex-col items-center justify-center gap-1 transition-all active:scale-90 text-white group"
@@ -132,23 +110,14 @@ export function Navbar({ role = 'learner', userName, orgName }: NavbarProps) {
             <span className="text-[7px] font-black uppercase tracking-[0.1em] text-primary">Proctor</span>
           </button>
 
-          {/* Last Two: Studio & Identity */}
-          {navItems.slice(2).map((item) => {
-            const Icon = getIcon(item.label);
-            return (
-              <Link 
-                key={item.label}
-                href={item.href}
-                className={cn(
-                  "flex flex-col items-center justify-center gap-1 transition-all active:scale-90",
-                  pathname === item.href ? "text-primary" : "text-white/40"
-                )}
-              >
-                <Icon className={cn("h-5 w-5", pathname === item.href && "fill-primary/20")} />
-                <span className="text-[7px] font-black uppercase tracking-[0.1em]">{item.label}</span>
-              </Link>
-            );
-          })}
+          <Link href="/teacher/dashboard" className={cn("flex flex-col items-center justify-center gap-1 transition-all active:scale-90", pathname === '/teacher/dashboard' ? "text-primary" : "text-white/40")}>
+            <LayoutDashboard className="h-5 w-5" />
+            <span className="text-[7px] font-black uppercase tracking-[0.1em]">Studio</span>
+          </Link>
+          <Link href="/learner/dashboard" className={cn("flex flex-col items-center justify-center gap-1 transition-all active:scale-90", pathname === '/learner/dashboard' ? "text-primary" : "text-white/40")}>
+            <User className="h-5 w-5" />
+            <span className="text-[7px] font-black uppercase tracking-[0.1em]">Identity</span>
+          </Link>
         </div>
       </nav>
     </>

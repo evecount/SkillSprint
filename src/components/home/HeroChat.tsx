@@ -1,10 +1,11 @@
+
 "use client"
 
 import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Send, Loader2, ArrowRight, Zap, MapPin, Users, Star, FastForward, Heart, Briefcase, X, Check } from 'lucide-react';
+import { Send, Loader2, ArrowRight, Zap, MapPin, Users, Star, FastForward, Heart, Briefcase, X, Check, ShieldCheck, Info } from 'lucide-react';
 import { prospectiveOnboardingChat, ProspectiveOnboardingOutput } from '@/ai/flows/prospective-onboarding';
 import { onboardingConsultant } from '@/ai/flows/onboarding-consultant';
 import { cn } from '@/lib/utils';
@@ -19,10 +20,12 @@ type Message = {
 type UserRole = 'mentor' | 'student' | null;
 
 const MOCK_EXPERIENCES = [
-  { id: 1, title: "4A Agency Creative Direction", author: "Marcus V.", domain: "Advertising", price: "$500/cycle", image: "https://picsum.photos/seed/skillsprint2/600/800", hint: "creative office" },
-  { id: 2, title: "Lived Civil Engineering Truth", author: "Dr. Chen", domain: "Engineering", price: "$750/cycle", image: "https://picsum.photos/seed/skillsprint3/600/800", hint: "bridge construction" },
-  { id: 3, title: "Dark Romanticism Mastery", author: "Julian R.", domain: "Fine Arts", price: "$400/cycle", image: "https://picsum.photos/seed/skillsprint4/600/800", hint: "classic art" },
-  { id: 4, title: "Growth Marketing Guerrilla", author: "Sarah L.", domain: "Marketing", price: "$600/cycle", image: "https://picsum.photos/seed/skillsprint1/600/800", hint: "digital data" },
+  { id: 'hero', type: 'hero' },
+  { id: 'role-mentor', type: 'role', role: 'mentor' as const },
+  { id: 'role-student', type: 'role', role: 'student' as const },
+  { id: 1, type: 'offer', title: "4A Agency Creative Direction", author: "Marcus V.", domain: "Advertising", price: "$500/cycle", image: "https://picsum.photos/seed/skillsprint2/600/800", hint: "creative office" },
+  { id: 2, type: 'offer', title: "Lived Civil Engineering Truth", author: "Dr. Chen", domain: "Engineering", price: "$750/cycle", image: "https://picsum.photos/seed/skillsprint3/600/800", hint: "bridge construction" },
+  { id: 3, type: 'offer', title: "Dark Romanticism Mastery", author: "Julian R.", domain: "Fine Arts", price: "$400/cycle", image: "https://picsum.photos/seed/skillsprint4/600/800", hint: "classic art" },
 ];
 
 export function HeroChat() {
@@ -80,23 +83,20 @@ export function HeroChat() {
         setMessages(prev => [...prev, { role: 'model', text: result.response }]);
       }
     } catch (error) {
-      setMessages(prev => [...prev, { role: 'model', text: "The registry encountered a connection error. State your domain again." }]);
+      setMessages(prev => [...prev, { role: 'model', text: "The registry encountered a connection error." }]);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleFastTrack = () => {
-    if (role === 'mentor') {
-      handleSend("I'm ready. Generate my paid blueprint now.");
-    } else {
-      window.location.href = "/learner/dashboard";
-    }
-  };
-
   const handleSwipe = (direction: 'left' | 'right') => {
     setSwipeDirection(direction);
+    const currentItem = MOCK_EXPERIENCES[stackIndex];
+
     setTimeout(() => {
+      if (currentItem.type === 'role' && direction === 'right') {
+        handleRoleSelect(currentItem.role);
+      }
       setStackIndex((prev) => (prev + 1) % MOCK_EXPERIENCES.length);
       setSwipeDirection(null);
     }, 600);
@@ -104,23 +104,22 @@ export function HeroChat() {
 
   if (!role) {
     return (
-      <div className="w-full flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-8 duration-700 max-h-full">
-        {/* Top: Discovery Swiper Card */}
-        <Card className="flex-1 bg-white/5 border-white/10 rounded-[3rem] overflow-hidden flex flex-col min-h-[480px]">
-          <CardHeader className="px-10 py-6 border-b border-white/5 bg-white/[0.02]">
+      <div className="w-full h-full flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
+        <Card className="flex-1 bg-white/5 border-white/10 rounded-[3rem] overflow-hidden flex flex-col relative">
+          <CardHeader className="px-10 py-6 border-b border-white/5 bg-white/[0.02] z-30">
             <div className="flex items-center justify-between">
-              <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Live Apprenticeship Stack</h3>
+              <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Registry Discovery</h3>
               <div className="flex items-center gap-2">
                  <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-                 <span className="text-[8px] font-black text-white/40 uppercase tracking-widest">Registry Sync</span>
+                 <span className="text-[8px] font-black text-white/40 uppercase tracking-widest">Live Cycle</span>
               </div>
             </div>
           </CardHeader>
+          
           <CardContent className="flex-1 relative p-10 flex items-center justify-center perspective-1000">
-            {MOCK_EXPERIENCES.map((item, idx) => {
+            {MOCK_EXPERIENCES.map((item: any, idx) => {
               const isTop = idx === stackIndex;
               const isNext = idx === (stackIndex + 1) % MOCK_EXPERIENCES.length;
-              
               if (!isTop && !isNext) return null;
 
               return (
@@ -133,33 +132,89 @@ export function HeroChat() {
                     isTop && swipeDirection === 'right' && "animate-swipe-out-right-tilt"
                   )}
                 >
-                  <div className="group relative h-full w-full overflow-hidden rounded-[2.5rem] bg-secondary border border-white/10 shadow-2xl">
-                    <Image 
-                      src={item.image} 
-                      alt={item.title} 
-                      fill 
-                      className="object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
-                      data-ai-hint={item.hint}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
-                    <div className="absolute bottom-8 left-8 right-8">
-                      <div className="flex items-center gap-3 mb-3">
-                        <Badge className="bg-primary text-white px-3 py-0.5 text-[8px] font-black uppercase tracking-widest border-none">
-                          {item.domain}
+                  {item.type === 'hero' ? (
+                    <div className="h-full w-full rounded-[2.5rem] bg-secondary border border-white/10 p-10 flex flex-col justify-between shadow-2xl">
+                      <div>
+                        <Badge className="bg-primary/20 text-primary border-primary/30 px-6 py-2 text-[8px] font-black tracking-[0.3em] uppercase rounded-full mb-8">
+                          SkillSprint Registry
                         </Badge>
-                        <span className="text-[10px] font-bold text-white/60">{item.price}</span>
+                        <h1 className="font-headline text-5xl font-black tracking-tighter leading-[0.85] text-white mb-8">
+                          Master the Craft, <br />
+                          <span className="text-primary italic">Skip the Loop.</span>
+                        </h1>
+                        <div className="space-y-4">
+                          <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/5">
+                            <Zap className="h-5 w-5 text-primary shrink-0" />
+                            <p className="text-xs font-medium leading-relaxed text-white/60">
+                              Trade money for time. Buy back years of struggle to get real work in the field.
+                            </p>
+                          </div>
+                          <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/5">
+                            <ShieldCheck className="h-5 w-5 text-primary shrink-0" />
+                            <p className="text-xs font-medium leading-relaxed text-white/60">
+                              Practical Excellence over paper credentials.
+                            </p>
+                          </div>
+                        </div>
                       </div>
-                      <h4 className="text-3xl font-black text-white leading-tight tracking-tighter">{item.title}</h4>
-                      <p className="text-[10px] font-bold text-primary uppercase tracking-widest mt-2 flex items-center gap-2">
-                        <Users className="h-3 w-3" /> practitioner: {item.author}
-                      </p>
+                      <div className="pt-8 border-t border-white/5">
+                        <Link href="/about" className="inline-flex items-center gap-3 text-[10px] font-black text-primary uppercase tracking-[0.4em] hover:text-white transition-colors group">
+                          <Info className="h-5 w-5" /> Theory of Practice <ArrowRight className="h-4 w-4 group-hover:translate-x-2 transition-transform" />
+                        </Link>
+                      </div>
                     </div>
-                  </div>
+                  ) : item.type === 'role' ? (
+                    <div className={cn(
+                      "h-full w-full rounded-[2.5rem] p-10 flex flex-col items-center justify-center text-center shadow-2xl border-2 transition-all",
+                      item.role === 'mentor' ? "bg-white border-primary/20 text-secondary" : "bg-secondary border-white/5 text-white"
+                    )}>
+                       <div className={cn(
+                         "h-20 w-20 rounded-3xl flex items-center justify-center mb-6 shadow-xl",
+                         item.role === 'mentor' ? "bg-primary/10 text-primary" : "bg-white/10 text-primary"
+                       )}>
+                         {item.role === 'mentor' ? <Heart className="h-10 w-10" /> : <Briefcase className="h-10 w-10" />}
+                       </div>
+                       <h3 className="text-3xl font-black tracking-tighter leading-none mb-2">
+                         {item.role === 'mentor' ? "Veteran Practitioner" : "Direct Apprentice"}
+                       </h3>
+                       <p className={cn(
+                         "font-black uppercase tracking-[0.2em] text-[10px]",
+                         item.role === 'mentor' ? "text-secondary/40" : "text-white/40"
+                       )}>
+                         {item.role === 'mentor' ? "Monetize Legacy Monetization" : "Buy Back Professional Time"}
+                       </p>
+                       <p className="mt-8 text-xs font-bold opacity-60 max-w-[200px]">
+                         Swipe RIGHT to enter the Registry as a {item.role === 'mentor' ? 'Practitioner' : 'Apprentice'}.
+                       </p>
+                    </div>
+                  ) : (
+                    <div className="group relative h-full w-full overflow-hidden rounded-[2.5rem] bg-secondary border border-white/10 shadow-2xl">
+                      <Image 
+                        src={item.image} 
+                        alt={item.title} 
+                        fill 
+                        className="object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
+                        data-ai-hint={item.hint}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
+                      <div className="absolute bottom-8 left-8 right-8 text-left">
+                        <div className="flex items-center gap-3 mb-3">
+                          <Badge className="bg-primary text-white px-3 py-0.5 text-[8px] font-black uppercase tracking-widest border-none">
+                            {item.domain}
+                          </Badge>
+                          <span className="text-[10px] font-bold text-white/60">{item.price}</span>
+                        </div>
+                        <h4 className="text-3xl font-black text-white leading-tight tracking-tighter">{item.title}</h4>
+                        <p className="text-[10px] font-bold text-primary uppercase tracking-widest mt-2 flex items-center gap-2">
+                          <Users className="h-3 w-3" /> practitioner: {item.author}
+                        </p>
+                      </div>
+                    </div>
+                  )}
                 </div>
               );
             })}
             
-            {/* Swiper Controls - Positioned Relative to the Stack */}
             <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-4 z-30">
               <Button 
                 variant="outline" 
@@ -180,41 +235,14 @@ export function HeroChat() {
             </div>
           </CardContent>
         </Card>
-
-        {/* Bottom: Role Matcher Card */}
-        <div className="grid grid-cols-2 gap-4 h-[240px]">
-          <button 
-            onClick={() => handleRoleSelect('mentor')}
-            className="group relative rounded-[2.5rem] bg-white text-secondary overflow-hidden transition-all hover:scale-[1.02] active:scale-95 shadow-2xl border-2 border-transparent hover:border-primary/40 flex flex-col items-center justify-center p-6 text-center"
-          >
-            <div className="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors" />
-            <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 mb-4">
-              <Heart className="h-6 w-6 text-primary" />
-            </div>
-            <h3 className="text-xl font-black tracking-tight leading-none mb-1">Practitioner</h3>
-            <p className="text-secondary/40 font-black uppercase tracking-[0.2em] text-[8px]">Monetize Legacy</p>
-          </button>
-
-          <button 
-            onClick={() => handleRoleSelect('student')}
-            className="group relative rounded-[2.5rem] bg-secondary text-white overflow-hidden transition-all hover:scale-[1.02] active:scale-95 shadow-2xl border border-white/5 flex flex-col items-center justify-center p-6 text-center"
-          >
-            <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 transition-colors" />
-            <div className="h-12 w-12 rounded-2xl bg-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 mb-4">
-              <Briefcase className="h-6 w-6 text-primary" />
-            </div>
-            <h3 className="text-xl font-black tracking-tight leading-none mb-1">Apprentice</h3>
-            <p className="text-white/40 font-black uppercase tracking-[0.2em] text-[8px]">Buy Back Time</p>
-          </button>
-        </div>
       </div>
     );
   }
 
   if (draft) {
     return (
-      <Card className="w-full border-none shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] rounded-[3rem] overflow-hidden bg-white animate-in zoom-in duration-500 flex flex-col max-h-[750px]">
-        <CardHeader className="bg-secondary text-white p-10">
+      <Card className="w-full h-full border-none shadow-2xl rounded-[3rem] overflow-hidden bg-white animate-in zoom-in duration-500 flex flex-col">
+        <CardHeader className="bg-secondary text-white p-10 shrink-0">
           <Badge className="bg-primary text-white border-none px-4 py-1.5 mb-4 rounded-full text-[8px] font-black uppercase tracking-widest">Registry Blueprint</Badge>
           <CardTitle className="text-4xl md:text-5xl font-black leading-[0.9] tracking-tighter">Your Side-Hustle <span className="text-primary italic">Drafted.</span></CardTitle>
         </CardHeader>
@@ -223,7 +251,6 @@ export function HeroChat() {
             <h3 className="font-black text-2xl text-secondary tracking-tight">{draft.title}</h3>
             <p className="text-muted-foreground mt-3 text-base leading-relaxed italic">{draft.description}</p>
           </div>
-
           <div className="grid grid-cols-2 gap-4">
             {[
               { icon: Zap, label: "Domain", value: draft.masteryDomain },
@@ -231,7 +258,7 @@ export function HeroChat() {
               { icon: Star, label: "Tuition", value: draft.logistics.price },
               { icon: Users, label: "Access", value: draft.logistics.enrollmentMode },
             ].map((item, idx) => (
-              <div key={idx} className="flex items-center gap-4 p-4 rounded-2xl bg-muted/30 border border-transparent hover:border-primary/30 transition-all group">
+              <div key={idx} className="flex items-center gap-4 p-4 rounded-2xl bg-muted/30 border border-transparent hover:border-primary/30 transition-all group text-left">
                 <div className="h-10 w-10 rounded-xl bg-white shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform">
                   <item.icon className="h-5 w-5 text-primary" />
                 </div>
@@ -255,14 +282,12 @@ export function HeroChat() {
   }
 
   return (
-    <Card className="w-full border-none shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] rounded-[3rem] overflow-hidden bg-white flex flex-col h-[750px] animate-in slide-in-from-right duration-500">
-      <CardHeader className="border-b border-border/10 bg-muted/30 px-10 py-6">
+    <Card className="w-full h-full border-none shadow-2xl rounded-[3rem] overflow-hidden bg-white flex flex-col animate-in slide-in-from-right duration-500">
+      <CardHeader className="border-b border-border/10 bg-muted/30 px-10 py-6 shrink-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="h-12 w-12 rounded-2xl bg-secondary text-white flex items-center justify-center font-black text-xl shadow-xl shadow-secondary/20">
-              P
-            </div>
-            <div>
+            <div className="h-12 w-12 rounded-2xl bg-secondary text-white flex items-center justify-center font-black text-xl shadow-xl shadow-secondary/20">P</div>
+            <div className="text-left">
               <div className="flex items-center gap-2">
                 <CardTitle className="text-lg font-black text-secondary tracking-tight">Proctor</CardTitle>
                 <Badge variant="outline" className="rounded-full px-2 text-[8px] font-black uppercase tracking-widest border-primary/30 text-primary">Consultant</Badge>
@@ -273,35 +298,17 @@ export function HeroChat() {
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              onClick={handleFastTrack}
-              className="text-[9px] font-black uppercase tracking-widest text-primary hover:bg-primary/10 rounded-full"
-            >
-              <FastForward className="mr-1.5 h-3 w-3" /> Fast Track
-            </Button>
-            <Button variant="ghost" size="sm" onClick={() => setRole(null)} className="h-8 w-8 p-0 rounded-full hover:bg-muted">
-              <ArrowRight className="h-4 w-4 rotate-180" />
-            </Button>
-          </div>
+          <Button variant="ghost" size="sm" onClick={() => setRole(null)} className="h-8 w-8 p-0 rounded-full hover:bg-muted">
+            <ArrowRight className="h-4 w-4 rotate-180" />
+          </Button>
         </div>
       </CardHeader>
-      <CardContent 
-        ref={scrollRef}
-        className="flex-1 overflow-y-auto p-10 space-y-6 scroll-smooth"
-      >
+      <CardContent ref={scrollRef} className="flex-1 overflow-y-auto p-10 space-y-6 scroll-smooth">
         {messages.map((m, i) => (
-          <div key={i} className={cn(
-            "flex w-full animate-in slide-in-from-bottom-4 duration-300",
-            m.role === 'user' ? "justify-end" : "justify-start"
-          )}>
+          <div key={i} className={cn("flex w-full animate-in slide-in-from-bottom-4 duration-300", m.role === 'user' ? "justify-end" : "justify-start")}>
             <div className={cn(
-              "max-w-[85%] rounded-[1.5rem] px-6 py-5 text-sm font-bold leading-relaxed shadow-sm",
-              m.role === 'user' 
-                ? "bg-primary text-white shadow-primary/20" 
-                : "bg-muted/80 text-secondary border border-border/5"
+              "max-w-[85%] rounded-[1.5rem] px-6 py-5 text-sm font-bold leading-relaxed text-left",
+              m.role === 'user' ? "bg-primary text-white" : "bg-muted/80 text-secondary border border-border/5"
             )}>
               {m.text}
             </div>
@@ -315,14 +322,8 @@ export function HeroChat() {
           </div>
         )}
       </CardContent>
-      <CardFooter className="p-6 border-t border-border/10 bg-white">
-        <form 
-          className="flex w-full gap-3"
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSend();
-          }}
-        >
+      <CardFooter className="p-6 border-t border-border/10 bg-white shrink-0">
+        <form className="flex w-full gap-3" onSubmit={(e) => { e.preventDefault(); handleSend(); }}>
           <input 
             placeholder={role === 'mentor' ? "What is your industry domain?" : "Which industry is locking you out?"}
             value={input}
