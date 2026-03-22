@@ -1,11 +1,10 @@
-
 "use client"
 
 import { Navbar } from '@/components/layout/Navbar';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
-import { Users, BookOpen, CheckCircle, AlertCircle, Plus, ShieldCheck } from 'lucide-react';
+import { Users, BookOpen, CheckCircle, AlertCircle, Plus, ShieldCheck, Landmark } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { AIConsultant } from '@/components/consultant/AIConsultant';
@@ -35,21 +34,21 @@ export default function AdminDashboard() {
         <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-center">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <ShieldCheck className="h-5 w-5 text-primary" />
-              <span className="text-xs font-bold uppercase tracking-widest text-primary">Organization Admin</span>
+              <Landmark className="h-5 w-5 text-primary" />
+              <span className="text-xs font-bold uppercase tracking-widest text-primary">Registry Administrator</span>
             </div>
-            <h1 className="font-headline text-3xl font-bold">Admin Insights</h1>
-            <p className="text-muted-foreground">Manage {mockOrg.name}'s learning ecosystem.</p>
+            <h1 className="font-headline text-3xl font-bold">Campus Insights</h1>
+            <p className="text-muted-foreground">Overseeing the wisdom ecosystem of {mockOrg.name}.</p>
           </div>
           <div className="flex gap-2">
             <Button variant="outline" asChild>
               <Link href="/admin/users">
-                Manage Users
+                Community Directory
               </Link>
             </Button>
             <Button asChild>
               <Link href="/admin/courses/new">
-                <Plus className="mr-2 h-4 w-4" /> Create Course
+                <Plus className="mr-2 h-4 w-4" /> New Portal
               </Link>
             </Button>
           </div>
@@ -59,7 +58,7 @@ export default function AdminDashboard() {
         <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Card className="shadow-sm border-none bg-white">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Learners</CardTitle>
+              <CardTitle className="text-sm font-medium">Total Students</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -69,7 +68,7 @@ export default function AdminDashboard() {
           </Card>
           <Card className="shadow-sm border-none bg-white">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Courses</CardTitle>
+              <CardTitle className="text-sm font-medium">Active Portals</CardTitle>
               <BookOpen className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -79,7 +78,7 @@ export default function AdminDashboard() {
           </Card>
           <Card className="shadow-sm border-none bg-white">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Avg. Completion</CardTitle>
+              <CardTitle className="text-sm font-medium">Avg. Engagement</CardTitle>
               <CheckCircle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -89,27 +88,27 @@ export default function AdminDashboard() {
           </Card>
           <Card className="bg-destructive/5 border-destructive/10 shadow-sm border-2">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-destructive">Needs Attention</CardTitle>
+              <CardTitle className="text-sm font-medium text-destructive">At Risk</CardTitle>
               <AlertCircle className="h-4 w-4 text-destructive" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-destructive">12</div>
-              <p className="text-xs text-muted-foreground">Learners falling behind</p>
+              <p className="text-xs text-muted-foreground">Students falling behind</p>
             </CardContent>
           </Card>
         </div>
 
         <Tabs defaultValue="engagement" className="space-y-4">
           <TabsList className="bg-white/50 border">
-            <TabsTrigger value="engagement">User Engagement</TabsTrigger>
-            <TabsTrigger value="completion">Course Completion</TabsTrigger>
+            <TabsTrigger value="engagement">Student Engagement</TabsTrigger>
+            <TabsTrigger value="completion">Wisdom Mastery</TabsTrigger>
           </TabsList>
           
           <TabsContent value="engagement" className="space-y-4">
             <Card className="border-none shadow-md bg-white">
               <CardHeader>
-                <CardTitle className="text-lg">Active Learners Over Time</CardTitle>
-                <CardDescription>Weekly active users engaging with modules.</CardDescription>
+                <CardTitle className="text-lg">Active Students Over Time</CardTitle>
+                <CardDescription>Weekly active users engaging with portal chapters.</CardDescription>
               </CardHeader>
               <CardContent className="h-[300px] pt-4">
                 <ResponsiveContainer width="100%" height="100%">
@@ -128,8 +127,8 @@ export default function AdminDashboard() {
           <TabsContent value="completion" className="space-y-4">
             <Card className="border-none shadow-md bg-white">
               <CardHeader>
-                <CardTitle className="text-lg">Daily Completion Rate</CardTitle>
-                <CardDescription>Percentage of assigned modules completed daily.</CardDescription>
+                <CardTitle className="text-lg">Daily Inquiry Rate</CardTitle>
+                <CardDescription>Percentage of portal requirements met daily.</CardDescription>
               </CardHeader>
               <CardContent className="h-[300px] pt-4">
                 <ResponsiveContainer width="100%" height="100%">

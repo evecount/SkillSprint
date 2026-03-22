@@ -1,11 +1,10 @@
-
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'SkillSprint | Gamified B2B Micro-Learning',
-  description: 'Accelerate your organization growth with bite-sized gamified learning.',
+  title: 'University of Life | Own Your Higher Ed Legacy',
+  description: 'Democratizing higher education by helping practitioners and masters turn their wisdom into private learning portals.',
 };
 
 export default function RootLayout({

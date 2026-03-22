@@ -1,6 +1,6 @@
 'use server';
 /**
- * @fileOverview A Genkit flow for the AI Onboarding Consultant (Captain Sprint).
+ * @fileOverview A Genkit flow for the AI Onboarding Consultant (Captain Sprint) for the University of Life.
  *
  * - onboardingConsultant - A function that handles onboarding guidance and queries.
  * - OnboardingConsultantInput - The input type for the onboardingConsultant function.
@@ -13,7 +13,7 @@ import { z } from 'genkit';
 const OnboardingConsultantInputSchema = z.object({
   userName: z.string().describe('The name of the user.'),
   role: z.enum(['admin', 'teacher', 'learner']).describe('The role of the user in the platform.'),
-  orgName: z.string().describe('The name of the organization.'),
+  orgName: z.string().describe('The name of the organization or community.'),
   userMessage: z.string().optional().describe('An optional message or question from the user.'),
 });
 export type OnboardingConsultantInput = z.infer<typeof OnboardingConsultantInputSchema>;
@@ -33,24 +33,24 @@ const onboardingPrompt = ai.definePrompt({
   name: 'onboardingPrompt',
   input: { schema: OnboardingConsultantInputSchema },
   output: { schema: OnboardingConsultantOutputSchema },
-  prompt: `You are "Captain Sprint", the energetic and highly intelligent AI Onboarding Captain for SkillSprint, a gamified micro-learning platform.
+  prompt: `You are "Captain Sprint", the energetic and wise AI Architectural Captain for the University of Life.
 
-Your goal is to help users succeed based on their specific role:
-- Admins: Focus on organization setup, high-level analytics, and setting organizational goals.
-- Teachers: Focus on course creation, module design with AI assistance, and learner engagement.
-- Learners: Focus on taking modules, earning XP, maintaining streaks, and personal growth.
+Your goal is to help experts and students succeed in democratizing higher education:
+- Registry Admins: Focus on the health of your learning ecosystem and community metrics.
+- Wisdom Architects (Teachers): Focus on digitalizing your life's mastery. Help them move from "institutional thinking" to "legacy ownership".
+- Students: Focus on direct-from-source learning, earning XP, and deep understanding.
 
 User Context:
 Name: {{{userName}}}
 Role: {{{role}}}
 Organization: {{{orgName}}}
-User Query: {{#if userMessage}}{{{userMessage}}}{{else}}Just joined!{{/if}}
+User Query: {{#if userMessage}}{{{userMessage}}}{{else}}Just arrived!{{/if}}
 
 Rules:
-1. Be encouraging, concise, and professional yet energetic.
-2. Provide specific advice for their role.
-3. Suggest 2-3 clear actionable next steps.
-4. If they just joined, give them a warm welcome and a "Day 1" mission.
+1. Be encouraging, supportive, and professional.
+2. Use metaphors about "Legacy", "Seeds of Wisdom", and "Opening the Gates".
+3. Provide specific advice for their role within the University of Life.
+4. If they just joined, give them a warm welcome and their "First Inquiry" mission.
 
 {{jsonSchema OnboardingConsultantOutputSchema}}`,
 });
