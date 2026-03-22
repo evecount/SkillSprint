@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Send, Loader2, ArrowRight, Zap, MapPin, Users, Star, Heart, Briefcase, X, Check, ShieldCheck, Info } from 'lucide-react';
+import { Send, Loader2, ArrowRight, Zap, MapPin, Users, Star, Heart, Briefcase, X, Check, ShieldCheck, Info, Landmark } from 'lucide-react';
 import { prospectiveOnboardingChat, ProspectiveOnboardingOutput } from '@/ai/flows/prospective-onboarding';
 import { onboardingConsultant } from '@/ai/flows/onboarding-consultant';
 import { cn } from '@/lib/utils';
@@ -201,6 +201,12 @@ export function HeroChat() {
                           <ShieldCheck className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                           <p className="text-[11px] font-medium leading-relaxed text-white/60">
                             Practical Excellence over paper credentials. No gatekeepers, just truth.
+                          </p>
+                        </div>
+                        <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-sm">
+                          <Landmark className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                          <p className="text-[11px] font-medium leading-relaxed text-white/60">
+                            Legacy as Income. Turn your professional truth into a high-value, funded side-hustle.
                           </p>
                         </div>
                       </div>
