@@ -28,7 +28,7 @@ export default function Home() {
                     <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/5">
                       <Zap className="h-6 w-6 text-primary shrink-0" />
                       <p className="text-sm font-medium leading-relaxed opacity-60">
-                        Trading money for time. Veterans monetize their truth. Apprentices buy back years of struggle to get real work in the field.
+                        Trading money for time. Practitioners monetize their truth. Apprentices buy back years of struggle to get real work in the field.
                       </p>
                     </div>
                     <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/5">
