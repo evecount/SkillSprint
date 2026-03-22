@@ -64,9 +64,7 @@ Latest Message: {{#if userMessage}}{{{userMessage}}}{{else}}New Entry{{/if}}
 GOAL:
 Based on the message and history, determine if the user has a "Legacy to Monetize" (Practitioner) or a "Gap to Bridge" (Apprentice). Provide a clear recommendation.
 
-TONE: Professional, Energetic, Value-Focused.
-
-{{jsonSchema OnboardingConsultantOutputSchema}}`,
+TONE: Professional, Energetic, Value-Focused.`,
 });
 
 const onboardingConsultantFlow = ai.defineFlow(

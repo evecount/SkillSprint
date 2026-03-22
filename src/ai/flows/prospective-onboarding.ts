@@ -78,9 +78,7 @@ Once you have gathered:
 - Basic logistics (Price/Format)
 ...then generate the portalDraft.
 
-Tone: Professional, Direct, Encouraging. You are building their new digital side-hustle.
-
-{{jsonSchema ProspectiveOnboardingOutputSchema}}`,
+Tone: Professional, Direct, Encouraging. You are building their new digital side-hustle.`,
 });
 
 const prospectiveOnboardingChatFlow = ai.defineFlow(

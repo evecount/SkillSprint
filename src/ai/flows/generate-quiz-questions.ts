@@ -58,8 +58,7 @@ Ensure the questions effectively test understanding of the module content and th
 Module Content:
 {{{moduleContent}}}
 
-Please generate the quiz questions in the following JSON format:
-{{jsonSchema GenerateQuizQuestionsOutputSchema}}`,
+Please generate the quiz questions in the required JSON format.`,
 });
 
 const generateQuizQuestionsFlow = ai.defineFlow(

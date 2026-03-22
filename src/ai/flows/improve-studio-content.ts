@@ -43,8 +43,7 @@ INSTRUCTIONS:
 4. If it's a Workshop or Event, make the topic and description compelling for Apprentices.
 5. Maintain a tone that is Professional, Energetic, and Value-Focused.
 
-Return the improved draft in the exact same JSON structure as the input draft.
-{{jsonSchema ImprovedContentOutputSchema}}`,
+Return the improved draft in the required JSON format, maintaining the exact same structure as the input draft.`,
 });
 
 const improveStudioContentFlow = ai.defineFlow(
