@@ -58,7 +58,7 @@ export default function PractitionerStudio() {
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-black text-secondary">12</div>
-              <p className="text-[10px] font-bold text-muted-foreground mt-1">Direct high-intent seekers</p>
+              <p className="text-[10px] font-bold text-muted-foreground mt-1">Direct professional access</p>
             </CardContent>
           </Card>
           <Card className="rounded-[2rem] border-none shadow-sm hover:shadow-md transition-shadow">
@@ -68,7 +68,7 @@ export default function PractitionerStudio() {
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-black text-secondary">1,240</div>
-              <p className="text-[10px] font-bold text-muted-foreground mt-1">Validated inquiries</p>
+              <p className="text-[10px] font-bold text-muted-foreground mt-1">Validated mastery</p>
             </CardContent>
           </Card>
           <Card className="rounded-[2rem] border-none shadow-sm hover:shadow-md transition-shadow">
@@ -78,14 +78,14 @@ export default function PractitionerStudio() {
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-black text-secondary">84h</div>
-              <p className="text-[10px] font-bold text-muted-foreground mt-1">Direct professional access</p>
+              <p className="text-[10px] font-bold text-muted-foreground mt-1">Direct apprenticeship time</p>
             </CardContent>
           </Card>
         </div>
 
         <div className="space-y-8">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-black text-secondary">Active Apprenticeship Guilds</h2>
+            <h2 className="text-2xl font-black text-secondary">Active Apprenticeship Cycles</h2>
             <Badge variant="outline" className="rounded-full px-4 py-1 font-bold text-primary border-primary/20">
               {teacherCourses.length} Active Sources
             </Badge>

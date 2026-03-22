@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Compass, BookOpen, User, LayoutDashboard, Info, Bot, Calendar } from 'lucide-react';
+import { Compass, BookOpen, User, LayoutDashboard, Info, Bot } from 'lucide-react';
 import { UserRole } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
@@ -23,10 +23,10 @@ export function Navbar({ role = 'learner', userName, orgName }: NavbarProps) {
   const finalUserName = userName || (role === 'learner' ? mockLearner.name : role === 'teacher' ? mockTeacher.name : mockAdmin.name);
   const finalOrgName = orgName || mockOrg.name;
 
-  // Unified 5-pillar professional navigation
+  // Unified 5-pillar professional navigation: Explore, Join, Proctor, Studio, Identity
   const navItems = [
     { label: 'Explore', icon: Compass, href: '/' },
-    { label: 'Guilds', icon: BookOpen, href: '/learner/dashboard' },
+    { label: 'Join', icon: BookOpen, href: '/learner/dashboard' },
     { label: 'Studio', icon: LayoutDashboard, href: '/teacher/dashboard' },
     { label: 'Identity', icon: User, href: '/learner/dashboard' }, 
   ];
@@ -97,7 +97,7 @@ export function Navbar({ role = 'learner', userName, orgName }: NavbarProps) {
           </Link>
           <Link href="/learner/dashboard" className={cn("flex flex-col items-center justify-center gap-1 transition-all active:scale-90", pathname === '/learner/dashboard' ? "text-primary" : "text-white/40")}>
             <BookOpen className="h-5 w-5" />
-            <span className="text-[7px] font-black uppercase tracking-[0.1em]">Guilds</span>
+            <span className="text-[7px] font-black uppercase tracking-[0.1em]">Join</span>
           </Link>
           
           <button 

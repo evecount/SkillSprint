@@ -21,10 +21,10 @@ export default function LearnerDashboard() {
           <div className="space-y-2">
             <div className="flex items-center gap-2 mb-2 text-primary font-bold text-sm tracking-wider uppercase">
               <Zap className="h-4 w-4" />
-              <span>Direct Student</span>
+              <span>Direct Apprentice</span>
             </div>
             <h1 className="text-4xl md:text-5xl font-black text-secondary tracking-tight">My Registry</h1>
-            <p className="text-muted-foreground font-medium">Moonlighting with human mastery.</p>
+            <p className="text-muted-foreground font-medium">Buying back time with lived professional truth.</p>
           </div>
           <div className="flex items-center gap-4">
             <div className="bg-secondary text-white px-6 py-3 rounded-2xl shadow-xl shadow-secondary/20">
@@ -65,7 +65,7 @@ export default function LearnerDashboard() {
             </CardHeader>
             <CardContent>
               <div className="text-5xl font-black text-secondary">04</div>
-              <p className="mt-2 text-xs font-medium text-muted-foreground">Engaging with 2 Wisdom Architects.</p>
+              <p className="mt-2 text-xs font-medium text-muted-foreground">Engaging with 2 Veteran Practitioners.</p>
             </CardContent>
           </Card>
 
@@ -79,18 +79,18 @@ export default function LearnerDashboard() {
               </div>
               <div>
                 <p className="font-bold text-secondary">Fast Finisher</p>
-                <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold">Validated in &lt; 30s</p>
+                <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold">Validated Mastery</p>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* My Guilds */}
+        {/* Active Cycles */}
         <div className="space-y-8">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-black text-secondary">Active Apprenticeships</h2>
+            <h2 className="text-2xl font-black text-secondary">Active Apprenticeship Cycles</h2>
             <Button variant="ghost" className="rounded-full font-bold hover:text-primary">
-              All Guilds <ArrowRight className="ml-2 h-4 w-4" />
+              All Cycles <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
 
@@ -105,14 +105,14 @@ export default function LearnerDashboard() {
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute top-4 left-4">
-                    <Badge className="bg-secondary/90 text-white border-none rounded-full px-3 py-1 text-[10px] font-bold tracking-wider">
+                    <Badge className="bg-secondary/90 text-white border-none rounded-full px-3 py-1 text-[10px] font-black tracking-wider uppercase">
                       {course.category}
                     </Badge>
                   </div>
                 </div>
                 <CardHeader className="p-8">
                   <CardTitle className="text-xl font-bold text-secondary leading-tight">{course.title}</CardTitle>
-                  <CardDescription className="line-clamp-2 mt-2 font-medium">{course.description}</CardDescription>
+                  <CardDescription className="line-clamp-2 mt-2 font-medium italic">{course.description}</CardDescription>
                 </CardHeader>
                 <CardContent className="px-8 pb-8">
                   <div className="space-y-4">
