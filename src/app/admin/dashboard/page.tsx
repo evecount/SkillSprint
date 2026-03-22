@@ -35,20 +35,20 @@ export default function AdminDashboard() {
           <div>
             <div className="flex items-center gap-2 mb-2 text-primary">
               <Landmark className="h-6 w-6" />
-              <span className="text-sm font-black uppercase tracking-[0.3em]">Registry Administrator</span>
+              <span className="text-sm font-black uppercase tracking-[0.3em]">Registry Champion</span>
             </div>
             <h1 className="font-headline text-5xl font-black uppercase italic tracking-tighter">Campus Registry</h1>
-            <p className="text-muted-foreground font-bold italic mt-2">Orchestrating the wisdom ecosystem of {mockOrg.name}. You bring the people, we digitalize the mastery.</p>
+            <p className="text-muted-foreground font-bold italic mt-2">Orchestrating the exchange of human mastery. You bring the people, we bridge the sources.</p>
           </div>
           <div className="flex gap-4">
             <Button variant="outline" className="h-16 px-8 text-lg font-black uppercase italic tracking-widest rounded-none border-4 border-black hover:bg-black hover:text-white transition-all" asChild>
               <Link href="/admin/users">
-                Community Directory
+                Directory of Sources
               </Link>
             </Button>
             <Button className="h-16 px-8 text-lg font-black uppercase italic tracking-widest rounded-none bg-black border-4 border-black hover:bg-secondary shadow-none transition-all" asChild>
               <Link href="/admin/courses/new">
-                <Plus className="mr-3 h-6 w-6" /> New Portal
+                <Plus className="mr-3 h-6 w-6" /> Orchestrate Portal
               </Link>
             </Button>
           </div>
@@ -58,57 +58,57 @@ export default function AdminDashboard() {
         <div className="mb-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           <Card className="shadow-none border-4 border-black bg-white rounded-none">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-              <CardTitle className="text-xs font-black uppercase tracking-widest">Total Students</CardTitle>
+              <CardTitle className="text-xs font-black uppercase tracking-widest">Active Contributors</CardTitle>
               <Users className="h-5 w-5 text-black" />
             </CardHeader>
             <CardContent>
               <div className="text-4xl font-black italic">1,248</div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-secondary mt-2">+12% from last month</p>
+              <p className="text-[10px] font-black uppercase tracking-widest text-secondary mt-2">+12% new voices this month</p>
             </CardContent>
           </Card>
           <Card className="shadow-none border-4 border-black bg-white rounded-none">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-              <CardTitle className="text-xs font-black uppercase tracking-widest">Active Portals</CardTitle>
+              <CardTitle className="text-xs font-black uppercase tracking-widest">Wisdom Portals</CardTitle>
               <BookOpen className="h-5 w-5 text-black" />
             </CardHeader>
             <CardContent>
               <div className="text-4xl font-black italic">24</div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-2">+2 new this week</p>
+              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-2">Scaling legacy exchange</p>
             </CardContent>
           </Card>
           <Card className="shadow-none border-4 border-black bg-white rounded-none">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-              <CardTitle className="text-xs font-black uppercase tracking-widest">Avg. Engagement</CardTitle>
+              <CardTitle className="text-xs font-black uppercase tracking-widest">Exchange Rate</CardTitle>
               <CheckCircle className="h-5 w-5 text-black" />
             </CardHeader>
             <CardContent>
               <div className="text-4xl font-black italic">78%</div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-secondary mt-2">+5% improvement</p>
+              <p className="text-[10px] font-black uppercase tracking-widest text-secondary mt-2">Active source interactions</p>
             </CardContent>
           </Card>
           <Card className="shadow-none border-4 border-black bg-white rounded-none">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-              <CardTitle className="text-xs font-black uppercase tracking-widest text-black">Wisdom Impact</CardTitle>
+              <CardTitle className="text-xs font-black uppercase tracking-widest">Registry Health</CardTitle>
               <Globe className="h-5 w-5 text-black" />
             </CardHeader>
             <CardContent>
-              <div className="text-4xl font-black italic">High</div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-2">Registry Health: Stable</p>
+              <div className="text-4xl font-black italic">Vibrant</div>
+              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-2">Democratizing access daily</p>
             </CardContent>
           </Card>
         </div>
 
         <Tabs defaultValue="engagement" className="space-y-8">
           <TabsList className="bg-muted/10 border-4 border-black rounded-none h-14 p-1">
-            <TabsTrigger value="engagement" className="rounded-none font-black uppercase italic tracking-widest text-xs h-full data-[state=active]:bg-black data-[state=active]:text-white">Student Engagement</TabsTrigger>
-            <TabsTrigger value="completion" className="rounded-none font-black uppercase italic tracking-widest text-xs h-full data-[state=active]:bg-black data-[state=active]:text-white">Wisdom Mastery</TabsTrigger>
+            <TabsTrigger value="engagement" className="rounded-none font-black uppercase italic tracking-widest text-xs h-full data-[state=active]:bg-black data-[state=active]:text-white">Mutual Engagement</TabsTrigger>
+            <TabsTrigger value="completion" className="rounded-none font-black uppercase italic tracking-widest text-xs h-full data-[state=active]:bg-black data-[state=active]:text-white">Shared Mastery</TabsTrigger>
           </TabsList>
           
           <TabsContent value="engagement" className="space-y-4">
             <Card className="border-4 border-black shadow-none bg-white rounded-none">
               <CardHeader>
-                <CardTitle className="text-2xl font-black uppercase italic tracking-tight">Active Students Over Time</CardTitle>
-                <CardDescription className="font-bold italic">Weekly active users engaging with portal chapters.</CardDescription>
+                <CardTitle className="text-2xl font-black uppercase italic tracking-tight">Active Exchange Over Time</CardTitle>
+                <CardDescription className="font-bold italic">Collaborative interactions between sources and seekers.</CardDescription>
               </CardHeader>
               <CardContent className="h-[400px] pt-4">
                 <ResponsiveContainer width="100%" height="100%">
@@ -127,8 +127,8 @@ export default function AdminDashboard() {
           <TabsContent value="completion" className="space-y-4">
             <Card className="border-4 border-black shadow-none bg-white rounded-none">
               <CardHeader>
-                <CardTitle className="text-2xl font-black uppercase italic tracking-tight">Daily Inquiry Rate</CardTitle>
-                <CardDescription className="font-bold italic">Percentage of portal requirements met daily.</CardDescription>
+                <CardTitle className="text-2xl font-black uppercase italic tracking-tight">Wisdom Inquiry Rate</CardTitle>
+                <CardDescription className="font-bold italic">Student-led inquiries driving source refinement.</CardDescription>
               </CardHeader>
               <CardContent className="h-[400px] pt-4">
                 <ResponsiveContainer width="100%" height="100%">
@@ -146,7 +146,6 @@ export default function AdminDashboard() {
         </Tabs>
       </main>
 
-      {/* AI Onboarding Consultant */}
       <AIConsultant 
         userName={mockAdmin.name} 
         role="admin" 

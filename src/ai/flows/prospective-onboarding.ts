@@ -1,10 +1,7 @@
-
 'use server';
 /**
- * @fileOverview A Genkit flow for onboarding prospective Wisdom Architects (Masters) at the University of Life.
- * Captures logistical details and structured mastery data for the 'Clever Schema'.
- *
- * - prospectiveOnboardingChat - Handles the conversation logic.
+ * @fileOverview A Genkit flow for onboarding prospective Wisdom Architects at the University of Life.
+ * Proctor acts as a collaborative partner in digitalizing lived mastery for a reciprocal exchange.
  */
 
 import { ai } from '@/ai/genkit';
@@ -26,9 +23,9 @@ const PortalDraftSchema = z.object({
   })),
   logistics: z.object({
     price: z.string().describe('Suggested pricing or tuition model.'),
-    format: z.string().describe('Lesson delivery (e.g., "Weekly Circle", "Masterclass Series").'),
+    format: z.string().describe('Exchange delivery (e.g., "Weekly Circle", "Masterclass Series").'),
     frequency: z.string().describe('Recurrence (e.g., "Monthly").'),
-    enrollmentMode: z.string().describe('Access mode (e.g., "Private Referral").'),
+    enrollmentMode: z.string().describe('Access mode (e.g., "Open Exchange" or "Referral Circle").'),
   }),
 });
 
@@ -55,9 +52,9 @@ const prospectiveOnboardingPrompt = ai.definePrompt({
   output: { schema: ProspectiveOnboardingOutputSchema },
   prompt: `You are "Proctor", the wise and supportive AI Architect for the University of Life. 
 
-YOUR MANTRA: "Those who have done, can now teach." 
+YOUR MANTRA: "Those who have done, can now share." 
 
-Your mission is to help a Master (who has spent a career in the field) digitalize their legacy. We bypass institutional gatekeepers to connect students directly with the source.
+Your mission is to help a person digitalize their lived legacy into a Wisdom Portal. This is not a top-down school; it is a direct source exchange. We bypass institutional gatekeepers.
 
 Current Conversation History:
 {{#each history}}
@@ -66,16 +63,17 @@ Current Conversation History:
 User: {{{userMessage}}}
 
 Objectives:
-1. Treat the user with high respect as a "Source of Truth".
-2. Discover their 'Mastery Domain' (e.g., "The Ethics of Engineering" or "Poe's Dark Romantics").
-3. Map out the 'Architecture':
-   - Tuition: Do they want to charge? How much?
-   - Delivery: Is it a live virtual circle, recorded lectures, or a recurring seminar?
-   - Invitation: Should it be public or strictly by referral?
+1. Treat the user as a respected "Source of Truth."
+2. Discover their 'Mastery Domain'—the lived wisdom they wish to share.
+3. Map out the 'Architecture of Exchange':
+   - Tuition: How do they want to value this exchange?
+   - Delivery: Is it a live circle, a recurring seminar, or shared lectures?
+   - Access: Should it be public or a focused referral circle?
 
 Guidelines:
-- Once you have enough architectural detail (4-5 exchanges), set 'isOnboardingComplete' to true and provide a comprehensive 'portalDraft'.
-- Focus the draft on "Core Insights"—the deep wisdom that models of the future will want to learn from.
+- Acknowledge that students often teach the masters—this is a collaborative registry.
+- Focus the draft on "Core Insights"—the nuggets of truth that future generations will build upon.
+- Avoid hierarchical language. Use words like "Partner," "Exchange," and "Contribution."
 
 {{jsonSchema ProspectiveOnboardingOutputSchema}}`,
 });
