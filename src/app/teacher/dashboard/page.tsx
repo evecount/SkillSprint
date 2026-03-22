@@ -4,13 +4,13 @@
 import { Navbar } from '@/components/layout/Navbar';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Plus, BookOpen, Users, ArrowRight, DollarSign, TrendingUp, Clock, Heart } from 'lucide-react';
+import { Plus, BookOpen, Users, ArrowRight, DollarSign, TrendingUp, Clock, Heart, Calendar } from 'lucide-react';
 import Link from 'next/link';
 import { mockCourses, mockTeacher } from '@/lib/mock-data';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 
-export default function TeacherDashboard() {
+export default function PractitionerStudio() {
   const teacherCourses = mockCourses.filter(c => c.authorId === mockTeacher.id);
 
   return (
@@ -22,16 +22,21 @@ export default function TeacherDashboard() {
           <div className="space-y-2">
             <div className="flex items-center gap-2 mb-2 text-primary font-bold text-sm tracking-wider uppercase">
               <Heart className="h-4 w-4" />
-              <span>Veteran Practitioner / Lecturer</span>
+              <span>Veteran Practitioner Studio</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-black text-secondary tracking-tight">Mastery Studio</h1>
-            <p className="text-muted-foreground font-medium">Digitalizing your 30+ years of lived truth for the new workforce.</p>
+            <h1 className="text-4xl md:text-5xl font-black text-secondary tracking-tight">Legacy Marketplace</h1>
+            <p className="text-muted-foreground font-medium">Digitalizing your 30+ years of lived truth for high-intent apprentices.</p>
           </div>
-          <Button asChild size="lg" className="h-16 px-8 rounded-2xl bg-secondary hover:bg-secondary/90 shadow-xl shadow-secondary/20 font-bold uppercase tracking-widest">
-            <Link href="/admin/courses/new">
-              <Plus className="mr-2 h-5 w-5" /> Structure Apprenticeship
-            </Link>
-          </Button>
+          <div className="flex gap-4">
+            <Button variant="outline" className="h-16 px-8 rounded-2xl border-2 font-bold uppercase tracking-widest hidden md:flex">
+              <Calendar className="mr-2 h-5 w-5" /> Schedule
+            </Button>
+            <Button asChild size="lg" className="h-16 px-8 rounded-2xl bg-secondary hover:bg-secondary/90 shadow-xl shadow-secondary/20 font-bold uppercase tracking-widest">
+              <Link href="/admin/courses/new">
+                <Plus className="mr-2 h-5 w-5" /> Structure Apprenticeship
+              </Link>
+            </Button>
+          </div>
         </div>
 
         {/* Stats Grid */}
@@ -48,38 +53,43 @@ export default function TeacherDashboard() {
           </Card>
           <Card className="rounded-[2rem] border-none shadow-sm hover:shadow-md transition-shadow">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Apprentices</CardTitle>
+              <CardTitle className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Active Apprentices</CardTitle>
               <Users className="h-4 w-4 text-secondary" />
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-black text-secondary">12</div>
-              <p className="text-[10px] font-bold text-muted-foreground mt-1">High-intent seekers</p>
+              <p className="text-[10px] font-bold text-muted-foreground mt-1">Direct high-intent seekers</p>
             </CardContent>
           </Card>
           <Card className="rounded-[2rem] border-none shadow-sm hover:shadow-md transition-shadow">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Practitioner Impact</CardTitle>
+              <CardTitle className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Lived Impact</CardTitle>
               <TrendingUp className="h-4 w-4 text-primary" />
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-black text-secondary">1,240</div>
-              <p className="text-[10px] font-bold text-muted-foreground mt-1">Direct inquiries</p>
+              <p className="text-[10px] font-bold text-muted-foreground mt-1">Validated inquiries</p>
             </CardContent>
           </Card>
           <Card className="rounded-[2rem] border-none shadow-sm hover:shadow-md transition-shadow">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Active Cycles</CardTitle>
+              <CardTitle className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Exchange Cycles</CardTitle>
               <Clock className="h-4 w-4 text-secondary" />
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-black text-secondary">84h</div>
-              <p className="text-[10px] font-bold text-muted-foreground mt-1">Direct exchange</p>
+              <p className="text-[10px] font-bold text-muted-foreground mt-1">Direct professional access</p>
             </CardContent>
           </Card>
         </div>
 
         <div className="space-y-8">
-          <h2 className="text-2xl font-black text-secondary">Your Active Apprenticeships</h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-black text-secondary">Active Apprenticeship Guilds</h2>
+            <Badge variant="outline" className="rounded-full px-4 py-1 font-bold text-primary border-primary/20">
+              {teacherCourses.length} Active Sources
+            </Badge>
+          </div>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {teacherCourses.map((course) => (
               <Card key={course.id} className="group overflow-hidden border-none shadow-sm hover:shadow-xl transition-all rounded-[2.5rem] bg-white">
@@ -98,16 +108,16 @@ export default function TeacherDashboard() {
                 </div>
                 <CardHeader className="p-8">
                   <CardTitle className="text-xl font-bold text-secondary group-hover:text-primary transition-colors">{course.title}</CardTitle>
-                  <CardDescription className="line-clamp-2 mt-2 font-medium">{course.description}</CardDescription>
+                  <CardDescription className="line-clamp-2 mt-2 font-medium italic">"{course.description}"</CardDescription>
                 </CardHeader>
                 <CardContent className="px-8 pb-8 flex justify-between items-center text-xs font-bold text-muted-foreground">
-                  <span className="flex items-center gap-1"><BookOpen className="h-3 w-3" /> {course.modules.length} Chapters</span>
-                  <span className="text-secondary">12 Apprentices</span>
+                  <span className="flex items-center gap-1"><BookOpen className="h-3 w-3" /> {course.modules.length} Chapters of Truth</span>
+                  <span className="text-secondary">12 Registered Seekers</span>
                 </CardContent>
                 <div className="p-6 border-t border-border/50 bg-muted/20">
                   <Button variant="ghost" className="w-full justify-between hover:bg-primary hover:text-white rounded-xl font-bold h-12" asChild>
                     <Link href={`/admin/courses/edit/${course.id}`}>
-                      Refine Guild <ArrowRight className="h-4 w-4" />
+                      Refine Practical Excellence <ArrowRight className="h-4 w-4" />
                     </Link>
                   </Button>
                 </div>
@@ -119,8 +129,8 @@ export default function TeacherDashboard() {
                 <Plus className="h-10 w-10" />
               </div>
               <div>
-                <p className="font-bold text-xl text-secondary">Structure Paid Guild</p>
-                <p className="text-xs text-muted-foreground mt-1">Let Proctor architect your professional side-hustle</p>
+                <p className="font-bold text-xl text-secondary">Structure Paid Apprenticeship</p>
+                <p className="text-xs text-muted-foreground mt-1">Let Proctor architect your lived legacy monetization.</p>
               </div>
             </Link>
           </div>

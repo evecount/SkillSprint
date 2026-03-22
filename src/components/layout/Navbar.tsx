@@ -20,27 +20,22 @@ export function Navbar({ role = 'learner', userName, orgName }: NavbarProps) {
   const pathname = usePathname();
   const [isProctorOpen, setIsProctorOpen] = useState(false);
 
-  // Use provided names or fallback to mocks based on role
+  // Use provided names or fallback to mocks
   const finalUserName = userName || (role === 'learner' ? mockLearner.name : role === 'teacher' ? mockTeacher.name : mockAdmin.name);
   const finalOrgName = orgName || mockOrg.name;
 
-  const navItems = role === 'learner' ? [
+  // Unified 5-pillar navigation for the professional registry
+  const navItems = [
     { label: 'Explore', icon: Compass, href: '/learner/dashboard' },
     { label: 'Guilds', icon: BookOpen, href: '/learner/dashboard' },
-    { label: 'Schedule', icon: Calendar, href: '/learner/dashboard' }, // Mapping to dashboard for now
-    { label: 'Identity', icon: User, href: '/learner/dashboard' },
-  ] : [
-    { label: 'Explore', icon: Compass, href: '/admin/dashboard' },
     { label: 'Studio', icon: LayoutDashboard, href: '/teacher/dashboard' },
-    { label: 'Schedule', icon: Calendar, href: '/teacher/dashboard' },
-    { label: 'Identity', icon: User, href: '/teacher/dashboard' },
+    { label: 'Identity', icon: User, href: '/learner/dashboard' }, // Simplified mapping for prototype
   ];
 
   const getIcon = (label: string) => {
     if (label === 'Explore') return Compass;
     if (label === 'Guilds') return BookOpen;
     if (label === 'Studio') return LayoutDashboard;
-    if (label === 'Schedule') return Calendar;
     if (label === 'Identity') return User;
     return Compass;
   };
@@ -106,9 +101,9 @@ export function Navbar({ role = 'learner', userName, orgName }: NavbarProps) {
       </nav>
 
       {/* Mobile Bottom Navigation - 5 Pillars */}
-      <nav className="fixed bottom-0 left-0 right-0 z-[100] flex h-24 items-center border-t border-white/10 bg-secondary/95 backdrop-blur-3xl md:hidden mobile-nav-shadow px-4 pb-2">
-        <div className="grid h-full w-full grid-cols-5 gap-1">
-          {/* First Two Items */}
+      <nav className="fixed bottom-0 left-0 right-0 z-[100] flex h-24 items-center border-t border-white/10 bg-secondary/95 backdrop-blur-3xl md:hidden mobile-nav-shadow px-2 pb-2">
+        <div className="grid h-full w-full grid-cols-5 gap-0.5">
+          {/* First Two: Discovery & Learning */}
           {navItems.slice(0, 2).map((item) => {
             const Icon = getIcon(item.label);
             return (
@@ -121,23 +116,23 @@ export function Navbar({ role = 'learner', userName, orgName }: NavbarProps) {
                 )}
               >
                 <Icon className={cn("h-5 w-5", pathname === item.href && "fill-primary/20")} />
-                <span className="text-[8px] font-black uppercase tracking-[0.2em]">{item.label}</span>
+                <span className="text-[7px] font-black uppercase tracking-[0.1em]">{item.label}</span>
               </Link>
             );
           })}
           
-          {/* Proctor Central Icon - Pillar 3 */}
+          {/* Proctor Central Pillar */}
           <button 
             onClick={() => setIsProctorOpen(true)}
             className="flex flex-col items-center justify-center gap-1 transition-all active:scale-90 text-white group"
           >
-            <div className="h-10 w-10 bg-black border-2 border-white/20 flex items-center justify-center rounded-none shadow-xl mb-0.5 group-active:bg-primary">
-              <Bot className="h-5 w-5" />
+            <div className="h-11 w-11 bg-black border-2 border-white/20 flex items-center justify-center rounded-none shadow-xl mb-0.5 group-active:bg-primary transition-colors">
+              <Bot className="h-6 w-6" />
             </div>
-            <span className="text-[8px] font-black uppercase tracking-[0.2em]">Proctor</span>
+            <span className="text-[7px] font-black uppercase tracking-[0.1em] text-primary">Proctor</span>
           </button>
 
-          {/* Last Two Items */}
+          {/* Last Two: Studio & Identity */}
           {navItems.slice(2).map((item) => {
             const Icon = getIcon(item.label);
             return (
@@ -150,7 +145,7 @@ export function Navbar({ role = 'learner', userName, orgName }: NavbarProps) {
                 )}
               >
                 <Icon className={cn("h-5 w-5", pathname === item.href && "fill-primary/20")} />
-                <span className="text-[8px] font-black uppercase tracking-[0.2em]">{item.label}</span>
+                <span className="text-[7px] font-black uppercase tracking-[0.1em]">{item.label}</span>
               </Link>
             );
           })}
