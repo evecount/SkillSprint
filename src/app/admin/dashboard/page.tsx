@@ -1,4 +1,3 @@
-
 "use client"
 
 import { Navbar } from '@/components/layout/Navbar';
@@ -8,6 +7,8 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { Users, BookOpen, CheckCircle, AlertCircle, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { AIConsultant } from '@/components/consultant/AIConsultant';
+import { mockOrg } from '@/lib/mock-data';
 
 const completionData = [
   { name: 'Mon', completion: 45 },
@@ -32,29 +33,36 @@ export default function AdminDashboard() {
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-center">
           <div>
-            <h1 className="font-headline text-3xl font-bold">Admin Dashboard</h1>
-            <p className="text-muted-foreground">Manage your organization's learning progress.</p>
+            <h1 className="font-headline text-3xl font-bold">Admin Insights</h1>
+            <p className="text-muted-foreground">Manage {mockOrg.name}'s learning progress.</p>
           </div>
-          <Button asChild>
-            <Link href="/admin/courses/new">
-              <Plus className="mr-2 h-4 w-4" /> Create Course
-            </Link>
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="outline" asChild>
+              <Link href="/admin/users">
+                Manage Users
+              </Link>
+            </Button>
+            <Button asChild>
+              <Link href="/admin/courses/new">
+                <Plus className="mr-2 h-4 w-4" /> Create Course
+              </Link>
+            </Button>
+          </div>
         </div>
 
         {/* Stats Grid */}
         <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Card>
+          <Card className="shadow-sm border-none bg-white">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total Learners</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">1,248</div>
-              <p className="text-xs text-muted-foreground">+12% from last month</p>
+              <p className="text-xs text-green-600 font-medium">+12% from last month</p>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="shadow-sm border-none bg-white">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Active Courses</CardTitle>
               <BookOpen className="h-4 w-4 text-muted-foreground" />
@@ -64,17 +72,17 @@ export default function AdminDashboard() {
               <p className="text-xs text-muted-foreground">+2 new this week</p>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="shadow-sm border-none bg-white">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Completion Rate</CardTitle>
+              <CardTitle className="text-sm font-medium">Avg. Completion</CardTitle>
               <CheckCircle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">78%</div>
-              <p className="text-xs text-muted-foreground">+5% improvement</p>
+              <p className="text-xs text-green-600 font-medium">+5% improvement</p>
             </CardContent>
           </Card>
-          <Card className="bg-destructive/5 border-destructive/20">
+          <Card className="bg-destructive/5 border-destructive/10 shadow-sm border-2">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-destructive">Needs Attention</CardTitle>
               <AlertCircle className="h-4 w-4 text-destructive" />
@@ -87,25 +95,25 @@ export default function AdminDashboard() {
         </div>
 
         <Tabs defaultValue="engagement" className="space-y-4">
-          <TabsList>
+          <TabsList className="bg-white/50 border">
             <TabsTrigger value="engagement">User Engagement</TabsTrigger>
             <TabsTrigger value="completion">Course Completion</TabsTrigger>
           </TabsList>
           
           <TabsContent value="engagement" className="space-y-4">
-            <Card>
+            <Card className="border-none shadow-md bg-white">
               <CardHeader>
-                <CardTitle>Active Learners Over Time</CardTitle>
+                <CardTitle className="text-lg">Active Learners Over Time</CardTitle>
                 <CardDescription>Weekly active users engaging with modules.</CardDescription>
               </CardHeader>
-              <CardContent className="h-[300px]">
+              <CardContent className="h-[300px] pt-4">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={engagementData}>
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                    <XAxis dataKey="name" />
-                    <YAxis />
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
+                    <XAxis dataKey="name" stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
+                    <YAxis stroke="#888888" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `${value}`} />
                     <Tooltip />
-                    <Line type="monotone" dataKey="users" stroke="hsl(var(--primary))" strokeWidth={2} />
+                    <Line type="monotone" dataKey="users" stroke="hsl(var(--primary))" strokeWidth={3} dot={{ r: 4, fill: "hsl(var(--primary))" }} activeDot={{ r: 6 }} />
                   </LineChart>
                 </ResponsiveContainer>
               </CardContent>
@@ -113,19 +121,19 @@ export default function AdminDashboard() {
           </TabsContent>
 
           <TabsContent value="completion" className="space-y-4">
-            <Card>
+            <Card className="border-none shadow-md bg-white">
               <CardHeader>
-                <CardTitle>Daily Completion Rate</CardTitle>
+                <CardTitle className="text-lg">Daily Completion Rate</CardTitle>
                 <CardDescription>Percentage of assigned modules completed daily.</CardDescription>
               </CardHeader>
-              <CardContent className="h-[300px]">
+              <CardContent className="h-[300px] pt-4">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={completionData}>
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                    <XAxis dataKey="name" />
-                    <YAxis />
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
+                    <XAxis dataKey="name" stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
+                    <YAxis stroke="#888888" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `${value}%`} />
                     <Tooltip />
-                    <Bar dataKey="completion" fill="hsl(var(--secondary))" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="completion" fill="hsl(var(--secondary))" radius={[6, 6, 0, 0]} barSize={40} />
                   </BarChart>
                 </ResponsiveContainer>
               </CardContent>
@@ -133,6 +141,13 @@ export default function AdminDashboard() {
           </TabsContent>
         </Tabs>
       </main>
+
+      {/* AI Onboarding Consultant */}
+      <AIConsultant 
+        userName="Admin User" 
+        role="admin" 
+        orgName={mockOrg.name} 
+      />
     </div>
   );
 }
