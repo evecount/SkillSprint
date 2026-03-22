@@ -4,7 +4,7 @@ import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
   title: 'SkillSprint | Direct Mastery Registry',
-  description: 'Turn your lived career legacy into a paid apprenticeship, or buy back your time by learning directly from the masters.',
+  description: 'Turn your lived career legacy into a paid apprenticeship. Master the craft, skip the loop with direct access to practical excellence.',
 };
 
 export default function RootLayout({

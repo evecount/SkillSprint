@@ -28,7 +28,7 @@ export default function AboutMission() {
               <span className="text-primary italic">SkillSprint.</span>
             </h1>
             <p className="text-xl md:text-3xl text-muted-foreground font-medium leading-relaxed italic border-l-8 border-primary pl-8 mt-12">
-              "In a world of infinite information, lived mastery is the only remaining moat. We bridge the gap between those who have done it and those who are ready to do it."
+              "In a world of infinite information, lived mastery is the only remaining moat. We bridge the gap between those who have done it and those who are ready to get real work in the field."
             </p>
           </div>
 
@@ -41,7 +41,7 @@ export default function AboutMission() {
                 <h2 className="text-3xl font-black text-secondary tracking-tight">Trading Time for Mastery</h2>
               </div>
               <p className="text-muted-foreground leading-relaxed text-lg font-medium">
-                Traditional education often leaves you locked out of the very industries you study. We respect the student who works to fund their own growth. You aren&apos;t just paying for content; you&apos;re buying back the master&apos;s years of trial, error, and sacrificed time.
+                Traditional education often leaves you locked out of the very industries you study. We respect the student who works to fund their own growth. You aren&apos;t just paying for content; you&apos;re buying back the master&apos;s years of trial, error, and sacrificed time to get direct entry into the craft.
               </p>
             </div>
 
@@ -53,7 +53,7 @@ export default function AboutMission() {
                 <h2 className="text-3xl font-black text-secondary tracking-tight">The Professional Side-Hustle</h2>
               </div>
               <p className="text-muted-foreground leading-relaxed text-lg font-medium">
-                For the veteran practitioner, SkillSprint is a sanctuary for your legacy. If your career was stalled by institutional ageism, we provide the architecture to turn your truth into a high-value side-hustle that keeps your craft alive and funded.
+                For the veteran practitioner, SkillSprint is a sanctuary for your legacy. If your career was stalled by institutional ageism, we provide the architecture to turn your truth into a high-value side-hustle that keeps your craft alive and funded by those who value practical excellence.
               </p>
             </div>
 
@@ -62,10 +62,10 @@ export default function AboutMission() {
                 <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center">
                   <Zap className="h-6 w-6" />
                 </div>
-                <h2 className="text-3xl font-black text-secondary tracking-tight">Practical Truth</h2>
+                <h2 className="text-3xl font-black text-secondary tracking-tight">Practical Excellence</h2>
               </div>
               <p className="text-muted-foreground leading-relaxed text-lg font-medium">
-                AI has erased educational moats for data, but it can&apos;t replicate experience. We focus on the "Tactical Truth"—the practical excellence that institutional gatekeepers can&apos;t teach and institutions don&apos;t understand.
+                AI has erased educational moats for data, but it can&apos;t replicate experience. We focus on the "Tactical Truth"—the practical excellence required to actually do the job, which institutional gatekeepers can&apos;t teach and institutions don&apos;t understand.
               </p>
             </div>
           </div>
@@ -77,7 +77,7 @@ export default function AboutMission() {
               Doing over <span className="text-primary italic">Studying.</span>
             </h3>
             <p className="text-white/60 text-xl max-w-2xl mx-auto font-medium leading-relaxed">
-              Whether you&apos;re a veteran in Singapore or a student moonlighting in New York—practical truth is the only meritocracy that matters.
+              Whether you&apos;re a veteran in Singapore or a student moonlighting in New York—practical excellence is the only meritocracy that matters.
             </p>
             <Button asChild className="rounded-[2rem] bg-primary hover:bg-accent text-white h-20 px-16 font-black uppercase tracking-[0.3em] text-xs shadow-2xl shadow-primary/20 transition-all hover:scale-105">
               <Link href="/learner/dashboard">Join the Registry</Link>

@@ -24,7 +24,7 @@ export default function Home() {
               <span className="text-primary italic">Fast-Tracked.</span>
             </h1>
             <p className="text-lg md:text-2xl text-white/60 font-medium max-w-2xl leading-relaxed mt-6 italic">
-              "Skip the gatekeepers. Retirees: Monetize your career legacy. Students: Pay for direct access to the source and learn how to do, not just study."
+              "Skip the gatekeepers. Retirees: Monetize your career legacy. Students: Pay for direct access to the source and gain practical excellence that institutions can't teach."
             </p>
           </div>
 
@@ -40,7 +40,7 @@ export default function Home() {
                 <Zap className="h-8 w-8 text-primary" />
               </div>
               <h3 className="font-black text-3xl mb-4 tracking-tight">Monetize Legacy</h3>
-              <p className="text-white/50 text-base font-medium leading-relaxed italic">Your 30+ years of craft is a valuable asset. Build a professional side-hustle that funds your next chapter while passing on the truth.</p>
+              <p className="text-white/50 text-base font-medium leading-relaxed italic">Your 30+ years of craft is a professional asset. Build a paid side-hustle that funds your next chapter while passing on the tactical truth.</p>
             </div>
             
             <div className="p-10 rounded-[3rem] bg-primary text-white shadow-[0_0_50px_-12px_rgba(162,84,28,0.4)] relative overflow-hidden group">
@@ -51,7 +51,7 @@ export default function Home() {
                 <GraduationCap className="h-8 w-8 text-white" />
               </div>
               <h3 className="font-black text-3xl mb-4 tracking-tight">Direct Access</h3>
-              <p className="text-white/90 text-base font-medium leading-relaxed italic">Trade money for the master&apos;s time. Bypass entry-level loops and learn the industry secrets that institutional education misses.</p>
+              <p className="text-white/90 text-base font-medium leading-relaxed italic">Trade money for the master&apos;s time. Bypass "no experience" loops and get real work insights directly from industry practitioners.</p>
             </div>
 
             <div className="p-10 rounded-[3rem] bg-white/5 border border-white/10 hover:border-primary/50 transition-all duration-500 group">
@@ -59,7 +59,7 @@ export default function Home() {
                 <Shield className="h-8 w-8 text-primary" />
               </div>
               <h3 className="font-black text-3xl mb-4 tracking-tight">True Meritocracy</h3>
-              <p className="text-white/50 text-base font-medium leading-relaxed italic">Information is free, but lived experience is finite. We focus on practical excellence over paper credentials.</p>
+              <p className="text-white/50 text-base font-medium leading-relaxed italic">Information is free, but lived experience is finite. We focus on practical excellence that validates you in the field.</p>
             </div>
           </div>
         </section>
