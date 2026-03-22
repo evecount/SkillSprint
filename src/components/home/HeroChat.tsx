@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Send, Bot, Loader2, ArrowRight, Zap, GraduationCap, MapPin, Calendar, Users, Star, FastForward } from 'lucide-react';
+import { Send, Bot, Loader2, ArrowRight, Zap, GraduationCap, MapPin, Calendar, Users, Star, FastForward, Clock } from 'lucide-react';
 import { prospectiveOnboardingChat, ProspectiveOnboardingOutput } from '@/ai/flows/prospective-onboarding';
 import { onboardingConsultant } from '@/ai/flows/onboarding-consultant';
 import { cn } from '@/lib/utils';
@@ -36,8 +36,8 @@ export function HeroChat() {
   const handleRoleSelect = (selectedRole: UserRole) => {
     setRole(selectedRole);
     const initialMsg = selectedRole === 'mentor' 
-      ? "Registry initiated. I am Proctor. I help veterans turn 30+ years of lived craft into a paid side-hustle. What specific industry domain are we digitalizing today?"
-      : "Student Registry initiated. I am Proctor. You're here to pay for direct access to the source. What industry has been locking you out that you're ready to master?";
+      ? "Registry initiated. I am Proctor. Your 30+ years of sacrificed time is a treasure. I help you digitalize that truth into a paid side-hustle. What industry domain are we digitalizing today?"
+      : "Student Registry initiated. I am Proctor. You're here to buy back your time. Stop begging for 'experience'—which industry has locked you out that you're ready to pay a Master to enter?";
     
     setMessages([{ role: 'model', text: initialMsg }]);
   };
@@ -100,14 +100,14 @@ export function HeroChat() {
             </div>
             <div>
               <h3 className="text-4xl font-black tracking-tight mb-2">Mentor / Lecturer</h3>
-              <p className="text-secondary/40 font-black uppercase tracking-[0.3em] text-[10px]">Turn 30+ Years Into a Paid Side-Hustle</p>
+              <p className="text-secondary/40 font-black uppercase tracking-[0.3em] text-[10px]">Turn Lived Truth Into a Paid Side-Hustle</p>
             </div>
             <p className="text-secondary/70 font-medium italic leading-relaxed text-sm md:text-base">
-              "I have a lifetime of practical truth. I'm ready to get paid for my legacy."
+              "My sacrificed time is a treasure. I'm ready to be funded for my mastery."
             </p>
             <div className="pt-4">
               <span className="inline-flex h-14 px-10 rounded-2xl bg-secondary text-white items-center gap-3 font-black text-xs uppercase tracking-[0.2em] shadow-xl group-hover:bg-primary transition-colors">
-                Start Side-Hustle <ArrowRight className="h-4 w-4" />
+                Structure Side-Hustle <ArrowRight className="h-4 w-4" />
               </span>
             </div>
           </div>
@@ -120,18 +120,18 @@ export function HeroChat() {
           <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 transition-colors" />
           <div className="relative h-full flex flex-col items-center justify-center p-10 text-center space-y-6">
             <div className="h-20 w-20 rounded-3xl bg-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-              <GraduationCap className="h-10 w-10 text-primary" />
+              <Clock className="h-10 w-10 text-primary" />
             </div>
             <div>
               <h3 className="text-4xl font-black tracking-tight mb-2">Apprentice / Student</h3>
-              <p className="text-white/40 font-black uppercase tracking-[0.3em] text-[10px]">Pay for Direct Access to the Source</p>
+              <p className="text-white/40 font-black uppercase tracking-[0.3em] text-[10px]">Buy Back Your Time with Direct Access</p>
             </div>
             <p className="text-white/80 font-medium italic leading-relaxed text-sm md:text-base">
-              "I'm locked out of my industry. I'm ready to pay a veteran for the truth."
+              "I'm done begging for 'experience'. I'm ready to pay a Master to learn how to DO."
             </p>
             <div className="pt-4">
               <span className="inline-flex h-14 px-10 rounded-2xl bg-primary text-white items-center gap-3 font-black text-xs uppercase tracking-[0.2em] shadow-xl shadow-primary/20 hover:bg-accent transition-colors">
-                Fund My Mastery <ArrowRight className="h-4 w-4" />
+                Bypass Gatekeepers <ArrowRight className="h-4 w-4" />
               </span>
             </div>
           </div>
@@ -199,7 +199,7 @@ export function HeroChat() {
               </div>
               <div className="flex items-center gap-2 mt-1">
                 <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-                <span className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">Direct Exchange Consultant</span>
+                <span className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">Time-for-Mastery Consultant</span>
               </div>
             </div>
           </div>

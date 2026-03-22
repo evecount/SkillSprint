@@ -21,11 +21,11 @@ export default function Home() {
               The Registry of Direct Mastery
             </Badge>
             <h1 className="font-headline text-5xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.85] max-w-5xl">
-              Moonlight with <br />
-              <span className="text-primary italic">The Source.</span>
+              Buy Back <br />
+              <span className="text-primary italic">Your Time.</span>
             </h1>
             <p className="text-lg md:text-2xl text-white/60 font-medium max-w-2xl leading-relaxed mt-6 italic">
-              "Retirees: Turn your 30+ years of craft into a paid side-hustle. Students: Pay for direct access to the industries currently locking you out."
+              "Retirees: Turn your 30+ years of craft into a paid side-hustle. Students: Pay for direct access to the source and stop wasting time on gatekept 'experience'."
             </p>
           </div>
 
@@ -41,7 +41,7 @@ export default function Home() {
                 <Zap className="h-8 w-8 text-primary" />
               </div>
               <h3 className="font-black text-3xl mb-4 tracking-tight">Paid Legacy</h3>
-              <p className="text-white/50 text-base font-medium leading-relaxed italic">Retirees and veterans: turn your practical truth into a professional side-hustle. You are the source, you set the price.</p>
+              <p className="text-white/50 text-base font-medium leading-relaxed italic">Retirees: stop being sidelined. Your sacrificed time is a treasure. Digitalize your truth and get paid for your mastery.</p>
             </div>
             
             <div className="p-10 rounded-[3rem] bg-primary text-white shadow-[0_0_50px_-12px_rgba(162,84,28,0.4)] relative overflow-hidden group">
@@ -52,15 +52,15 @@ export default function Home() {
                 <GraduationCap className="h-8 w-8 text-white" />
               </div>
               <h3 className="font-black text-3xl mb-4 tracking-tight">Direct Access</h3>
-              <p className="text-white/90 text-base font-medium leading-relaxed italic">Bypass the corporate gatekeepers. Pay for direct access to moonlight with a master. Mastery that fits your life.</p>
+              <p className="text-white/90 text-base font-medium leading-relaxed italic">Stop begging for internships. Pay to learn how to DO. Trade money for the master's time and bypass the entry-level loop.</p>
             </div>
 
             <div className="p-10 rounded-[3rem] bg-white/5 border border-white/10 hover:border-primary/50 transition-all duration-500 group">
               <div className="h-16 w-16 rounded-3xl bg-primary/20 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
                 <Shield className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="font-black text-3xl mb-4 tracking-tight">Reciprocity</h3>
-              <p className="text-white/50 text-base font-medium leading-relaxed italic">No hierarchy. No nepotism. A symbiotic exchange where your investment keeps a master's legacy alive.</p>
+              <h3 className="font-black text-3xl mb-4 tracking-tight">No Educational Moats</h3>
+              <p className="text-white/50 text-base font-medium leading-relaxed italic">With AI, information is free. But lived truth is finite. We focus on the practical excellence that institutional gatekeepers can't provide.</p>
             </div>
           </div>
         </section>
@@ -79,7 +79,7 @@ export default function Home() {
             <div className="flex h-16 w-16 items-center justify-center rounded-[1.5rem] bg-primary text-white font-black text-3xl shadow-xl shadow-primary/20">
               U
             </div>
-            <p className="text-sm font-bold text-white/40 uppercase tracking-widest">© 2024 University of Life. Lived mastery, democratized.</p>
+            <p className="text-sm font-bold text-white/40 uppercase tracking-widest">© 2024 University of Life. Time for Mastery, Democratized.</p>
           </div>
         </div>
       </footer>

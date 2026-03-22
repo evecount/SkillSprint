@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Navbar } from '@/components/layout/Navbar';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Shield, Zap, Heart, Landmark, ArrowLeft, Quote, Globe, Users, Star } from 'lucide-react';
+import { Shield, Zap, Heart, Landmark, ArrowLeft, Quote, Globe, Users, Star, Clock } from 'lucide-react';
 
 export default function AboutManifesto() {
   return (
@@ -26,14 +26,26 @@ export default function AboutManifesto() {
             </Badge>
             <h1 className="text-5xl md:text-8xl font-black text-secondary tracking-tighter leading-[0.8]">
               The Manifesto of <br />
-              <span className="text-primary italic">Lived Truth.</span>
+              <span className="text-primary italic">Practical Truth.</span>
             </h1>
             <p className="text-xl md:text-3xl text-muted-foreground font-medium leading-relaxed italic border-l-8 border-primary pl-8 mt-12">
-              "We are building a new meritocracy where Masters get paid for their truth and Students pay for direct access to the industries currently locking them out."
+              "In a world where AI has erased educational moats, lived mastery is the only remaining currency. Stop begging for experience—pay for direct access to the source."
             </p>
           </div>
 
           <div className="grid gap-16 pt-8">
+            <div className="space-y-6">
+              <div className="flex items-center gap-4 text-primary">
+                <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center">
+                  <Clock className="h-6 w-6" />
+                </div>
+                <h2 className="text-3xl font-black text-secondary tracking-tight">Buying Back Time</h2>
+              </div>
+              <p className="text-muted-foreground leading-relaxed text-lg font-medium">
+                Why spend 4 years studying what a practitioner can show you in 4 weeks? We respect the apprentice who works double shifts at a dead-end job to fund their direct access. You aren't paying for a degree; you're paying for the master's 30 years of sacrificed time.
+              </p>
+            </div>
+
             <div className="space-y-6">
               <div className="flex items-center gap-4 text-primary">
                 <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center">
@@ -42,7 +54,7 @@ export default function AboutManifesto() {
                 <h2 className="text-3xl font-black text-secondary tracking-tight">The Stalled Master</h2>
               </div>
               <p className="text-muted-foreground leading-relaxed text-lg font-medium">
-                Retirees and veterans: your 30+ years of craft is your most valuable asset. If institutional ageism stalled your career, we are your sanctuary. Here, you digitalize your truth into a professional side-hustle and get paid for your legacy.
+                Retirees and veterans: institutional ageism is a waste of human excellence. If corporate gatekeepers stalled your career, we are your sanctuary. Your lived truth is a professional side-hustle that keeps your legacy alive while funding the next generation.
               </p>
             </div>
 
@@ -51,34 +63,10 @@ export default function AboutManifesto() {
                 <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center">
                   <Zap className="h-6 w-6" />
                 </div>
-                <h2 className="text-3xl font-black text-secondary tracking-tight">The Hungry Apprentice</h2>
+                <h2 className="text-3xl font-black text-secondary tracking-tight">Direct Practice</h2>
               </div>
               <p className="text-muted-foreground leading-relaxed text-lg font-medium">
-                We respect the apprentice who works a double shift at a dead-end job just to pay for direct access to a master. You aren't paying for a degree; you are paying for the industry secrets that institutional gatekeepers won't let you see.
-              </p>
-            </div>
-
-            <div className="space-y-6">
-              <div className="flex items-center gap-4 text-primary">
-                <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center">
-                  <Heart className="h-6 w-6" />
-                </div>
-                <h2 className="text-3xl font-black text-secondary tracking-tight">Direct Reciprocity</h2>
-              </div>
-              <p className="text-muted-foreground leading-relaxed text-lg font-medium">
-                This is a professional exchange of value. The student funds the master's legacy, and the master provides the direct path to industry excellence. It is a symbiotic relationship that bypasses the need for "relevant experience" gatekeeping.
-              </p>
-            </div>
-
-            <div className="space-y-6">
-              <div className="flex items-center gap-4 text-primary">
-                <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center">
-                  <Landmark className="h-6 w-6" />
-                </div>
-                <h2 className="text-3xl font-black text-secondary tracking-tight">The Registry Champion</h2>
-              </div>
-              <p className="text-muted-foreground leading-relaxed text-lg font-medium">
-                Our Champions are the enablers. They orchestrate the scale. Their mission is to democratize access to human excellence, bridging hungry communities to direct sources of truth.
+                If you aren't allowed to practice what you study, you are being robbed of your future. We bypass the gatekeepers who demand 'relevant experience' by giving you direct, paid access to the industries currently locking you out.
               </p>
             </div>
           </div>
@@ -87,40 +75,16 @@ export default function AboutManifesto() {
             <div className="absolute top-0 left-0 w-full h-full bg-primary/5 -z-10" />
             <Quote className="h-16 w-16 text-primary mx-auto opacity-50" />
             <h3 className="text-4xl md:text-7xl font-black tracking-tighter leading-none">
-              Bypassing the <span className="text-primary italic">Gatekeepers.</span>
+              Mastery over <span className="text-primary italic">Credentials.</span>
             </h3>
             <p className="text-white/60 text-xl max-w-2xl mx-auto font-medium leading-relaxed">
-              Whether you are a veteran in Singapore or an apprentice in New York—lived truth is the only currency that matters.
+              Whether you're a veteran in Singapore or an apprentice moonlighting in New York—lived truth is the only meritocracy that matters.
             </p>
             <Button asChild className="rounded-[2rem] bg-primary hover:bg-accent text-white h-20 px-16 font-black uppercase tracking-[0.3em] text-xs shadow-2xl shadow-primary/20 transition-all hover:scale-105">
-              <Link href="/learner/dashboard">Join the Exchange</Link>
+              <Link href="/learner/dashboard">Join the Registry</Link>
             </Button>
           </div>
         </section>
-
-        <div className="py-32 grid grid-cols-1 md:grid-cols-3 gap-12">
-          <div className="text-center space-y-4">
-            <div className="h-16 w-16 rounded-3xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-              <Globe className="h-8 w-8 text-primary" />
-            </div>
-            <p className="text-4xl font-black text-secondary tracking-tighter leading-none">Global</p>
-            <p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.3em]">Direct Access</p>
-          </div>
-          <div className="text-center space-y-4">
-            <div className="h-16 w-16 rounded-3xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-              <Users className="h-8 w-8 text-primary" />
-            </div>
-            <p className="text-4xl font-black text-secondary tracking-tighter leading-none">100%</p>
-            <p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.3em]">Paid Reciprocity</p>
-          </div>
-          <div className="text-center space-y-4">
-            <div className="h-16 w-16 rounded-3xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-              <Star className="h-8 w-8 text-primary" />
-            </div>
-            <p className="text-4xl font-black text-secondary tracking-tighter leading-none">Direct</p>
-            <p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.3em]">Market Mastery</p>
-          </div>
-        </div>
       </main>
     </div>
   );
