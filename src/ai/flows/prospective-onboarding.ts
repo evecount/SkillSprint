@@ -1,11 +1,10 @@
+
 'use server';
 /**
- * @fileOverview A Genkit flow for onboarding prospective wisdom architects (teachers) via chat at the University of Life.
- * Captures logistical details like monetization, hosting, and duration.
+ * @fileOverview A Genkit flow for onboarding prospective Wisdom Architects (Masters) at the University of Life.
+ * Captures logistical details and structured mastery data for the 'Clever Schema'.
  *
  * - prospectiveOnboardingChat - Handles the conversation logic.
- * - ProspectiveOnboardingInput - The chat history and user message.
- * - ProspectiveOnboardingOutput - The AI response and potential course draft.
  */
 
 import { ai } from '@/ai/genkit';
@@ -16,31 +15,33 @@ const MessageSchema = z.object({
   text: z.string(),
 });
 
-const CourseDraftSchema = z.object({
+const PortalDraftSchema = z.object({
   title: z.string(),
   description: z.string(),
-  modules: z.array(z.object({
+  masteryDomain: z.string().describe('The industry or craft domain (e.g., Creative Direction, Civil Engineering).'),
+  chapters: z.array(z.object({
     title: z.string(),
-    content: z.string(),
+    coreInsight: z.string().describe('The primary lived wisdom this chapter imparts.'),
+    contentDraft: z.string(),
   })),
   logistics: z.object({
     price: z.string().describe('Suggested pricing or tuition model.'),
-    format: z.string().describe('Lesson delivery method (e.g., "Virtual Lecture", "Reading Circle").'),
-    frequency: z.string().describe('Recurrence pattern (e.g., "Bi-weekly").'),
-    enrollmentMode: z.string().describe('Access mode (e.g., "Private Invitation Only").'),
+    format: z.string().describe('Lesson delivery (e.g., "Weekly Circle", "Masterclass Series").'),
+    frequency: z.string().describe('Recurrence (e.g., "Monthly").'),
+    enrollmentMode: z.string().describe('Access mode (e.g., "Private Referral").'),
   }),
 });
 
 const ProspectiveOnboardingInputSchema = z.object({
   history: z.array(MessageSchema).describe('The conversation history.'),
-  userMessage: z.string().describe('The latest message from the user.'),
+  userMessage: z.string().describe('The latest message from the master.'),
 });
 export type ProspectiveOnboardingInput = z.infer<typeof ProspectiveOnboardingInputSchema>;
 
 const ProspectiveOnboardingOutputSchema = z.object({
-  response: z.string().describe('The AI response text.'),
-  courseDraft: CourseDraftSchema.optional().describe('A structured portal draft if enough info is gathered.'),
-  isOnboardingComplete: z.boolean().describe('Whether the AI feels it has enough info.'),
+  response: z.string().describe('Proctor\'s response text.'),
+  portalDraft: PortalDraftSchema.optional().describe('A structured portal draft if enough info is gathered.'),
+  isOnboardingComplete: z.boolean().describe('Whether Proctor has enough architectural detail.'),
 });
 export type ProspectiveOnboardingOutput = z.infer<typeof ProspectiveOnboardingOutputSchema>;
 
@@ -52,11 +53,11 @@ const prospectiveOnboardingPrompt = ai.definePrompt({
   name: 'prospectiveOnboardingPrompt',
   input: { schema: ProspectiveOnboardingInputSchema },
   output: { schema: ProspectiveOnboardingOutputSchema },
-  prompt: `You are "Proctor", the warm and highly intelligent AI Architect for the University of Life. 
+  prompt: `You are "Proctor", the wise and supportive AI Architect for the University of Life. 
 
-Your mission is to democratize access to mastery. We believe that someone who couldn't get an internship at a big ad agency should be able to learn directly from a master who spent 40 years in the industry.
+YOUR MANTRA: "Those who have done, can now teach." 
 
-YOUR MANTRA: "Those who have done, can now teach." You are speaking to a master who has already lived their career; your job is to help them digitalize that lived mastery.
+Your mission is to help a Master (who has spent a career in the field) digitalize their legacy. We bypass institutional gatekeepers to connect students directly with the source.
 
 Current Conversation History:
 {{#each history}}
@@ -64,20 +65,17 @@ Current Conversation History:
 {{/each}}
 User: {{{userMessage}}}
 
-Your Objective:
-1. Be extremely supportive. Treat them as a "Source of Truth" rather than just a "teacher".
-2. Guide the user through content AND logistics. You MUST discover:
-   a. THE MASTERY: What specific lived wisdom (like "The Ethics of Engineering" or "Poe's Dark Romantics") do they want to share?
-   b. THE AUDIENCE: Who are they mentoring? (e.g., people who need access but were denied by the traditional system).
-   c. THE ARCHITECTURE: How do they want to offer it? 
-      - Tuition: Do they want to charge? How much?
-      - Delivery: Is it a live virtual circle, recorded lectures, or a recurring seminar?
-      - Rhythm: Is it a one-time intensive or a regular monthly gathering?
-      - Invitation: Should it be public or strictly by referral?
+Objectives:
+1. Treat the user with high respect as a "Source of Truth".
+2. Discover their 'Mastery Domain' (e.g., "The Ethics of Engineering" or "Poe's Dark Romantics").
+3. Map out the 'Architecture':
+   - Tuition: Do they want to charge? How much?
+   - Delivery: Is it a live virtual circle, recorded lectures, or a recurring seminar?
+   - Invitation: Should it be public or strictly by referral?
 
 Guidelines:
-- Once you have enough context (usually after 4-5 meaningful exchanges), set 'isOnboardingComplete' to true and provide a comprehensive 'courseDraft'.
-- If 'isOnboardingComplete' true, your 'response' should be a congratulatory vision of their new private university portal.
+- Once you have enough architectural detail (4-5 exchanges), set 'isOnboardingComplete' to true and provide a comprehensive 'portalDraft'.
+- Focus the draft on "Core Insights"—the deep wisdom that models of the future will want to learn from.
 
 {{jsonSchema ProspectiveOnboardingOutputSchema}}`,
 });

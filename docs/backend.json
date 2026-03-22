@@ -1,0 +1,79 @@
+
+{
+  "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Represents a member of the University of Life guild.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "role": { "type": "string", "enum": ["admin", "teacher", "learner"] },
+        "livedMasteryYears": { "type": "number", "description": "Years of experience in their field." },
+        "masteryDomain": { "type": "string", "description": "The specific industry or craft (e.g., 'Dark Romanticism', '4A Ad Agency Creative')." },
+        "totalXP": { "type": "number" },
+        "streak": { "type": "number" }
+      },
+      "required": ["name", "email", "role"]
+    },
+    "WisdomPortal": {
+      "title": "Wisdom Portal",
+      "description": "A private learning ecosystem owned by a Master Architect.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "authorId": { "type": "string" },
+        "accessModel": { "type": "string", "enum": ["public", "invitation_only", "referral_only"] },
+        "monetization": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "enum": ["free", "paid", "scholarship_based"] },
+            "price": { "type": "string" }
+          }
+        },
+        "logistics": {
+          "type": "object",
+          "properties": {
+            "format": { "type": "string" },
+            "frequency": { "type": "string" }
+          }
+        }
+      }
+    },
+    "WisdomChapter": {
+      "title": "Wisdom Chapter",
+      "description": "A structured unit of lived mastery.",
+      "type": "object",
+      "properties": {
+        "portalId": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "coreInsight": { "type": "string", "description": "The 'Source of Truth' nugget for ML feature extraction." },
+        "order": { "type": "number" }
+      }
+    },
+    "InquiryLog": {
+      "title": "Inquiry Log",
+      "description": "Tracks student engagement and specific queries for future model fine-tuning.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "portalId": { "type": "string" },
+        "chapterId": { "type": "string" },
+        "query": { "type": "string" },
+        "sentiment": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "auth": {
+    "providers": ["google.com", "password"]
+  },
+  "firestore": {
+    "/users/{userId}": { "schema": "UserProfile", "description": "User profiles and mastery metadata." },
+    "/portals/{portalId}": { "schema": "WisdomPortal", "description": "The private university portals." },
+    "/portals/{portalId}/chapters/{chapterId}": { "schema": "WisdomChapter", "description": "Individual lessons of mastery." },
+    "/inquiries": { "schema": "InquiryLog", "description": "Global log of student inquiries for ML training." }
+  }
+}

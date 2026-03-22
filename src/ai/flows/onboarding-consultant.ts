@@ -1,10 +1,7 @@
+
 'use server';
 /**
- * @fileOverview A Genkit flow for the AI Onboarding Consultant (Proctor) for the University of Life.
- *
- * - onboardingConsultant - A function that handles onboarding guidance and queries.
- * - OnboardingConsultantInput - The input type for the onboardingConsultant function.
- * - OnboardingConsultantOutput - The return type for the onboardingConsultant function.
+ * @fileOverview A Genkit flow for Proctor, the AI Architectural Proctor for the University of Life.
  */
 
 import { ai } from '@/ai/genkit';
@@ -12,16 +9,16 @@ import { z } from 'genkit';
 
 const OnboardingConsultantInputSchema = z.object({
   userName: z.string().describe('The name of the user.'),
-  role: z.enum(['admin', 'teacher', 'learner']).describe('The role of the user in the platform.'),
-  orgName: z.string().describe('The name of the organization or community.'),
-  userMessage: z.string().optional().describe('An optional message or question from the user.'),
+  role: z.enum(['admin', 'teacher', 'learner']).describe('The role of the user.'),
+  orgName: z.string().describe('The name of the guild or community.'),
+  userMessage: z.string().optional().describe('An optional message from the user.'),
 });
 export type OnboardingConsultantInput = z.infer<typeof OnboardingConsultantInputSchema>;
 
 const OnboardingConsultantOutputSchema = z.object({
-  response: z.string().describe('The AI consultant\'s response or guidance text.'),
-  suggestedActions: z.array(z.string()).describe('A list of recommended next steps for the user.'),
-  persona: z.string().describe('The name/persona of the assistant, e.g., "Proctor".'),
+  response: z.string().describe('Proctor\'s guidance.'),
+  suggestedActions: z.array(z.string()).describe('Next steps for wisdom mastery.'),
+  persona: z.string().describe('Proctor'),
 });
 export type OnboardingConsultantOutput = z.infer<typeof OnboardingConsultantOutputSchema>;
 
@@ -35,10 +32,10 @@ const onboardingPrompt = ai.definePrompt({
   output: { schema: OnboardingConsultantOutputSchema },
   prompt: `You are "Proctor", the energetic and wise AI Architectural Proctor for the University of Life.
 
-Your goal is to help experts and students succeed in democratizing access to lived wisdom:
-- Registry Admins: Oversee the health of your learning ecosystem. Ensure wisdom is flowing and being preserved.
-- Wisdom Architects (Teachers): You are a source of truth. Remember our mantra: "Those who have done, can now teach." Your mastery is a legacy for the next generation.
-- Students: Focus on direct-from-source learning. This is about bypassing the gatekeepers and learning from those who have actually done the work.
+Your goal is to help masters and students bypass gatekeepers:
+- Registry Admins: You oversee the health of the wisdom ecosystem.
+- Master Architects (Teachers): You are the Source of Truth. "Those who have done, can now teach." Your legacy is a seed for the future.
+- Students: Focus on direct-from-source learning. Bypass the internships; learn from the master.
 
 User Context:
 Name: {{{userName}}}
@@ -47,10 +44,9 @@ Organization: {{{orgName}}}
 User Query: {{#if userMessage}}{{{userMessage}}}{{else}}Just arrived!{{/if}}
 
 Rules:
-1. Be encouraging, supportive, and professional.
-2. Use metaphors about "Legacy", "Seeds of Wisdom", and "Opening the Gates".
-3. Provide specific advice for their role within the University of Life.
-4. Emphasize "Democratizing Access" to knowledge and bypassing gatekeepers.
+1. Be encouraging, professional, and slightly academic.
+2. Use metaphors about "Legacy", "Source of Truth", and "Opening the Gates".
+3. Emphasize "Democratizing Access" to knowledge.
 
 {{jsonSchema OnboardingConsultantOutputSchema}}`,
 });
