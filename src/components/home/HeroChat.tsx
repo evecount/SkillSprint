@@ -163,7 +163,7 @@ export function HeroChat() {
   if (!role) {
     return (
       <div className="w-full h-full flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
-        <div className="relative w-full flex-1 min-h-[500px] md:min-h-[600px] perspective-1000">
+        <div className="relative w-full flex-1 min-h-[600px] perspective-1000">
           {MOCK_EXPERIENCES.map((item: any, idx) => {
             const isTop = idx === stackIndex;
             const isNext = idx === (stackIndex + 1) % MOCK_EXPERIENCES.length;
@@ -182,8 +182,8 @@ export function HeroChat() {
                 {item.type === 'hero' ? (
                   <Card className="h-full w-full rounded-[2.5rem] bg-secondary border-white/10 p-8 md:p-12 flex flex-col justify-between shadow-2xl relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -mr-32 -mt-32" />
-                    <div>
-                      <Badge className="bg-primary/20 text-primary border-primary/30 px-5 py-1.5 text-[9px] font-black tracking-[0.3em] uppercase rounded-full mb-6">
+                    <div className="space-y-6">
+                      <Badge className="bg-primary/20 text-primary border-primary/30 px-5 py-1.5 text-[9px] font-black tracking-[0.3em] uppercase rounded-full mb-2">
                         SkillSprint Registry
                       </Badge>
                       <h1 className="font-headline text-3xl md:text-5xl font-black tracking-tighter leading-[0.85] text-white mb-6">
@@ -200,7 +200,7 @@ export function HeroChat() {
                         <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-sm">
                           <ShieldCheck className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                           <p className="text-[11px] font-medium leading-relaxed text-white/60">
-                            Practical Excellence over paper credentials. No gatekeepers, just truth.
+                            Lived Mastery over academic loops. Gain direct, ungatekept access to the practitioners who actually do the work.
                           </p>
                         </div>
                         <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-sm">
