@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Navbar } from '@/components/layout/Navbar';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Shield, Zap, ArrowLeft, Quote, Clock } from 'lucide-react';
+import { Shield, Zap, ArrowLeft, Quote, Clock, Star, GraduationCap } from 'lucide-react';
 
 export default function AboutMission() {
   return (
@@ -67,6 +67,24 @@ export default function AboutMission() {
               <p className="text-muted-foreground leading-relaxed text-lg font-medium">
                 AI has erased educational moats for data, but it can&apos;t replicate lived experience. We focus on the "Tactical Truth"—the practical excellence required to actually do the job, which institutional gatekeepers can&apos;t teach and paper credentials often fail to validate.
               </p>
+            </div>
+          </div>
+
+          {/* Simplified Value Pillars */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-20">
+            <div className="p-10 rounded-[2.5rem] bg-secondary text-white group hover:scale-[1.02] transition-transform duration-500">
+               <div className="h-14 w-14 rounded-2xl bg-primary/20 flex items-center justify-center mb-6">
+                <Star className="h-7 w-7 text-primary" />
+              </div>
+              <h3 className="text-2xl font-black mb-4">Monetize Legacy</h3>
+              <p className="text-white/60 font-medium text-sm leading-relaxed">Turn your 30+ years of craft into a paid side-hustle. Pass on the tactical truth while funding your next chapter.</p>
+            </div>
+            <div className="p-10 rounded-[2.5rem] bg-primary text-white group hover:scale-[1.02] transition-transform duration-500">
+               <div className="h-14 w-14 rounded-2xl bg-white/20 flex items-center justify-center mb-6">
+                <GraduationCap className="h-7 w-7 text-white" />
+              </div>
+              <h3 className="text-2xl font-black mb-4">Direct Access</h3>
+              <p className="text-white/80 font-medium text-sm leading-relaxed">Trade money for the master&apos;s time. Bypass "no experience" loops and get real work insights directly from industry practitioners.</p>
             </div>
           </div>
 

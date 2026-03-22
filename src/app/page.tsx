@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import { Navbar } from '@/components/layout/Navbar';
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Shield, Info, Star, Zap, GraduationCap, ArrowRight } from 'lucide-react';
+import { Info, ArrowRight } from 'lucide-react';
 import { HeroChat } from '@/components/home/HeroChat';
 
 export default function Home() {
@@ -24,51 +23,21 @@ export default function Home() {
               <span className="text-primary italic">Fast-Tracked.</span>
             </h1>
             <p className="text-lg md:text-2xl text-white/60 font-medium max-w-2xl leading-relaxed mt-6 italic">
-              "Skip the gatekeepers. Retirees: Monetize your career legacy. Students: Pay for direct access to the source and gain practical excellence that institutions can't teach."
+              "Skip the gatekeepers. Retirees: Monetize your legacy. Students: Buy back your time with direct access to practical excellence."
             </p>
           </div>
 
           {/* The Entry - HeroChat handles role selection */}
-          <div className="max-w-3xl mx-auto mb-32">
+          <div className="max-w-3xl mx-auto mb-20">
             <HeroChat />
           </div>
 
-          {/* Value Props */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
-            <div className="p-10 rounded-[3rem] bg-white/5 border border-white/10 hover:border-primary/50 transition-all duration-500 group">
-              <div className="h-16 w-16 rounded-3xl bg-primary/20 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
-                <Zap className="h-8 w-8 text-primary" />
-              </div>
-              <h3 className="font-black text-3xl mb-4 tracking-tight">Monetize Legacy</h3>
-              <p className="text-white/50 text-base font-medium leading-relaxed italic">Your 30+ years of craft is a professional asset. Build a paid side-hustle that funds your next chapter while passing on the tactical truth.</p>
-            </div>
-            
-            <div className="p-10 rounded-[3rem] bg-primary text-white shadow-[0_0_50px_-12px_rgba(162,84,28,0.4)] relative overflow-hidden group">
-              <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-150 transition-transform duration-700">
-                <Star className="h-32 w-32" />
-              </div>
-              <div className="h-16 w-16 rounded-3xl bg-white/20 flex items-center justify-center mb-8">
-                <GraduationCap className="h-8 w-8 text-white" />
-              </div>
-              <h3 className="font-black text-3xl mb-4 tracking-tight">Direct Access</h3>
-              <p className="text-white/90 text-base font-medium leading-relaxed italic">Trade money for the master&apos;s time. Bypass "no experience" loops and get real work insights directly from industry practitioners.</p>
-            </div>
-
-            <div className="p-10 rounded-[3rem] bg-white/5 border border-white/10 hover:border-primary/50 transition-all duration-500 group">
-              <div className="h-16 w-16 rounded-3xl bg-primary/20 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
-                <Shield className="h-8 w-8 text-primary" />
-              </div>
-              <h3 className="font-black text-3xl mb-4 tracking-tight">True Meritocracy</h3>
-              <p className="text-white/50 text-base font-medium leading-relaxed italic">Information is free, but lived experience is finite. We focus on practical excellence that validates you in the field.</p>
-            </div>
+          {/* Minimal Mission Link */}
+          <div className="text-center">
+            <Link href="/about" className="inline-flex items-center gap-3 text-xs font-black text-primary uppercase tracking-[0.4em] hover:text-white transition-colors group">
+              <Info className="h-5 w-5" /> Our Theory of Practice <ArrowRight className="h-4 w-4 group-hover:translate-x-2 transition-transform" />
+            </Link>
           </div>
-        </section>
-
-        {/* The Mission CTA */}
-        <section className="mt-40 text-center space-y-8">
-          <Link href="/about" className="inline-flex items-center gap-3 text-xs font-black text-primary uppercase tracking-[0.4em] hover:text-white transition-colors group">
-            <Info className="h-5 w-5" /> The SkillSprint Mission <ArrowRight className="h-4 w-4 group-hover:translate-x-2 transition-transform" />
-          </Link>
         </section>
       </main>
       
