@@ -5,11 +5,19 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Send, Bot, Loader2, ArrowRight, Zap, GraduationCap, MapPin, Calendar, Users, Star, FastForward, Clock } from 'lucide-react';
+import { Send, Bot, Loader2, ArrowRight, Zap, GraduationCap, MapPin, Calendar, Users, Star, FastForward, Clock, Heart, Briefcase, Landmark } from 'lucide-react';
 import { prospectiveOnboardingChat, ProspectiveOnboardingOutput } from '@/ai/flows/prospective-onboarding';
 import { onboardingConsultant } from '@/ai/flows/onboarding-consultant';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import Image from 'next/image';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
 
 type Message = {
   role: 'user' | 'model';
@@ -17,6 +25,13 @@ type Message = {
 };
 
 type UserRole = 'mentor' | 'student' | null;
+
+const MOCK_FEATURED = [
+  { id: 1, name: "Marcus V.", role: "Mentor", domain: "Ad Agency Creative", years: 32, image: "https://picsum.photos/seed/m1/400/500", hint: "creative mentor" },
+  { id: 2, name: "Elena S.", role: "Student", domain: "Aspiring UI Designer", status: "High Intent", image: "https://picsum.photos/seed/s1/400/500", hint: "design student" },
+  { id: 3, name: "Dr. Chen", role: "Mentor", domain: "Civil Engineering", years: 28, image: "https://picsum.photos/seed/m2/400/500", hint: "engineer mentor" },
+  { id: 4, name: "Liam O.", role: "Student", domain: "Growth Marketing", status: "Moonlighting", image: "https://picsum.photos/seed/s2/400/500", hint: "marketing student" },
+];
 
 export function HeroChat() {
   const [role, setRole] = useState<UserRole>(null);
@@ -87,54 +102,105 @@ export function HeroChat() {
 
   if (!role) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
-        <button 
-          onClick={() => handleRoleSelect('mentor')}
-          className="group relative h-[450px] rounded-[3rem] bg-white text-secondary overflow-hidden transition-all hover:scale-[1.02] active:scale-95 shadow-2xl border-2 border-transparent hover:border-primary/20"
-        >
-          <div className="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors" />
-          <div className="relative h-full flex flex-col items-center justify-center p-10 text-center space-y-6">
-            <div className="h-20 w-20 rounded-3xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-inner">
-              <Zap className="h-10 w-10 text-primary" />
-            </div>
-            <div>
-              <h3 className="text-4xl font-black tracking-tight mb-2">Mentor / Lecturer</h3>
-              <p className="text-secondary/40 font-black uppercase tracking-[0.3em] text-[10px]">Launch Your Side-Hustle</p>
-            </div>
-            <p className="text-secondary/70 font-medium italic leading-relaxed text-sm md:text-base">
-              "I&apos;m ready to monetize my career legacy and mentor the next generation."
-            </p>
-            <div className="pt-4">
-              <span className="inline-flex h-14 px-10 rounded-2xl bg-secondary text-white items-center gap-3 font-black text-xs uppercase tracking-[0.2em] shadow-xl group-hover:bg-primary transition-colors">
-                Become a Mentor <ArrowRight className="h-4 w-4" />
-              </span>
-            </div>
+      <div className="space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-700">
+        {/* Featured Swiper */}
+        <div className="space-y-6">
+          <div className="flex items-center justify-between px-2">
+            <h3 className="text-xs font-black uppercase tracking-[0.4em] text-primary">Active Matches In Registry</h3>
+            <Badge variant="outline" className="border-white/10 text-white/40 text-[9px] uppercase tracking-widest px-4">Swipe to Explore</Badge>
           </div>
-        </button>
+          
+          <Carousel className="w-full" opts={{ align: "start", loop: true }}>
+            <CarouselContent className="-ml-4">
+              {MOCK_FEATURED.map((item) => (
+                <CarouselItem key={item.id} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/4">
+                  <div className="group relative aspect-[3/4] overflow-hidden rounded-[2.5rem] bg-secondary border border-white/5 shadow-2xl transition-all hover:scale-[1.02]">
+                    <Image 
+                      src={item.image} 
+                      alt={item.name} 
+                      fill 
+                      className="object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
+                      data-ai-hint={item.hint}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
+                    <div className="absolute bottom-6 left-6 right-6">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Badge className={cn(
+                          "px-2 py-0 text-[8px] font-black uppercase tracking-widest border-none",
+                          item.role === 'Mentor' ? "bg-primary text-white" : "bg-white text-black"
+                        )}>
+                          {item.role}
+                        </Badge>
+                        {item.role === 'Mentor' ? (
+                          <span className="text-[10px] font-bold text-white/60">{item.years} Years Legacy</span>
+                        ) : (
+                          <span className="text-[10px] font-bold text-white/60">{item.status}</span>
+                        )}
+                      </div>
+                      <h4 className="text-xl font-black text-white leading-tight">{item.name}</h4>
+                      <p className="text-[10px] font-bold text-primary uppercase tracking-widest mt-1">{item.domain}</p>
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="hidden sm:block">
+              <CarouselPrevious className="absolute -left-12 bg-white/5 border-white/10 hover:bg-primary" />
+              <CarouselNext className="absolute -right-12 bg-white/5 border-white/10 hover:bg-primary" />
+            </div>
+          </Carousel>
+        </div>
 
-        <button 
-          onClick={() => handleRoleSelect('student')}
-          className="group relative h-[450px] rounded-[3rem] bg-secondary text-white overflow-hidden transition-all hover:scale-[1.02] active:scale-95 shadow-2xl"
-        >
-          <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 transition-colors" />
-          <div className="relative h-full flex flex-col items-center justify-center p-10 text-center space-y-6">
-            <div className="h-20 w-20 rounded-3xl bg-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-              <Clock className="h-10 w-10 text-primary" />
+        {/* Role Matcher Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <button 
+            onClick={() => handleRoleSelect('mentor')}
+            className="group relative h-[400px] rounded-[3rem] bg-white text-secondary overflow-hidden transition-all hover:scale-[1.02] active:scale-95 shadow-2xl border-2 border-transparent hover:border-primary/20"
+          >
+            <div className="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors" />
+            <div className="relative h-full flex flex-col items-center justify-center p-10 text-center space-y-6">
+              <div className="h-20 w-20 rounded-3xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-inner">
+                <Heart className="h-10 w-10 text-primary" />
+              </div>
+              <div>
+                <h3 className="text-4xl font-black tracking-tight mb-2">Mentor / Lecturer</h3>
+                <p className="text-secondary/40 font-black uppercase tracking-[0.3em] text-[10px]">Monetize Your Legacy</p>
+              </div>
+              <p className="text-secondary/70 font-medium italic leading-relaxed text-sm">
+                "I'm ready to architect my 30+ years of truth into a paid professional side-hustle."
+              </p>
+              <div className="pt-4">
+                <span className="inline-flex h-14 px-10 rounded-2xl bg-secondary text-white items-center gap-3 font-black text-xs uppercase tracking-[0.2em] shadow-xl group-hover:bg-primary transition-colors">
+                  Match as Mentor <ArrowRight className="h-4 w-4" />
+                </span>
+              </div>
             </div>
-            <div>
-              <h3 className="text-4xl font-black tracking-tight mb-2">Apprentice / Student</h3>
-              <p className="text-white/40 font-black uppercase tracking-[0.3em] text-[10px]">Buy Back Your Time</p>
+          </button>
+
+          <button 
+            onClick={() => handleRoleSelect('student')}
+            className="group relative h-[400px] rounded-[3rem] bg-secondary text-white overflow-hidden transition-all hover:scale-[1.02] active:scale-95 shadow-2xl border border-white/5"
+          >
+            <div className="absolute inset-0 bg-white/5 group-hover:bg-white/10 transition-colors" />
+            <div className="relative h-full flex flex-col items-center justify-center p-10 text-center space-y-6">
+              <div className="h-20 w-20 rounded-3xl bg-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                <Briefcase className="h-10 w-10 text-primary" />
+              </div>
+              <div>
+                <h3 className="text-4xl font-black tracking-tight mb-2">Apprentice / Student</h3>
+                <p className="text-white/40 font-black uppercase tracking-[0.3em] text-[10px]">Buy Back Your Time</p>
+              </div>
+              <p className="text-white/80 font-medium italic leading-relaxed text-sm">
+                "I'm ready to pay a Master to learn how to excel and bypass the unpaid experience loop."
+              </p>
+              <div className="pt-4">
+                <span className="inline-flex h-14 px-10 rounded-2xl bg-primary text-white items-center gap-3 font-black text-xs uppercase tracking-[0.2em] shadow-xl shadow-primary/20 hover:bg-accent transition-colors">
+                  Match as Student <ArrowRight className="h-4 w-4" />
+                </span>
+              </div>
             </div>
-            <p className="text-white/80 font-medium italic leading-relaxed text-sm md:text-base">
-              "I&apos;m ready to pay a Master to learn how to DO and skip the unpaid loops."
-            </p>
-            <div className="pt-4">
-              <span className="inline-flex h-14 px-10 rounded-2xl bg-primary text-white items-center gap-3 font-black text-xs uppercase tracking-[0.2em] shadow-xl shadow-primary/20 hover:bg-accent transition-colors">
-                Find an Apprenticeship <ArrowRight className="h-4 w-4" />
-              </span>
-            </div>
-          </div>
-        </button>
+          </button>
+        </div>
       </div>
     );
   }
