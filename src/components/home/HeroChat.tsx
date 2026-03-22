@@ -162,8 +162,8 @@ export function HeroChat() {
 
   if (!role) {
     return (
-      <div className="w-full h-full flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
-        <div className="relative w-full flex-1 min-h-[600px] perspective-1000">
+      <div className="w-full flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
+        <div className="relative w-full min-h-[600px] md:min-h-[700px] perspective-1000">
           {MOCK_EXPERIENCES.map((item: any, idx) => {
             const isTop = idx === stackIndex;
             const isNext = idx === (stackIndex + 1) % MOCK_EXPERIENCES.length;
@@ -294,7 +294,7 @@ export function HeroChat() {
 
   if (draft) {
     return (
-      <Card className="w-full border-none shadow-2xl rounded-[3rem] overflow-hidden bg-white animate-in zoom-in duration-500 flex flex-col h-full max-h-[700px]">
+      <Card className="w-full border-none shadow-2xl rounded-[3rem] overflow-hidden bg-white animate-in zoom-in duration-500 flex flex-col h-full min-h-[600px] md:min-h-[700px]">
         <CardHeader className="bg-secondary text-white p-8 md:p-12 shrink-0">
           <Badge className="bg-primary text-white border-none px-4 py-1.5 mb-4 rounded-full text-[8px] font-black uppercase tracking-widest">Registry Blueprint</Badge>
           <CardTitle className="text-3xl md:text-5xl font-black leading-[0.85] tracking-tighter">Your Side-Hustle <br /><span className="text-primary italic">Drafted.</span></CardTitle>
@@ -335,7 +335,7 @@ export function HeroChat() {
   }
 
   return (
-    <Card className="w-full border-none shadow-2xl rounded-[3rem] overflow-hidden bg-white flex flex-col h-full max-h-[750px] animate-in slide-in-from-right duration-500">
+    <Card className="w-full border-none shadow-2xl rounded-[3rem] overflow-hidden bg-white flex flex-col h-full min-h-[600px] md:min-h-[700px] animate-in slide-in-from-right duration-500">
       <CardHeader className="border-b border-border/10 bg-muted/30 px-8 py-5 shrink-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
