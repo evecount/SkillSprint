@@ -26,11 +26,11 @@ type Message = {
 
 type UserRole = 'mentor' | 'student' | null;
 
-const MOCK_FEATURED = [
-  { id: 1, name: "Marcus V.", role: "Mentor", domain: "Ad Agency Creative", years: 32, image: "https://picsum.photos/seed/m1/400/500", hint: "creative mentor" },
-  { id: 2, name: "Elena S.", role: "Student", domain: "Aspiring UI Designer", status: "High Intent", image: "https://picsum.photos/seed/s1/400/500", hint: "design student" },
-  { id: 3, name: "Dr. Chen", role: "Mentor", domain: "Civil Engineering", years: 28, image: "https://picsum.photos/seed/m2/400/500", hint: "engineer mentor" },
-  { id: 4, name: "Liam O.", role: "Student", domain: "Growth Marketing", status: "Moonlighting", image: "https://picsum.photos/seed/s2/400/500", hint: "marketing student" },
+const MOCK_EXPERIENCES = [
+  { id: 1, title: "4A Agency Creative Direction", author: "Marcus V.", domain: "Advertising", price: "$500/cycle", image: "https://picsum.photos/seed/skillsprint2/600/800", hint: "creative office" },
+  { id: 2, title: "Lived Civil Engineering Truth", author: "Dr. Chen", domain: "Engineering", price: "$750/cycle", image: "https://picsum.photos/seed/skillsprint3/600/800", hint: "bridge construction" },
+  { id: 3, title: "Dark Romanticism Mastery", author: "Julian R.", domain: "Fine Arts", price: "$400/cycle", image: "https://picsum.photos/seed/skillsprint4/600/800", hint: "classic art" },
+  { id: 4, title: "Growth Marketing Guerrilla", author: "Sarah L.", domain: "Marketing", price: "$600/cycle", image: "https://picsum.photos/seed/skillsprint1/600/800", hint: "digital data" },
 ];
 
 export function HeroChat() {
@@ -50,8 +50,8 @@ export function HeroChat() {
   const handleRoleSelect = (selectedRole: UserRole) => {
     setRole(selectedRole);
     const initialMsg = selectedRole === 'mentor' 
-      ? "Welcome to SkillSprint. I am Proctor. Your 30+ years of craft is a finite treasure. Let's build your professional side-hustle. What industry domain are we digitalizing today?"
-      : "Welcome seeker. I am Proctor. You're here to buy back your time. Which industry has locked you out that you're ready to pay a Master to enter directly?";
+      ? "Welcome Master. I am Proctor. Your 30+ years of truth is a finite treasure. Let's build your paid side-hustle. What industry domain are we digitalizing?"
+      : "Welcome Seeker. I am Proctor. You're here to buy back your time. Which industry has locked you out that you're ready to pay a Master to enter directly?";
     
     setMessages([{ role: 'model', text: initialMsg }]);
   };
@@ -103,21 +103,21 @@ export function HeroChat() {
   if (!role) {
     return (
       <div className="space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-700">
-        {/* Featured Swiper */}
+        {/* Experience Swiper (Swipe on Mastery, not just faces) */}
         <div className="space-y-6">
           <div className="flex items-center justify-between px-2">
-            <h3 className="text-xs font-black uppercase tracking-[0.4em] text-primary">Active Matches In Registry</h3>
-            <Badge variant="outline" className="border-white/10 text-white/40 text-[9px] uppercase tracking-widest px-4">Swipe to Explore</Badge>
+            <h3 className="text-xs font-black uppercase tracking-[0.4em] text-primary">Featured Apprenticeship Cycles</h3>
+            <Badge variant="outline" className="border-white/10 text-white/40 text-[9px] uppercase tracking-widest px-4">Swipe to Discover</Badge>
           </div>
           
           <Carousel className="w-full" opts={{ align: "start", loop: true }}>
             <CarouselContent className="-ml-4">
-              {MOCK_FEATURED.map((item) => (
+              {MOCK_EXPERIENCES.map((item) => (
                 <CarouselItem key={item.id} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/4">
                   <div className="group relative aspect-[3/4] overflow-hidden rounded-[2.5rem] bg-secondary border border-white/5 shadow-2xl transition-all hover:scale-[1.02]">
                     <Image 
                       src={item.image} 
-                      alt={item.name} 
+                      alt={item.title} 
                       fill 
                       className="object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
                       data-ai-hint={item.hint}
@@ -125,20 +125,13 @@ export function HeroChat() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
                     <div className="absolute bottom-6 left-6 right-6">
                       <div className="flex items-center gap-2 mb-2">
-                        <Badge className={cn(
-                          "px-2 py-0 text-[8px] font-black uppercase tracking-widest border-none",
-                          item.role === 'Mentor' ? "bg-primary text-white" : "bg-white text-black"
-                        )}>
-                          {item.role}
+                        <Badge className="bg-primary text-white px-2 py-0 text-[8px] font-black uppercase tracking-widest border-none">
+                          {item.domain}
                         </Badge>
-                        {item.role === 'Mentor' ? (
-                          <span className="text-[10px] font-bold text-white/60">{item.years} Years Legacy</span>
-                        ) : (
-                          <span className="text-[10px] font-bold text-white/60">{item.status}</span>
-                        )}
+                        <span className="text-[10px] font-bold text-white/60">{item.price}</span>
                       </div>
-                      <h4 className="text-xl font-black text-white leading-tight">{item.name}</h4>
-                      <p className="text-[10px] font-bold text-primary uppercase tracking-widest mt-1">{item.domain}</p>
+                      <h4 className="text-xl font-black text-white leading-tight">{item.title}</h4>
+                      <p className="text-[10px] font-bold text-primary uppercase tracking-widest mt-1">by {item.author}</p>
                     </div>
                   </div>
                 </CarouselItem>
@@ -167,7 +160,7 @@ export function HeroChat() {
                 <p className="text-secondary/40 font-black uppercase tracking-[0.3em] text-[10px]">Monetize Your Legacy</p>
               </div>
               <p className="text-secondary/70 font-medium italic leading-relaxed text-sm">
-                "I'm ready to architect my 30+ years of truth into a paid professional side-hustle."
+                "Trade your sacrificed time for a paid side-hustle teaching practical excellence."
               </p>
               <div className="pt-4">
                 <span className="inline-flex h-14 px-10 rounded-2xl bg-secondary text-white items-center gap-3 font-black text-xs uppercase tracking-[0.2em] shadow-xl group-hover:bg-primary transition-colors">
@@ -191,7 +184,7 @@ export function HeroChat() {
                 <p className="text-white/40 font-black uppercase tracking-[0.3em] text-[10px]">Buy Back Your Time</p>
               </div>
               <p className="text-white/80 font-medium italic leading-relaxed text-sm">
-                "I'm ready to pay a Master to learn how to excel and bypass the unpaid experience loop."
+                "Pay a Master directly for access and bypass the unpaid experience loop."
               </p>
               <div className="pt-4">
                 <span className="inline-flex h-14 px-10 rounded-2xl bg-primary text-white items-center gap-3 font-black text-xs uppercase tracking-[0.2em] shadow-xl shadow-primary/20 hover:bg-accent transition-colors">
@@ -275,7 +268,7 @@ export function HeroChat() {
               onClick={handleFastTrack}
               className="text-[10px] font-black uppercase tracking-widest text-primary hover:bg-primary/10 rounded-full px-4"
             >
-              <FastForward className="mr-2 h-3 w-3" /> {role === 'mentor' ? 'Skip to Setup' : 'Explore Registry'}
+              <FastForward className="mr-2 h-3 w-3" /> {role === 'mentor' ? 'Skip to Blueprint' : 'Explore Registry'}
             </Button>
             <Button variant="ghost" size="sm" onClick={() => setRole(null)} className="h-8 w-8 p-0 rounded-full hover:bg-muted">
               <ArrowRight className="h-4 w-4 rotate-180" />
@@ -319,7 +312,7 @@ export function HeroChat() {
           }}
         >
           <Input 
-            placeholder={role === 'mentor' ? "What is your mastery domain?" : "What industry are you targeting?"}
+            placeholder={role === 'mentor' ? "What is your mastery domain?" : "Which industry is locking you out?"}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={loading}

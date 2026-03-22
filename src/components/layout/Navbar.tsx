@@ -1,7 +1,7 @@
 "use client"
 
 import Link from 'next/link';
-import { Home, User, PlusCircle, Compass, ShieldCheck, Info } from 'lucide-react';
+import { Home, User, Compass, Info, BookOpen, LayoutDashboard } from 'lucide-react';
 import { UserRole } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
@@ -13,13 +13,14 @@ interface NavbarProps {
 export function Navbar({ role = 'learner' }: NavbarProps) {
   const pathname = usePathname();
 
+  // Simplified navigation based on "Discovery", "Matches", and "Philosophy"
   const navItems = role === 'learner' ? [
-    { label: 'Home', icon: Home, href: '/' },
     { label: 'Registry', icon: Compass, href: '/learner/dashboard' },
+    { label: 'My Guilds', icon: BookOpen, href: '/learner/dashboard' }, // Simplified for MVP
     { label: 'Mission', icon: Info, href: '/about' },
   ] : [
-    { label: 'Studio', icon: ShieldCheck, href: '/teacher/dashboard' },
-    { label: 'New Guild', icon: PlusCircle, href: '/admin/courses/new' },
+    { label: 'Studio', icon: LayoutDashboard, href: '/teacher/dashboard' },
+    { label: 'Registry', icon: Compass, href: '/admin/dashboard' },
     { label: 'Mission', icon: Info, href: '/about' },
   ];
 
@@ -62,7 +63,7 @@ export function Navbar({ role = 'learner' }: NavbarProps) {
         </div>
       </nav>
 
-      {/* Mobile Bottom Navigation - Native App Style */}
+      {/* Mobile Bottom Navigation - Native App Style (3 Core Tabs) */}
       <nav className="fixed bottom-0 left-0 right-0 z-[100] flex h-24 items-center border-t border-white/10 bg-secondary/95 backdrop-blur-3xl md:hidden mobile-nav-shadow px-6 pb-2">
         <div className="grid h-full w-full grid-cols-3 gap-4">
           {navItems.map((item) => (

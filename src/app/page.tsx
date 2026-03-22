@@ -19,15 +19,15 @@ export default function Home() {
               Professional Apprenticeship Registry
             </Badge>
             <h1 className="font-headline text-5xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.85] max-w-5xl">
-              Mastery, <br />
-              <span className="text-primary italic">Fast-Tracked.</span>
+              Master the Craft, <br />
+              <span className="text-primary italic">Skip the Loop.</span>
             </h1>
             <p className="text-lg md:text-2xl text-white/60 font-medium max-w-2xl leading-relaxed mt-6 italic">
               "Trade money for time. Masters: Monetize your legacy. Students: Get real work in the field by buying back years of trial and error."
             </p>
           </div>
 
-          {/* The Entry - HeroChat handles role selection & swiping */}
+          {/* The Entry - HeroChat handles role selection & swiping on Portals */}
           <div className="max-w-4xl mx-auto mb-20">
             <HeroChat />
           </div>
