@@ -13,6 +13,10 @@ export interface UserProfile {
   totalXP?: number;
   streak?: number;
   lastActive?: string;
+  bio?: string;
+  interests?: string[];
+  goals?: string[];
+  isPublic?: boolean;
 }
 
 export interface WisdomPortal {
