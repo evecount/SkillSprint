@@ -1,141 +1,202 @@
 
 "use client"
 
+import { useState } from 'react';
 import { Navbar } from '@/components/layout/Navbar';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Plus, BookOpen, Users, ArrowRight, DollarSign, TrendingUp, Clock, Heart, Calendar } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { 
+  Plus, 
+  BookOpen, 
+  Users, 
+  ArrowRight, 
+  DollarSign, 
+  Calendar, 
+  Zap, 
+  Clock, 
+  Video,
+  X,
+  CheckCircle2
+} from 'lucide-react';
 import Link from 'next/link';
 import { mockCourses, mockTeacher } from '@/lib/mock-data';
 import Image from 'next/image';
-import { Badge } from '@/components/ui/badge';
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogHeader, 
+  DialogTitle, 
+  DialogDescription 
+} from '@/components/ui/dialog';
 
 export default function PractitionerStudio() {
+  const [selectedCycle, setSelectedCycle] = useState<any>(null);
   const teacherCourses = mockCourses.filter(c => c.authorId === mockTeacher.id);
 
+  const stats = [
+    { label: 'Revenue', value: '$4,820', icon: DollarSign, color: 'text-primary' },
+    { label: 'Apprentices', value: '12', icon: Users, color: 'text-secondary' },
+    { label: 'Lived Impact', value: '1,240 XP', icon: Zap, color: 'text-primary' },
+    { label: 'Active Hours', value: '84h', icon: Clock, color: 'text-secondary' },
+  ];
+
   return (
-    <div className="min-h-screen bg-background pb-32 pt-12 md:pt-24">
+    <div className="min-h-screen bg-background pb-32 pt-28 md:pt-32">
       <Navbar role="teacher" />
       
-      <main className="container mx-auto px-4">
-        <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div className="space-y-2">
-            <div className="flex items-center gap-2 mb-2 text-primary font-bold text-sm tracking-wider uppercase">
-              <Heart className="h-4 w-4" />
-              <span>Veteran Practitioner Studio</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-black text-secondary tracking-tight">Legacy Marketplace</h1>
-            <p className="text-muted-foreground font-medium">Digitalizing your 30+ years of lived truth for high-intent apprentices.</p>
+      <main className="container mx-auto px-4 max-w-6xl">
+        {/* Header & Stats Section */}
+        <div className="mb-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div>
+            <h1 className="text-4xl font-black text-secondary tracking-tighter leading-none mb-2">Practitioner <span className="text-primary italic">Studio.</span></h1>
+            <p className="text-xs font-black uppercase tracking-[0.3em] text-muted-foreground">Digitalizing 30+ Years of Craft</p>
           </div>
-          <div className="flex gap-4">
-            <Button variant="outline" className="h-16 px-8 rounded-2xl border-2 font-bold uppercase tracking-widest hidden md:flex">
-              <Calendar className="mr-2 h-5 w-5" /> Schedule
-            </Button>
-            <Button asChild size="lg" className="h-16 px-8 rounded-2xl bg-secondary hover:bg-secondary/90 shadow-xl shadow-secondary/20 font-bold uppercase tracking-widest">
-              <Link href="/admin/courses/new">
-                <Plus className="mr-2 h-5 w-5" /> Structure Apprenticeship
-              </Link>
-            </Button>
+          
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full md:w-auto">
+            {stats.map((stat, i) => (
+              <div key={i} className="bg-white p-3 rounded-2xl border border-black/5 shadow-sm">
+                <p className="text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-1">{stat.label}</p>
+                <div className="flex items-center gap-2">
+                  <stat.icon className={stat.color + " h-3 w-3"} />
+                  <span className="text-lg font-black text-secondary tracking-tight">{stat.value}</span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Stats Grid */}
-        <div className="mb-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <Card className="rounded-[2rem] border-none shadow-sm hover:shadow-md transition-shadow">
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Tuition Revenue</CardTitle>
-              <DollarSign className="h-4 w-4 text-primary" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-black text-secondary">$4,820</div>
-              <p className="text-[10px] font-bold text-primary mt-1">+15% this month</p>
-            </CardContent>
-          </Card>
-          <Card className="rounded-[2rem] border-none shadow-sm hover:shadow-md transition-shadow">
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Active Apprentices</CardTitle>
-              <Users className="h-4 w-4 text-secondary" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-black text-secondary">12</div>
-              <p className="text-[10px] font-bold text-muted-foreground mt-1">Direct professional access</p>
-            </CardContent>
-          </Card>
-          <Card className="rounded-[2rem] border-none shadow-sm hover:shadow-md transition-shadow">
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Lived Impact</CardTitle>
-              <TrendingUp className="h-4 w-4 text-primary" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-black text-secondary">1,240</div>
-              <p className="text-[10px] font-bold text-muted-foreground mt-1">Validated mastery</p>
-            </CardContent>
-          </Card>
-          <Card className="rounded-[2rem] border-none shadow-sm hover:shadow-md transition-shadow">
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Exchange Cycles</CardTitle>
-              <Clock className="h-4 w-4 text-secondary" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-black text-secondary">84h</div>
-              <p className="text-[10px] font-bold text-muted-foreground mt-1">Direct apprenticeship time</p>
-            </CardContent>
-          </Card>
+        {/* Action Pillar Buttons */}
+        <div className="mb-12 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Button asChild className="h-24 rounded-[2rem] bg-secondary hover:bg-black text-white flex flex-col items-center justify-center gap-1 group transition-all hover:scale-[1.02] shadow-xl shadow-secondary/10">
+            <Link href="/admin/courses/new">
+              <Plus className="h-6 w-6 mb-1 group-hover:rotate-90 transition-transform" />
+              <span className="font-black uppercase tracking-widest text-[10px]">Structure an Experience</span>
+            </Link>
+          </Button>
+          <Button variant="outline" className="h-24 rounded-[2rem] border-4 border-black bg-white hover:bg-muted text-black flex flex-col items-center justify-center gap-1 group transition-all hover:scale-[1.02]">
+            <Video className="h-6 w-6 mb-1 text-primary" />
+            <span className="font-black uppercase tracking-widest text-[10px]">Create a Workshop</span>
+          </Button>
+          <Button variant="outline" className="h-24 rounded-[2rem] border-4 border-black bg-white hover:bg-muted text-black flex flex-col items-center justify-center gap-1 group transition-all hover:scale-[1.02]">
+            <Calendar className="h-6 w-6 mb-1 text-secondary" />
+            <span className="font-black uppercase tracking-widest text-[10px]">Schedule an Event</span>
+          </Button>
         </div>
 
-        <div className="space-y-8">
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-black text-secondary">Active Apprenticeship Cycles</h2>
-            <Badge variant="outline" className="rounded-full px-4 py-1 font-bold text-primary border-primary/20">
-              {teacherCourses.length} Active Sources
+        {/* Active Cycles Grid */}
+        <div className="space-y-6">
+          <div className="flex items-center justify-between px-2">
+            <h2 className="text-xl font-black text-secondary tracking-tight">Active Professional Cycles</h2>
+            <Badge variant="outline" className="rounded-full px-4 py-1 font-black text-[10px] uppercase tracking-widest text-primary border-primary/20 bg-primary/5">
+              {teacherCourses.length} Registered Sources
             </Badge>
           </div>
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {teacherCourses.map((course) => (
-              <Card key={course.id} className="group overflow-hidden border-none shadow-sm hover:shadow-xl transition-all rounded-[2.5rem] bg-white">
-                <div className="relative aspect-video w-full overflow-hidden">
-                  <Image 
-                    src={course.thumbnail} 
-                    alt={course.title} 
-                    fill 
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <Badge className="bg-secondary text-white border-none rounded-full px-3 py-1 font-bold">
-                      $499 Tuition
-                    </Badge>
+              <button 
+                key={course.id} 
+                onClick={() => setSelectedCycle(course)}
+                className="group relative text-left transition-all hover:scale-[1.02] focus:outline-none"
+              >
+                <Card className="overflow-hidden border-none shadow-sm hover:shadow-xl transition-all rounded-[2.5rem] bg-white h-full flex flex-col">
+                  <div className="relative aspect-video w-full overflow-hidden">
+                    <Image 
+                      src={course.thumbnail} 
+                      alt={course.title} 
+                      fill 
+                      className="object-cover transition-transform duration-700 group-hover:scale-110 opacity-80"
+                    />
+                    <div className="absolute top-4 left-4">
+                      <Badge className="bg-secondary text-white border-none rounded-full px-3 py-1 font-black text-[10px] uppercase tracking-widest">
+                        $499 Tuition
+                      </Badge>
+                    </div>
                   </div>
-                </div>
-                <CardHeader className="p-8">
-                  <CardTitle className="text-xl font-bold text-secondary group-hover:text-primary transition-colors">{course.title}</CardTitle>
-                  <CardDescription className="line-clamp-2 mt-2 font-medium italic">"{course.description}"</CardDescription>
-                </CardHeader>
-                <CardContent className="px-8 pb-8 flex justify-between items-center text-xs font-bold text-muted-foreground">
-                  <span className="flex items-center gap-1"><BookOpen className="h-3 w-3" /> {course.modules.length} Chapters of Truth</span>
-                  <span className="text-secondary">12 Registered Seekers</span>
-                </CardContent>
-                <div className="p-6 border-t border-border/50 bg-muted/20">
-                  <Button variant="ghost" className="w-full justify-between hover:bg-primary hover:text-white rounded-xl font-bold h-12" asChild>
-                    <Link href={`/admin/courses/edit/${course.id}`}>
-                      Refine Practical Excellence <ArrowRight className="h-4 w-4" />
-                    </Link>
-                  </Button>
-                </div>
-              </Card>
+                  <CardHeader className="p-6 flex-1">
+                    <CardTitle className="text-lg font-black text-secondary group-hover:text-primary transition-colors leading-tight">{course.title}</CardTitle>
+                    <CardDescription className="line-clamp-2 mt-2 font-medium italic text-xs">"{course.description}"</CardDescription>
+                  </CardHeader>
+                  <div className="p-6 pt-0 flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                    <span className="flex items-center gap-1"><BookOpen className="h-3 w-3" /> {course.modules.length} Chapters</span>
+                    <span className="text-secondary">12 Seekers</span>
+                  </div>
+                </Card>
+              </button>
             ))}
             
-            <Link href="/admin/courses/new" className="flex h-full min-h-[400px] flex-col items-center justify-center gap-4 rounded-[2.5rem] border-4 border-dashed border-border hover:border-primary/50 bg-white hover:bg-primary/5 transition-all group p-8 text-center">
-              <div className="h-20 w-20 rounded-3xl bg-muted group-hover:bg-primary group-hover:scale-110 transition-all flex items-center justify-center text-secondary group-hover:text-white">
-                <Plus className="h-10 w-10" />
+            <Link href="/admin/courses/new" className="flex h-full min-h-[300px] flex-col items-center justify-center gap-4 rounded-[2.5rem] border-4 border-dashed border-border hover:border-primary/50 bg-white hover:bg-primary/5 transition-all group p-8 text-center">
+              <div className="h-16 w-16 rounded-3xl bg-muted group-hover:bg-primary group-hover:scale-110 transition-all flex items-center justify-center text-secondary group-hover:text-white">
+                <Plus className="h-8 w-8" />
               </div>
               <div>
-                <p className="font-bold text-xl text-secondary">Structure Paid Apprenticeship</p>
-                <p className="text-xs text-muted-foreground mt-1">Let Proctor architect your lived legacy monetization.</p>
+                <p className="font-black text-xs uppercase tracking-widest text-secondary">New Legacy Cycle</p>
+                <p className="text-[10px] text-muted-foreground mt-1">Structure your next professional truth.</p>
               </div>
             </Link>
           </div>
         </div>
       </main>
+
+      {/* Cycle Detail Dialog */}
+      <Dialog open={!!selectedCycle} onOpenChange={() => setSelectedCycle(null)}>
+        {selectedCycle && (
+          <DialogContent className="max-w-2xl rounded-[3rem] p-0 overflow-hidden border-none shadow-2xl animate-in zoom-in-95 duration-300">
+            <div className="relative aspect-video w-full">
+               <Image 
+                src={selectedCycle.thumbnail} 
+                alt={selectedCycle.title} 
+                fill 
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+              <button 
+                onClick={() => setSelectedCycle(null)}
+                className="absolute top-6 right-6 h-10 w-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/20 transition-all"
+              >
+                <X className="h-5 w-5" />
+              </button>
+              <div className="absolute bottom-8 left-8 right-8">
+                <Badge className="bg-primary text-white mb-3 px-4 py-1 text-[8px] font-black uppercase tracking-widest rounded-full">Active Registry Source</Badge>
+                <DialogTitle className="text-3xl font-black text-white tracking-tighter leading-none">{selectedCycle.title}</DialogTitle>
+              </div>
+            </div>
+            <div className="p-8 space-y-6">
+              <DialogDescription className="text-base text-secondary font-medium leading-relaxed italic">
+                {selectedCycle.description}
+              </DialogDescription>
+              
+              <div className="grid grid-cols-3 gap-4">
+                <div className="bg-muted/50 p-4 rounded-2xl">
+                  <p className="text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-1">Tuition Model</p>
+                  <p className="text-sm font-black text-secondary">$499 / Cycle</p>
+                </div>
+                <div className="bg-muted/50 p-4 rounded-2xl">
+                  <p className="text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-1">Engagement</p>
+                  <p className="text-sm font-black text-secondary">12 Seekers</p>
+                </div>
+                <div className="bg-muted/50 p-4 rounded-2xl">
+                  <p className="text-[8px] font-black uppercase tracking-widest text-muted-foreground mb-1">Status</p>
+                  <div className="flex items-center gap-1 text-primary">
+                    <CheckCircle2 className="h-3 w-3" />
+                    <span className="text-sm font-black">Live</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <Button className="flex-1 h-14 rounded-2xl bg-primary hover:bg-accent text-white font-black uppercase tracking-widest text-xs">
+                  Manage Practical Content
+                </Button>
+                <Button variant="outline" className="flex-1 h-14 rounded-2xl border-2 border-black font-black uppercase tracking-widest text-xs">
+                  View Analytics
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        )}
+      </Dialog>
     </div>
   );
 }

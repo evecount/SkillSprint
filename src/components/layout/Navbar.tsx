@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Compass, BookOpen, User, LayoutDashboard, Info, Bot } from 'lucide-react';
+import { Compass, BookOpen, User, LayoutDashboard, Info, Bot, Calendar } from 'lucide-react';
 import { UserRole } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
@@ -23,7 +23,7 @@ export function Navbar({ role = 'learner', userName, orgName }: NavbarProps) {
   const finalUserName = userName || (role === 'learner' ? mockLearner.name : role === 'teacher' ? mockTeacher.name : mockAdmin.name);
   const finalOrgName = orgName || mockOrg.name;
 
-  // Unified 5-pillar professional navigation: Explore, Join, Proctor, Studio, Identity
+  // Unified 5-pillar professional navigation: Explore, Join (Apprentice), PROCTOR, Studio (Practitioner), Identity
   const navItems = [
     { label: 'Explore', icon: Compass, href: '/' },
     { label: 'Join', icon: BookOpen, href: '/learner/dashboard' },
