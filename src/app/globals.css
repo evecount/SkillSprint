@@ -51,3 +51,12 @@
     animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
   }
 }
+
+/* Neo-Brutalist utility */
+.brutalist-card {
+  @apply border-8 border-black shadow-none rounded-none;
+}
+
+.brutalist-button {
+  @apply border-4 border-black rounded-none shadow-none font-black uppercase italic tracking-widest hover:bg-secondary transition-all;
+}
