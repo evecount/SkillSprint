@@ -2,8 +2,7 @@ import Link from 'next/link';
 import { Navbar } from '@/components/layout/Navbar';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
-import { ArrowRight, CheckCircle, Shield, Sparkles, BookOpenCheck, Landmark, GraduationCap } from 'lucide-react';
+import { ArrowRight, CheckCircle, Shield, Sparkles, Landmark, GraduationCap } from 'lucide-react';
 import { HeroChat } from '@/components/home/HeroChat';
 
 export default function Home() {
@@ -12,7 +11,7 @@ export default function Home() {
       <Navbar role="learner" />
       
       <main className="pt-32 pb-32">
-        {/* Hero Section - Proctor First */}
+        {/* Hero Section - Proctor Centered and First */}
         <section className="container mx-auto px-4">
           <div className="flex flex-col items-center text-center mb-16 space-y-8">
             <Badge className="bg-secondary/10 text-secondary border-secondary/20 hover:bg-secondary/20 px-6 py-2 text-sm font-black tracking-[0.2em] rounded-none uppercase italic">
@@ -21,9 +20,9 @@ export default function Home() {
             <h1 className="font-headline text-6xl md:text-8xl font-black tracking-tighter text-foreground leading-[0.9] max-w-5xl uppercase italic">
               Those who have done, <span className="text-secondary">can now teach.</span>
             </h1>
-            <p className="text-xl text-muted-foreground font-bold max-w-2xl leading-relaxed">
-              Democratizing access to deep, lived wisdom. Bypass institutional gatekeepers. 
-              Digitalize your legacy into a private Higher Ed portal.
+            <p className="text-xl text-muted-foreground font-bold max-w-2xl leading-relaxed italic">
+              Democratizing access to lived wisdom. Bypass the internship gatekeepers. 
+              Digitalize your legacy into a private Wisdom Portal.
             </p>
           </div>
 
@@ -41,34 +40,34 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pt-12 border-t-4 border-black">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pt-12 border-t-8 border-black">
             <div className="space-y-4">
               <div className="h-12 w-12 rounded-none bg-black flex items-center justify-center">
                 <Landmark className="h-6 w-6 text-white" />
               </div>
-              <h3 className="font-black uppercase tracking-tight text-xl">Direct Source</h3>
-              <p className="text-sm font-medium text-muted-foreground">Learn from practitioners, not institutional bureaucrats.</p>
+              <h3 className="font-black uppercase tracking-tight text-xl italic">Direct Source</h3>
+              <p className="text-sm font-bold text-muted-foreground italic">Learn from practitioners who lived the career, not institutional bureaucrats.</p>
             </div>
             <div className="space-y-4">
               <div className="h-12 w-12 rounded-none bg-secondary flex items-center justify-center">
                 <CheckCircle className="h-6 w-6 text-white" />
               </div>
-              <h3 className="font-black uppercase tracking-tight text-xl">Bypass Internships</h3>
-              <p className="text-sm font-medium text-muted-foreground">Direct mentoring for those denied a seat at the table.</p>
+              <h3 className="font-black uppercase tracking-tight text-xl italic">Bypass Barriers</h3>
+              <p className="text-sm font-bold text-muted-foreground italic">Direct mentoring for those denied a seat at the traditional table.</p>
             </div>
             <div className="space-y-4">
               <div className="h-12 w-12 rounded-none bg-black flex items-center justify-center">
                 <Shield className="h-6 w-6 text-white" />
               </div>
-              <h3 className="font-black uppercase tracking-tight text-xl">Own Your Legacy</h3>
-              <p className="text-sm font-medium text-muted-foreground">Architects retain full control of their IP and tuition.</p>
+              <h3 className="font-black uppercase tracking-tight text-xl italic">Own Your Legacy</h3>
+              <p className="text-sm font-bold text-muted-foreground italic">Architects retain full control of their intellectual property and tuition.</p>
             </div>
             <div className="space-y-4">
               <div className="h-12 w-12 rounded-none bg-secondary flex items-center justify-center">
                 <GraduationCap className="h-6 w-6 text-white" />
               </div>
-              <h3 className="font-black uppercase tracking-tight text-xl">Private Portals</h3>
-              <p className="text-sm font-medium text-muted-foreground">Custom-built ecosystems for specific domains of mastery.</p>
+              <h3 className="font-black uppercase tracking-tight text-xl italic">Private Portals</h3>
+              <p className="text-sm font-bold text-muted-foreground italic">Custom-built ecosystems for specific domains of deep human mastery.</p>
             </div>
           </div>
         </section>
@@ -79,28 +78,28 @@ export default function Home() {
             <h2 className="font-headline text-5xl font-black tracking-tighter uppercase italic mb-20">The Guild of Global Mastery</h2>
             <div className="grid gap-12 sm:grid-cols-3">
               <div className="p-8 border-4 border-white rounded-none hover:bg-secondary transition-colors group cursor-default">
-                <Sparkles className="h-12 w-12 mb-6 mx-auto group-hover:scale-110 transition-transform" />
-                <h3 className="text-2xl font-black uppercase mb-4 tracking-tight">Wisdom Architects</h3>
-                <p className="text-white/70 font-bold mb-8">Decades of mastery. Now digitalized into a lasting legacy.</p>
-                <Button asChild variant="outline" className="w-full h-14 text-white border-white bg-transparent rounded-none hover:bg-white hover:text-black font-black uppercase tracking-widest">
+                <Sparkles className="h-12 w-12 mb-6 mx-auto group-hover:scale-110 transition-transform text-white" />
+                <h3 className="text-2xl font-black uppercase mb-4 tracking-tight text-white italic">Wisdom Architects</h3>
+                <p className="text-white/70 font-bold mb-8 italic">Decades of mastery. Now digitalized into a lasting legacy portal.</p>
+                <Button asChild variant="outline" className="w-full h-14 text-white border-white bg-transparent rounded-none hover:bg-white hover:text-black font-black uppercase tracking-widest italic">
                   <Link href="/teacher/dashboard">Open Studio</Link>
                 </Button>
               </div>
               
               <div className="p-8 border-4 border-secondary rounded-none hover:bg-white transition-colors group cursor-default bg-secondary text-white hover:text-black">
-                <GraduationCap className="h-12 w-12 mb-6 mx-auto group-hover:scale-110 transition-transform" />
-                <h3 className="text-2xl font-black uppercase mb-4 tracking-tight text-white group-hover:text-black">Direct Students</h3>
-                <p className="text-white group-hover:text-black font-bold mb-8">Master the craft from those who actually do it.</p>
-                <Button asChild className="w-full h-14 bg-black text-white rounded-none hover:bg-secondary font-black uppercase tracking-widest border-2 border-black">
+                <GraduationCap className="h-12 w-12 mb-6 mx-auto group-hover:scale-110 transition-transform text-white" />
+                <h3 className="text-2xl font-black uppercase mb-4 tracking-tight text-white group-hover:text-black italic">Direct Students</h3>
+                <p className="text-white group-hover:text-black font-bold mb-8 italic">Master the craft from those who actually do it. Bypass the gatekeepers.</p>
+                <Button asChild className="w-full h-14 bg-black text-white rounded-none hover:bg-secondary font-black uppercase tracking-widest border-2 border-black italic">
                   <Link href="/learner/dashboard">Find a Portal</Link>
                 </Button>
               </div>
 
               <div className="p-8 border-4 border-white rounded-none hover:bg-secondary transition-colors group cursor-default">
-                <Landmark className="h-12 w-12 mb-6 mx-auto group-hover:scale-110 transition-transform" />
-                <h3 className="text-2xl font-black uppercase mb-4 tracking-tight">Campus Registry</h3>
-                <p className="text-white/70 font-bold mb-8">Orchestrate your organization's wisdom ecosystem.</p>
-                <Button asChild variant="outline" className="w-full h-14 text-white border-white bg-transparent rounded-none hover:bg-white hover:text-black font-black uppercase tracking-widest">
+                <Landmark className="h-12 w-12 mb-6 mx-auto group-hover:scale-110 transition-transform text-white" />
+                <h3 className="text-2xl font-black uppercase mb-4 tracking-tight text-white italic">Registry Admins</h3>
+                <p className="text-white/70 font-bold mb-8 italic">Orchestrate and validate your organization's wisdom ecosystem.</p>
+                <Button asChild variant="outline" className="w-full h-14 text-white border-white bg-transparent rounded-none hover:bg-white hover:text-black font-black uppercase tracking-widest italic">
                   <Link href="/admin/dashboard">Registry Stats</Link>
                 </Button>
               </div>
@@ -112,7 +111,7 @@ export default function Home() {
       <footer className="border-t-8 border-black py-24 text-center bg-white">
         <div className="container mx-auto px-4">
           <div className="flex flex-col items-center gap-8">
-            <div className="h-20 w-20 bg-black text-white flex items-center justify-center font-serif text-5xl font-black italic">
+            <div className="h-20 w-20 bg-black text-white flex items-center justify-center font-serif text-5xl font-black italic border-4 border-white">
               U
             </div>
             <div className="max-w-2xl space-y-4">

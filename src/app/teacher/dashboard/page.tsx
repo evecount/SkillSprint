@@ -3,7 +3,7 @@
 import { Navbar } from '@/components/layout/Navbar';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Plus, BookOpen, Users, MessageSquare, Sparkles, ArrowRight, Landmark } from 'lucide-react';
+import { Plus, BookOpen, Users, Sparkles, ArrowRight, Landmark } from 'lucide-react';
 import Link from 'next/link';
 import { AIConsultant } from '@/components/consultant/AIConsultant';
 import { mockCourses, mockTeacher, mockOrg } from '@/lib/mock-data';
@@ -13,99 +13,99 @@ export default function TeacherDashboard() {
   const teacherCourses = mockCourses.filter(c => c.authorId === mockTeacher.id);
 
   return (
-    <div className="min-h-screen bg-background pb-20 md:pb-0 md:pt-16">
+    <div className="min-h-screen bg-background pb-20 md:pb-0 md:pt-20">
       <Navbar role="teacher" />
       
       <main className="container mx-auto px-4 py-8">
-        <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-center">
+        <div className="mb-8 flex flex-col justify-between gap-6 md:flex-row md:items-end border-b-8 border-black pb-8">
           <div>
-            <div className="flex items-center gap-2 mb-1 text-primary">
-              <Landmark className="h-5 w-5" />
-              <span className="text-xs font-bold uppercase tracking-widest">Master Architect</span>
+            <div className="flex items-center gap-2 mb-2 text-primary">
+              <Landmark className="h-6 w-6" />
+              <span className="text-sm font-black uppercase tracking-[0.3em]">Master Architect</span>
             </div>
-            <h1 className="font-headline text-3xl font-bold">Wisdom Studio</h1>
-            <p className="text-muted-foreground">Curate your legacy for the University of Life community.</p>
+            <h1 className="font-headline text-5xl font-black uppercase italic tracking-tighter">Wisdom Studio</h1>
+            <p className="text-muted-foreground font-bold italic mt-2">Curating your legacy for the next generation of practitioners.</p>
           </div>
-          <Button asChild size="lg">
+          <Button asChild size="lg" className="h-16 px-10 text-xl font-black uppercase italic tracking-widest rounded-none shadow-none bg-black border-4 border-black hover:bg-secondary">
             <Link href="/admin/courses/new">
-              <Plus className="mr-2 h-5 w-5" /> Architect New Portal
+              <Plus className="mr-3 h-6 w-6" /> Architect New Portal
             </Link>
           </Button>
         </div>
 
         {/* Teacher Stats */}
-        <div className="mb-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <Card className="shadow-sm border-none bg-white">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Your Portals</CardTitle>
-              <BookOpen className="h-4 w-4 text-primary" />
+        <div className="mb-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <Card className="shadow-none border-4 border-black bg-white rounded-none">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+              <CardTitle className="text-xs font-black uppercase tracking-widest">Active Portals</CardTitle>
+              <BookOpen className="h-5 w-5 text-black" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{teacherCourses.length}</div>
-              <p className="text-xs text-muted-foreground">Across 2 faculties</p>
+              <div className="text-4xl font-black italic">{teacherCourses.length}</div>
+              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-2">Across 2 Domains of Mastery</p>
             </CardContent>
           </Card>
-          <Card className="shadow-sm border-none bg-white">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Mentees Enrolled</CardTitle>
-              <Users className="h-4 w-4 text-primary" />
+          <Card className="shadow-none border-4 border-black bg-white rounded-none">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+              <CardTitle className="text-xs font-black uppercase tracking-widest">Total Mentees</CardTitle>
+              <Users className="h-5 w-5 text-black" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">482</div>
-              <p className="text-xs text-green-600 font-medium">+15% inquiry this week</p>
+              <div className="text-4xl font-black italic">482</div>
+              <p className="text-[10px] font-black uppercase tracking-widest text-secondary mt-2">+15% inquiry this week</p>
             </CardContent>
           </Card>
-          <Card className="shadow-sm border-none bg-white">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Legacy Score</CardTitle>
-              <Sparkles className="h-4 w-4 text-secondary" />
+          <Card className="shadow-none border-4 border-black bg-white rounded-none">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+              <CardTitle className="text-xs font-black uppercase tracking-widest">Wisdom Impact</CardTitle>
+              <Sparkles className="h-5 w-5 text-secondary" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">84%</div>
-              <p className="text-xs text-muted-foreground">High understanding rate</p>
+              <div className="text-4xl font-black italic">84%</div>
+              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-2">Conceptual understanding rate</p>
             </CardContent>
           </Card>
         </div>
 
-        <div className="space-y-6">
-          <h2 className="font-headline text-2xl font-bold">My Active Portals</h2>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="space-y-8">
+          <h2 className="font-headline text-3xl font-black uppercase italic tracking-tighter">Your Active Portals</h2>
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {teacherCourses.map((course) => (
-              <Card key={course.id} className="overflow-hidden shadow-md border-none group hover:shadow-lg transition-all">
-                <div className="relative aspect-video w-full">
+              <Card key={course.id} className="overflow-hidden shadow-none border-4 border-black group hover:border-secondary transition-all rounded-none bg-white">
+                <div className="relative aspect-video w-full border-b-4 border-black">
                   <Image 
                     src={course.thumbnail} 
                     alt={course.title} 
                     fill 
-                    className="object-cover"
+                    className="object-cover grayscale group-hover:grayscale-0 transition-all"
                   />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
+                  <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
                 </div>
-                <CardHeader>
-                  <CardTitle className="text-lg line-clamp-1">{course.title}</CardTitle>
-                  <CardDescription className="line-clamp-2">{course.description}</CardDescription>
+                <CardHeader className="p-6">
+                  <CardTitle className="text-xl font-black uppercase italic leading-tight">{course.title}</CardTitle>
+                  <CardDescription className="line-clamp-2 font-bold italic mt-2 text-black/60">{course.description}</CardDescription>
                 </CardHeader>
-                <CardContent className="flex justify-between items-center text-xs text-muted-foreground">
+                <CardContent className="px-6 pb-6 flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                   <span>{course.modules.length} Chapters</span>
-                  <span>128 Students</span>
+                  <span className="text-black">128 Students</span>
                 </CardContent>
-                <div className="p-4 border-t bg-muted/20">
-                  <Button variant="ghost" className="w-full justify-between hover:bg-white" asChild>
+                <div className="p-4 border-t-4 border-black bg-muted/20">
+                  <Button variant="ghost" className="w-full justify-between hover:bg-black hover:text-white rounded-none font-black uppercase tracking-widest italic h-12" asChild>
                     <Link href={`/admin/courses/edit/${course.id}`}>
-                      Refine Wisdom <ArrowRight className="h-4 w-4" />
+                      Refine Source Wisdom <ArrowRight className="h-4 w-4" />
                     </Link>
                   </Button>
                 </div>
               </Card>
             ))}
             
-            <Link href="/admin/courses/new" className="flex h-full min-h-[300px] flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-muted-foreground/20 bg-muted/10 p-8 text-center transition-all hover:bg-muted/20 hover:border-primary/50 group">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-background shadow-sm group-hover:scale-110 transition-transform">
-                <Plus className="h-6 w-6 text-primary" />
+            <Link href="/admin/courses/new" className="flex h-full min-h-[350px] flex-col items-center justify-center gap-6 border-4 border-dashed border-black/20 bg-muted/10 p-10 text-center transition-all hover:bg-secondary/5 hover:border-secondary group rounded-none">
+              <div className="flex h-16 w-16 items-center justify-center bg-black text-white group-hover:scale-110 transition-transform border-4 border-white shadow-none">
+                <Plus className="h-8 w-8" />
               </div>
-              <div>
-                <p className="font-bold">Architect New Portal</p>
-                <p className="text-xs text-muted-foreground">Use Proctor to curate your wisdom</p>
+              <div className="space-y-2">
+                <p className="font-black uppercase tracking-widest text-lg italic">Architect New Portal</p>
+                <p className="text-xs font-bold italic text-muted-foreground">Utilize Proctor to digitalize your mastery</p>
               </div>
             </Link>
           </div>
