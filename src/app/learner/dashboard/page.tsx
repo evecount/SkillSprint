@@ -6,7 +6,7 @@ import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Flame, Trophy, ArrowRight, Play, Clock, Star } from 'lucide-react';
-import { mockCourses, mockLearner, mockOrg } from '@/lib/mock-data';
+import { mockCourses, mockLearner, mockOrg } from '@/mock-data';
 import Link from 'next/link';
 import Image from 'next/image';
 import { AIConsultant } from '@/components/consultant/AIConsultant';
