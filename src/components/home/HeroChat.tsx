@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Sparkles, Send, Bot, Loader2, ArrowRight, CheckCircle2, DollarSign, MapPin, Calendar, Users, GraduationCap, Landmark } from 'lucide-react';
+import { Sparkles, Send, Bot, Loader2, ArrowRight, CheckCircle2, DollarSign, MapPin, Calendar, Users, GraduationCap, Landmark, Zap } from 'lucide-react';
 import { prospectiveOnboardingChat, ProspectiveOnboardingOutput } from '@/ai/flows/prospective-onboarding';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
@@ -19,7 +19,7 @@ export function HeroChat() {
   const [messages, setMessages] = useState<Message[]>([
     { 
       role: 'model', 
-      text: "I am Proctor. My purpose is to digitalize your mastery for the University of Life registry. If you were to open your own private Wisdom Portal today—free from institutional gatekeepers—what is the core craft you would share with the next generation?" 
+      text: "I am Proctor. I architect the bridge between your lived mastery and the next generation. If you were to launch your own private Wisdom Guild today—bypassing every institutional gatekeeper—what specific industry or craft are we masterminding?" 
     }
   ]);
   const [input, setInput] = useState('');
@@ -53,7 +53,7 @@ export function HeroChat() {
         setDraft(result.portalDraft);
       }
     } catch (error) {
-      setMessages(prev => [...prev, { role: 'model', text: "I've encountered a temporary registry error. Please re-state your insight." }]);
+      setMessages(prev => [...prev, { role: 'model', text: "Registry error encountered. Please re-state your domain of mastery." }]);
     } finally {
       setLoading(false);
     }
@@ -64,10 +64,10 @@ export function HeroChat() {
       <Card className="border-8 border-black shadow-none bg-white overflow-hidden animate-in fade-in zoom-in duration-500 rounded-none">
         <CardHeader className="bg-black text-white p-10">
           <div className="flex items-center gap-3 mb-4">
-            <Badge variant="secondary" className="bg-secondary text-white border-none px-4 py-1 rounded-none uppercase font-black tracking-widest text-xs italic">Registry Validated</Badge>
+            <Badge variant="secondary" className="bg-secondary text-white border-none px-4 py-1 rounded-none uppercase font-black tracking-widest text-xs italic">Guild Blueprint Ready</Badge>
           </div>
-          <CardTitle className="text-4xl md:text-5xl font-black leading-[0.9] uppercase italic tracking-tighter">Wisdom Portal <span className="text-secondary">Drafted</span></CardTitle>
-          <p className="text-white/60 text-lg mt-4 font-bold max-w-lg italic">Proctor has mapped your legacy. The architecture is ready for launch.</p>
+          <CardTitle className="text-4xl md:text-5xl font-black leading-[0.9] uppercase italic tracking-tighter">Wisdom Guild <span className="text-secondary">Drafted</span></CardTitle>
+          <p className="text-white/60 text-lg mt-4 font-bold max-w-lg italic">Proctor has architecturalized your exchange. Your direct-from-source academy is ready.</p>
         </CardHeader>
         <CardContent className="p-10 space-y-10">
           <div className="rounded-none border-4 border-black bg-muted/20 p-8">
@@ -77,7 +77,7 @@ export function HeroChat() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
-              { icon: DollarSign, label: "Monetization Model", value: draft.logistics.price },
+              { icon: Zap, label: "Mastery Domain", value: draft.masteryDomain },
               { icon: MapPin, label: "Delivery Format", value: draft.logistics.format },
               { icon: Calendar, label: "Engagement Frequency", value: draft.logistics.frequency },
               { icon: Users, label: "Enrollment Protocol", value: draft.logistics.enrollmentMode },
@@ -114,16 +114,16 @@ export function HeroChat() {
         <CardFooter className="p-10 bg-black border-t-8 border-secondary flex flex-col gap-6">
           <Button asChild className="w-full h-20 text-3xl font-black shadow-none rounded-none bg-secondary hover:bg-white hover:text-black uppercase italic tracking-tighter">
             <Link href="/teacher/dashboard">
-              Launch Portal Studio <ArrowRight className="ml-3 h-8 w-8" />
+              Launch Guild Studio <ArrowRight className="ml-3 h-8 w-8" />
             </Link>
           </Button>
           <div className="flex justify-center items-center gap-4 text-white/40 font-black text-[10px] uppercase tracking-[0.3em]">
             <CheckCircle2 className="h-4 w-4" />
-            <span>Own Your IP</span>
+            <span>Own Your Legacy</span>
             <span className="h-1 w-1 bg-white/20 rounded-full" />
-            <span>Direct Mentoring</span>
+            <span>Direct Industry Access</span>
             <span className="h-1 w-1 bg-white/20 rounded-full" />
-            <span>Zero Gatekeepers</span>
+            <span>Bypass Barriers</span>
           </div>
         </CardFooter>
       </Card>
@@ -147,7 +147,7 @@ export function HeroChat() {
             </div>
           </div>
           <div className="hidden sm:flex h-12 w-12 rounded-none bg-secondary text-white items-center justify-center border-2 border-black">
-            <GraduationCap className="h-6 w-6" />
+            <Zap className="h-6 w-6" />
           </div>
         </div>
       </CardHeader>
@@ -191,7 +191,7 @@ export function HeroChat() {
           }}
         >
           <Input 
-            placeholder="Introduce your lived mastery to Proctor..." 
+            placeholder="Tell Proctor your industry or mastery domain..." 
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={loading}
