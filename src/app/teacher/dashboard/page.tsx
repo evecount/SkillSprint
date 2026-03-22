@@ -3,7 +3,7 @@
 import { Navbar } from '@/components/layout/Navbar';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Plus, BookOpen, Users, Sparkles, ArrowRight, Landmark } from 'lucide-react';
+import { Plus, BookOpen, Users, Sparkles, ArrowRight, Landmark, DollarSign, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 import { AIConsultant } from '@/components/consultant/AIConsultant';
 import { mockCourses, mockTeacher, mockOrg } from '@/lib/mock-data';
@@ -24,35 +24,45 @@ export default function TeacherDashboard() {
               <span className="text-sm font-black uppercase tracking-[0.3em]">Master Architect</span>
             </div>
             <h1 className="font-headline text-5xl font-black uppercase italic tracking-tighter">Wisdom Studio</h1>
-            <p className="text-muted-foreground font-bold italic mt-2">Curating your legacy for the next generation of practitioners.</p>
+            <p className="text-muted-foreground font-bold italic mt-2">Monetizing your 30+ years of lived mastery.</p>
           </div>
           <Button asChild size="lg" className="h-16 px-10 text-xl font-black uppercase italic tracking-widest rounded-none shadow-none bg-black border-4 border-black hover:bg-secondary">
             <Link href="/admin/courses/new">
-              <Plus className="mr-3 h-6 w-6" /> Architect New Portal
+              <Plus className="mr-3 h-6 w-6" /> Architect New Guild
             </Link>
           </Button>
         </div>
 
         {/* Teacher Stats */}
-        <div className="mb-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mb-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           <Card className="shadow-none border-4 border-black bg-white rounded-none">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-              <CardTitle className="text-xs font-black uppercase tracking-widest">Active Portals</CardTitle>
-              <BookOpen className="h-5 w-5 text-black" />
+              <CardTitle className="text-xs font-black uppercase tracking-widest">Tuition Revenue</CardTitle>
+              <DollarSign className="h-5 w-5 text-secondary" />
             </CardHeader>
             <CardContent>
-              <div className="text-4xl font-black italic">{teacherCourses.length}</div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-2">Across 2 Domains of Mastery</p>
+              <div className="text-4xl font-black italic">$4,820</div>
+              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-2">This month's exchange</p>
             </CardContent>
           </Card>
           <Card className="shadow-none border-4 border-black bg-white rounded-none">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-              <CardTitle className="text-xs font-black uppercase tracking-widest">Total Mentees</CardTitle>
+              <CardTitle className="text-xs font-black uppercase tracking-widest">Active Apprentices</CardTitle>
               <Users className="h-5 w-5 text-black" />
             </CardHeader>
             <CardContent>
-              <div className="text-4xl font-black italic">482</div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-secondary mt-2">+15% inquiry this week</p>
+              <div className="text-4xl font-black italic">12</div>
+              <p className="text-[10px] font-black uppercase tracking-widest text-secondary mt-2">+2 high-intent students</p>
+            </CardContent>
+          </Card>
+          <Card className="shadow-none border-4 border-black bg-white rounded-none">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+              <CardTitle className="text-xs font-black uppercase tracking-widest">Growth Rate</CardTitle>
+              <TrendingUp className="h-5 w-5 text-black" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-4xl font-black italic">15%</div>
+              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-2">Legacy reach increasing</p>
             </CardContent>
           </Card>
           <Card className="shadow-none border-4 border-black bg-white rounded-none">
@@ -62,13 +72,13 @@ export default function TeacherDashboard() {
             </CardHeader>
             <CardContent>
               <div className="text-4xl font-black italic">84%</div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-2">Conceptual understanding rate</p>
+              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-2">Direct mastery validated</p>
             </CardContent>
           </Card>
         </div>
 
         <div className="space-y-8">
-          <h2 className="font-headline text-3xl font-black uppercase italic tracking-tighter">Your Active Portals</h2>
+          <h2 className="font-headline text-3xl font-black uppercase italic tracking-tighter">Your Active Guilds</h2>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {teacherCourses.map((course) => (
               <Card key={course.id} className="overflow-hidden shadow-none border-4 border-black group hover:border-secondary transition-all rounded-none bg-white">
@@ -79,7 +89,11 @@ export default function TeacherDashboard() {
                     fill 
                     className="object-cover grayscale group-hover:grayscale-0 transition-all"
                   />
-                  <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
+                  <div className="absolute top-4 left-4">
+                    <Badge className="bg-black text-white border-none rounded-none font-black uppercase tracking-widest text-[10px] px-3 py-1 italic">
+                      $499 Tuition
+                    </Badge>
+                  </div>
                 </div>
                 <CardHeader className="p-6">
                   <CardTitle className="text-xl font-black uppercase italic leading-tight">{course.title}</CardTitle>
@@ -87,12 +101,12 @@ export default function TeacherDashboard() {
                 </CardHeader>
                 <CardContent className="px-6 pb-6 flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                   <span>{course.modules.length} Chapters</span>
-                  <span className="text-black">128 Students</span>
+                  <span className="text-black">12 Apprentices</span>
                 </CardContent>
                 <div className="p-4 border-t-4 border-black bg-muted/20">
                   <Button variant="ghost" className="w-full justify-between hover:bg-black hover:text-white rounded-none font-black uppercase tracking-widest italic h-12" asChild>
                     <Link href={`/admin/courses/edit/${course.id}`}>
-                      Refine Source Wisdom <ArrowRight className="h-4 w-4" />
+                      Structure Apprenticeship <ArrowRight className="h-4 w-4" />
                     </Link>
                   </Button>
                 </div>
@@ -104,8 +118,8 @@ export default function TeacherDashboard() {
                 <Plus className="h-8 w-8" />
               </div>
               <div className="space-y-2">
-                <p className="font-black uppercase tracking-widest text-lg italic">Architect New Portal</p>
-                <p className="text-xs font-bold italic text-muted-foreground">Utilize Proctor to digitalize your mastery</p>
+                <p className="font-black uppercase tracking-widest text-lg italic">Architect Paid Guild</p>
+                <p className="text-xs font-bold italic text-muted-foreground">Let Proctor structure your side-hustle</p>
               </div>
             </Link>
           </div>
