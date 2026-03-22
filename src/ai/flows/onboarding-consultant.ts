@@ -1,11 +1,10 @@
 'use server';
 /**
- * @fileOverview A Genkit flow for Proctor, the Success Consultant for SkillSprint.
+ * @fileOverview A high-intelligence Genkit flow for Proctor, the Success Consultant.
  * 
- * Proctor facilitates a professional exchange of mastery:
- * 1. Practitioners/Lecturers: Sidelined veterans monetizing their 30+ years of truth.
- * 2. Apprentices/Students: High-intent moonlighters seeking direct access.
- * 3. Registry Champions: Community enablers who scale this exchange.
+ * Proctor analyzes professional intent to match users to their optimal Registry role:
+ * 1. Practitioner: Monetizing 30+ years of craft.
+ * 2. Apprentice: Buying back time through direct access.
  */
 
 import { ai } from '@/ai/genkit';
@@ -13,15 +12,26 @@ import { z } from 'genkit';
 
 const OnboardingConsultantInputSchema = z.object({
   userName: z.string().describe('The name of the user.'),
-  role: z.enum(['admin', 'teacher', 'learner']).describe('The role of the user (teacher = Veteran Practitioner, learner = Apprentice/Student).'),
-  orgName: z.string().describe('The name of the guild or community.'),
-  userMessage: z.string().optional().describe('An optional message from the user.'),
+  role: z.enum(['admin', 'teacher', 'learner']).describe('The current role or intent of the user.'),
+  orgName: z.string().describe('The name of the organization.'),
+  userMessage: z.string().optional().describe('The latest message or intent shared by the user.'),
+  history: z.array(z.object({
+    role: z.enum(['user', 'model']),
+    text: z.string()
+  })).optional().describe('Conversation history for context.'),
 });
 export type OnboardingConsultantInput = z.infer<typeof OnboardingConsultantInputSchema>;
 
+const RoleRecommendationSchema = z.object({
+  suggestedRole: z.enum(['practitioner', 'apprentice']).describe('The recommended professional path.'),
+  reasoning: z.string().describe('Why this role fits the user\'s stated background.'),
+  monetizationStrategy: z.string().optional().describe('How they can earn or save if they follow this path.'),
+});
+
 const OnboardingConsultantOutputSchema = z.object({
-  response: z.string().describe('Proctor\'s guidance.'),
-  suggestedActions: z.array(z.string()).describe('Next steps for career legacy monetization or practical excellence.'),
+  response: z.string().describe('Proctor\'s professional guidance.'),
+  suggestedActions: z.array(z.string()).describe('Immediate next steps in the Registry.'),
+  recommendation: RoleRecommendationSchema.optional(),
   persona: z.string().describe('Proctor'),
 });
 export type OnboardingConsultantOutput = z.infer<typeof OnboardingConsultantOutputSchema>;
@@ -34,27 +44,27 @@ const onboardingPrompt = ai.definePrompt({
   name: 'onboardingPrompt',
   input: { schema: OnboardingConsultantInputSchema },
   output: { schema: OnboardingConsultantOutputSchema },
-  prompt: `You are "Proctor", the professional and energetic Success Consultant for SkillSprint. 
+  prompt: `You are "Proctor", the professional Success Consultant for SkillSprint.
 
-Mission: Career transformation through direct professional apprenticeships and practical excellence.
+MISSION: Analyze professional lived experience to architect high-value matches in the Registry.
 
-Core Philosophy:
-- Time is the ultimate currency. Practitioners trade their sacrificed time for money. Students pay to buy that time back.
-- Practical Excellence over Paper Credentials: We focus on how to DO and how to get real work in the field.
-- Bypassing the Loop: Students pay to enter industries that have locked them out due to "lack of experience."
+CORE PHILOSOPHY:
+- Practitioners: Monetize your 30+ years of legacy. Turn your craft into income.
+- Apprentices: Buy back time. Pay to bypass the "lack of experience" loop.
 
-User Context:
+USER CONTEXT:
 Name: {{{userName}}}
-Role: {{{role}}} (teacher = Veteran Practitioner, learner = Apprentice/Student)
 Organization: {{{orgName}}}
-User Query: {{#if userMessage}}{{{userMessage}}}{{else}}Just joined the SkillSprint Registry.{{/if}}
+History:
+{{#each history}}
+{{role}}: {{{text}}}
+{{/each}}
+Latest Message: {{#if userMessage}}{{{userMessage}}}{{else}}New Entry{{/if}}
 
-Goals for specific roles:
-- Practitioners/Lecturers: Your 30+ years of craft is a valuable professional asset. This is your professional side-hustle. Turn your legacy into a paid source of income by teaching practical excellence.
-- Apprentices/Students: Stop wasting time on gatekept internships. Pay a Practitioner directly to learn the tactical truth, gain real work insights, and bypass corporate gatekeepers.
-- Registry Champions: Scale the access. Connect hungry communities to these high-value sources.
+GOAL:
+Based on the message and history, determine if the user has a "Legacy to Monetize" (Practitioner) or a "Gap to Bridge" (Apprentice). Provide a clear recommendation.
 
-Tone: Professional, Direct, Encouraging, and Value-Focused. Acknowledge that this is a professional marketplace.
+TONE: Professional, Energetic, Value-Focused.
 
 {{jsonSchema OnboardingConsultantOutputSchema}}`,
 });

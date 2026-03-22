@@ -1,13 +1,12 @@
-
 "use client"
 
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Sparkles, X, Loader2, Bot } from 'lucide-react';
+import { Bot, Sparkles, X, Loader2, Send } from 'lucide-react';
 import { onboardingConsultant, OnboardingConsultantOutput } from '@/ai/flows/onboarding-consultant';
-import { cn } from '@/lib/utils';
+import { useFirestore, useUser, addDocumentNonBlocking } from '@/firebase';
+import { collection, doc, serverTimestamp } from 'firebase/firestore';
 
 interface AIConsultantProps {
   userName: string;
@@ -19,18 +18,87 @@ interface AIConsultantProps {
 
 export function AIConsultant({ userName, role, orgName, isOpen, onClose }: AIConsultantProps) {
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState<OnboardingConsultantOutput | null>(null);
+  const [messages, setMessages] = useState<{ role: 'user' | 'model', text: string }[]>([]);
+  const [input, setInput] = useState('');
+  const [conversationId, setConversationId] = useState<string | null>(null);
+  
+  const { firestore } = useFirestore();
+  const { user } = useUser();
 
   const fetchAdvice = async (message?: string) => {
+    const textToSend = message || input;
+    if (!textToSend.trim() && !message) return;
+
+    if (!message) setInput('');
     setLoading(true);
+
+    const newMessages: { role: 'user' | 'model', text: string }[] = [
+      ...messages,
+      { role: 'user', text: textToSend }
+    ];
+    setMessages(newMessages);
+
     try {
       const result = await onboardingConsultant({
         userName,
         role,
         orgName,
-        userMessage: message
+        userMessage: textToSend,
+        history: messages
       });
-      setData(result);
+
+      setMessages(prev => [...prev, { role: 'model', text: result.response }]);
+
+      // PERSIST TO DIGITAL ASSET DATABASE
+      if (firestore && user) {
+        let currentConvId = conversationId;
+        
+        // Create conversation record if it doesn't exist
+        if (!currentConvId) {
+          const convRef = doc(collection(firestore, 'organizations', 'org_1', 'learners', user.uid, 'aiConversations'));
+          currentConvId = convRef.id;
+          setConversationId(currentConvId);
+          
+          addDocumentNonBlocking(collection(firestore, 'organizations', 'org_1', 'learners', user.uid, 'aiConversations'), {
+            id: currentConvId,
+            learnerId: user.uid,
+            organizationId: 'org_1',
+            startTime: new Date().toISOString(),
+            createdAt: new Date().toISOString()
+          });
+        }
+
+        // Add User Message
+        addDocumentNonBlocking(collection(firestore, 'organizations', 'org_1', 'learners', user.uid, 'aiConversations', currentConvId, 'chatMessages'), {
+          conversationId: currentConvId,
+          sender: 'learner',
+          messageText: textToSend,
+          timestamp: new Date().toISOString(),
+          createdAt: new Date().toISOString()
+        });
+
+        // Add AI Response
+        addDocumentNonBlocking(collection(firestore, 'organizations', 'org_1', 'learners', user.uid, 'aiConversations', currentConvId, 'chatMessages'), {
+          conversationId: currentConvId,
+          sender: 'ai',
+          messageText: result.response,
+          timestamp: new Date().toISOString(),
+          createdAt: new Date().toISOString()
+        });
+
+        // Add Suggestion if applicable
+        if (result.recommendation) {
+          addDocumentNonBlocking(collection(firestore, 'organizations', 'org_1', 'learners', user.uid, 'aiConversations', currentConvId, 'aiSuggestions'), {
+            conversationId: currentConvId,
+            learnerId: user.uid,
+            suggestedEntityType: 'Role',
+            suggestedEntityId: result.recommendation.suggestedRole,
+            reasoning: result.recommendation.reasoning,
+            suggestionTimestamp: new Date().toISOString(),
+            createdAt: new Date().toISOString()
+          });
+        }
+      }
     } catch (error) {
       console.error("Consultant error:", error);
     } finally {
@@ -39,8 +107,8 @@ export function AIConsultant({ userName, role, orgName, isOpen, onClose }: AICon
   };
 
   useEffect(() => {
-    if (isOpen && !data) {
-      fetchAdvice();
+    if (isOpen && messages.length === 0) {
+      fetchAdvice("Architect my professional path.");
     }
   }, [isOpen]);
 
@@ -49,49 +117,48 @@ export function AIConsultant({ userName, role, orgName, isOpen, onClose }: AICon
   return (
     <div className="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm md:items-end md:justify-end md:bg-transparent md:p-8">
       <Card className="w-full max-w-[380px] shadow-2xl border-4 border-black animate-in zoom-in-95 slide-in-from-bottom-8 duration-300 rounded-none overflow-hidden bg-white">
-        <CardHeader className="bg-black text-white rounded-none flex flex-row items-center justify-between p-6">
+        <CardHeader className="bg-black text-white rounded-none flex flex-row items-center justify-between p-4">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-none bg-white/10 flex items-center justify-center border-2 border-white/20">
               <Bot className="h-6 w-6" />
             </div>
             <div>
               <CardTitle className="text-sm font-black uppercase tracking-widest">Proctor</CardTitle>
-              <p className="text-[9px] font-black uppercase tracking-[0.2em] text-white/60">Architectural Support</p>
+              <p className="text-[9px] font-black uppercase tracking-[0.2em] text-white/60">Registry Architect</p>
             </div>
           </div>
           <Button variant="ghost" size="icon" className="h-8 w-8 hover:bg-white/10 text-white rounded-none" onClick={onClose}>
             <X className="h-5 w-5" />
           </Button>
         </CardHeader>
-        <CardContent className="p-6 space-y-6 max-h-[60vh] md:max-h-[450px] overflow-y-auto scroll-smooth">
-          {loading ? (
-            <div className="flex flex-col items-center justify-center py-12 gap-4 text-muted-foreground">
-              <Loader2 className="h-10 w-10 animate-spin text-black opacity-50" />
-              <p className="text-[10px] font-black uppercase tracking-[0.3em]">Consulting the Archive...</p>
+        <CardContent className="p-4 space-y-4 max-h-[50vh] overflow-y-auto bg-muted/5">
+          {messages.map((m, i) => (
+            <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+              <div className={`max-w-[85%] p-3 text-[11px] font-bold leading-relaxed border-2 border-black ${m.role === 'user' ? 'bg-primary text-white' : 'bg-white text-black'}`}>
+                {m.text}
+              </div>
             </div>
-          ) : data ? (
-            <>
-              <div className="text-sm leading-relaxed text-black font-bold">
-                {data.response}
+          ))}
+          {loading && (
+            <div className="flex justify-start">
+              <div className="bg-white p-3 border-2 border-black">
+                <Loader2 className="h-4 w-4 animate-spin" />
               </div>
-              <div className="space-y-3 pt-2">
-                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">Legacy Objectives</p>
-                {data.suggestedActions.map((action, i) => (
-                  <div key={i} className="flex items-start gap-3 text-xs bg-muted/40 p-4 rounded-none hover:bg-black hover:text-white transition-all border-2 border-black/5 cursor-pointer group">
-                    <div className="mt-1 h-2 w-2 rounded-none bg-secondary shrink-0 group-hover:bg-white transition-colors" />
-                    <span className="font-black uppercase tracking-tight leading-snug">{action}</span>
-                  </div>
-                ))}
-              </div>
-            </>
-          ) : (
-            <p className="text-sm text-black font-black uppercase text-center py-8">Ready to architect wisdom.</p>
+            </div>
           )}
         </CardContent>
-        <CardFooter className="p-6 border-t-4 border-black bg-muted/10">
-          <Button className="w-full text-xs h-11 font-black rounded-none bg-black hover:bg-secondary uppercase tracking-widest shadow-none" onClick={() => fetchAdvice("Give me a quick tip!")} disabled={loading}>
-            <Sparkles className="mr-2 h-4 w-4" /> Get Wisdom Guidance
-          </Button>
+        <CardFooter className="p-4 border-t-4 border-black bg-white">
+          <form className="flex w-full gap-2" onSubmit={(e) => { e.preventDefault(); fetchAdvice(); }}>
+            <input 
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Query the Archive..."
+              className="flex-1 bg-muted/30 border-2 border-black h-10 px-3 text-[11px] font-bold outline-none focus:bg-white"
+            />
+            <Button size="icon" className="h-10 w-10 rounded-none bg-black" disabled={loading}>
+              <Send className="h-4 w-4" />
+            </Button>
+          </form>
         </CardFooter>
       </Card>
     </div>

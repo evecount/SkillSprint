@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState, useRef, useEffect } from 'react';
@@ -11,6 +10,8 @@ import { onboardingConsultant } from '@/ai/flows/onboarding-consultant';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useFirestore, useUser, addDocumentNonBlocking } from '@/firebase';
+import { collection, doc } from 'firebase/firestore';
 
 type Message = {
   role: 'user' | 'model';
@@ -36,7 +37,11 @@ export function HeroChat() {
   const [draft, setDraft] = useState<ProspectiveOnboardingOutput['portalDraft'] | null>(null);
   const [stackIndex, setStackIndex] = useState(0);
   const [swipeDirection, setSwipeDirection] = useState<'left' | 'right' | null>(null);
+  const [conversationId, setConversationId] = useState<string | null>(null);
+  
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { firestore } = useFirestore();
+  const { user } = useUser();
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -51,6 +56,21 @@ export function HeroChat() {
       : "Welcome Apprentice. I am Proctor. You're here to buy back your time. Which industry has locked you out that you're ready to pay a Practitioner to enter directly?";
     
     setMessages([{ role: 'model', text: initialMsg }]);
+    
+    // START DIGITAL ASSET LOGGING
+    if (firestore && user) {
+      const convRef = doc(collection(firestore, 'organizations', 'org_1', 'learners', user.uid, 'aiConversations'));
+      setConversationId(convRef.id);
+      
+      addDocumentNonBlocking(collection(firestore, 'organizations', 'org_1', 'learners', user.uid, 'aiConversations'), {
+        id: convRef.id,
+        learnerId: user.uid,
+        organizationId: 'org_1',
+        startTime: new Date().toISOString(),
+        topicSummary: `Initial Onboarding as ${selectedRole}`,
+        createdAt: new Date().toISOString()
+      });
+    }
   };
 
   const handleSend = async (forcedInput?: string) => {
@@ -73,14 +93,52 @@ export function HeroChat() {
         if (result.portalDraft && (result.isOnboardingComplete || forcedInput?.includes("blueprint"))) {
           setDraft(result.portalDraft);
         }
+
+        // PERSIST TO FIRESTORE
+        if (firestore && user && conversationId) {
+          addDocumentNonBlocking(collection(firestore, 'organizations', 'org_1', 'learners', user.uid, 'aiConversations', conversationId, 'chatMessages'), {
+            conversationId,
+            sender: 'learner',
+            messageText: textToSend,
+            timestamp: new Date().toISOString(),
+            createdAt: new Date().toISOString()
+          });
+          addDocumentNonBlocking(collection(firestore, 'organizations', 'org_1', 'learners', user.uid, 'aiConversations', conversationId, 'chatMessages'), {
+            conversationId,
+            sender: 'ai',
+            messageText: result.response,
+            timestamp: new Date().toISOString(),
+            createdAt: new Date().toISOString()
+          });
+        }
+
       } else {
         const result = await onboardingConsultant({
-          userName: "Apprentice",
+          userName: user?.displayName || "Apprentice",
           role: 'learner',
           orgName: "SkillSprint",
-          userMessage: textToSend
+          userMessage: textToSend,
+          history: messages
         });
         setMessages(prev => [...prev, { role: 'model', text: result.response }]);
+
+        // PERSIST TO FIRESTORE
+        if (firestore && user && conversationId) {
+          addDocumentNonBlocking(collection(firestore, 'organizations', 'org_1', 'learners', user.uid, 'aiConversations', conversationId, 'chatMessages'), {
+            conversationId,
+            sender: 'learner',
+            messageText: textToSend,
+            timestamp: new Date().toISOString(),
+            createdAt: new Date().toISOString()
+          });
+          addDocumentNonBlocking(collection(firestore, 'organizations', 'org_1', 'learners', user.uid, 'aiConversations', conversationId, 'chatMessages'), {
+            conversationId,
+            sender: 'ai',
+            messageText: result.response,
+            timestamp: new Date().toISOString(),
+            createdAt: new Date().toISOString()
+          });
+        }
       }
     } catch (error) {
       setMessages(prev => [...prev, { role: 'model', text: "The registry encountered a connection error." }]);
