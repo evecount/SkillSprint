@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Navbar } from '@/components/layout/Navbar';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowRight, CheckCircle, Shield, Sparkles, Landmark, GraduationCap } from 'lucide-react';
+import { ArrowRight, CheckCircle, Shield, Sparkles, Landmark, GraduationCap, Users } from 'lucide-react';
 import { HeroChat } from '@/components/home/HeroChat';
 
 export default function Home() {
@@ -11,7 +11,7 @@ export default function Home() {
       <Navbar role="learner" />
       
       <main className="pt-32 pb-32">
-        {/* Hero Section - Proctor Centered and First */}
+        {/* Hero Section - Proctor Centered */}
         <section className="container mx-auto px-4">
           <div className="flex flex-col items-center text-center mb-16 space-y-8">
             <Badge className="bg-secondary/10 text-secondary border-secondary/20 hover:bg-secondary/20 px-6 py-2 text-sm font-black tracking-[0.2em] rounded-none uppercase italic">
@@ -64,43 +64,48 @@ export default function Home() {
             </div>
             <div className="space-y-4">
               <div className="h-12 w-12 rounded-none bg-secondary flex items-center justify-center">
-                <GraduationCap className="h-6 w-6 text-white" />
+                <Users className="h-6 w-6 text-white" />
               </div>
-              <h3 className="font-black uppercase tracking-tight text-xl italic">Private Portals</h3>
-              <p className="text-sm font-bold text-muted-foreground italic">Custom-built ecosystems for specific domains of deep human mastery.</p>
+              <h3 className="font-black uppercase tracking-tight text-xl italic">Wisdom Guilds</h3>
+              <p className="text-sm font-bold text-muted-foreground italic">Champions can orchestrate entire ecosystems of mastery for their people.</p>
             </div>
           </div>
         </section>
 
-        {/* Roles Section */}
-        <section className="py-32 mt-32 border-t-8 border-black bg-black text-white">
+        {/* Roles Section - The Choice */}
+        <section id="path" className="py-32 mt-32 border-t-8 border-black bg-black text-white">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="font-headline text-5xl font-black tracking-tighter uppercase italic mb-20">The Guild of Global Mastery</h2>
+            <h2 className="font-headline text-5xl font-black tracking-tighter uppercase italic mb-8">Identify Your Purpose</h2>
+            <p className="max-w-2xl mx-auto text-white/60 font-bold mb-20 italic">The University of Life is a registry of human excellence. Choose how you will engage with the source.</p>
+            
             <div className="grid gap-12 sm:grid-cols-3">
+              {/* Teacher Path */}
               <div className="p-8 border-4 border-white rounded-none hover:bg-secondary transition-colors group cursor-default">
                 <Sparkles className="h-12 w-12 mb-6 mx-auto group-hover:scale-110 transition-transform text-white" />
-                <h3 className="text-2xl font-black uppercase mb-4 tracking-tight text-white italic">Wisdom Architects</h3>
-                <p className="text-white/70 font-bold mb-8 italic">Decades of mastery. Now digitalized into a lasting legacy portal.</p>
+                <h3 className="text-2xl font-black uppercase mb-4 tracking-tight text-white italic">Wisdom Architect</h3>
+                <p className="text-white/70 font-bold mb-8 italic">"I have done, and I am ready to teach." Digitalize your legacy into a private portal.</p>
                 <Button asChild variant="outline" className="w-full h-14 text-white border-white bg-transparent rounded-none hover:bg-white hover:text-black font-black uppercase tracking-widest italic">
-                  <Link href="/teacher/dashboard">Open Studio</Link>
+                  <Link href="/teacher/dashboard">Start Architecting</Link>
                 </Button>
               </div>
               
+              {/* Learner Path */}
               <div className="p-8 border-4 border-secondary rounded-none hover:bg-white transition-colors group cursor-default bg-secondary text-white hover:text-black">
                 <GraduationCap className="h-12 w-12 mb-6 mx-auto group-hover:scale-110 transition-transform text-white" />
-                <h3 className="text-2xl font-black uppercase mb-4 tracking-tight text-white group-hover:text-black italic">Direct Students</h3>
-                <p className="text-white group-hover:text-black font-bold mb-8 italic">Master the craft from those who actually do it. Bypass the gatekeepers.</p>
+                <h3 className="text-2xl font-black uppercase mb-4 tracking-tight text-white group-hover:text-black italic">Direct Student</h3>
+                <p className="text-white group-hover:text-black font-bold mb-8 italic">"I want to learn from the source." Bypass the gatekeepers and master the craft.</p>
                 <Button asChild className="w-full h-14 bg-black text-white rounded-none hover:bg-secondary font-black uppercase tracking-widest border-2 border-black italic">
-                  <Link href="/learner/dashboard">Find a Portal</Link>
+                  <Link href="/learner/dashboard">Enter Portal</Link>
                 </Button>
               </div>
 
+              {/* Admin Path */}
               <div className="p-8 border-4 border-white rounded-none hover:bg-secondary transition-colors group cursor-default">
                 <Landmark className="h-12 w-12 mb-6 mx-auto group-hover:scale-110 transition-transform text-white" />
-                <h3 className="text-2xl font-black uppercase mb-4 tracking-tight text-white italic">Registry Admins</h3>
-                <p className="text-white/70 font-bold mb-8 italic">Orchestrate and validate your organization's wisdom ecosystem.</p>
+                <h3 className="text-2xl font-black uppercase mb-4 tracking-tight text-white italic">Registry Admin</h3>
+                <p className="text-white/70 font-bold mb-8 italic">"I can bring lots more people." Orchestrate a wisdom ecosystem for your guild.</p>
                 <Button asChild variant="outline" className="w-full h-14 text-white border-white bg-transparent rounded-none hover:bg-white hover:text-black font-black uppercase tracking-widest italic">
-                  <Link href="/admin/dashboard">Registry Stats</Link>
+                  <Link href="/admin/dashboard">Champion Registry</Link>
                 </Button>
               </div>
             </div>

@@ -1,14 +1,17 @@
-
 {
   "entities": {
     "UserProfile": {
       "title": "User Profile",
-      "description": "Represents a member of the University of Life guild.",
+      "description": "Represents a member of the University of Life registry.",
       "type": "object",
       "properties": {
         "name": { "type": "string" },
         "email": { "type": "string", "format": "email" },
-        "role": { "type": "string", "enum": ["admin", "teacher", "learner"] },
+        "role": { 
+          "type": "string", 
+          "enum": ["admin", "teacher", "learner"],
+          "description": "admin: Registry Admin (Champion), teacher: Wisdom Architect, learner: Direct Student"
+        },
         "livedMasteryYears": { "type": "number", "description": "Years of experience in their field." },
         "masteryDomain": { "type": "string", "description": "The specific industry or craft (e.g., 'Dark Romanticism', '4A Ad Agency Creative')." },
         "totalXP": { "type": "number" },
@@ -18,7 +21,7 @@
     },
     "WisdomPortal": {
       "title": "Wisdom Portal",
-      "description": "A private learning ecosystem owned by a Master Architect.",
+      "description": "A private learning ecosystem owned by a Wisdom Architect.",
       "type": "object",
       "properties": {
         "title": { "type": "string" },
@@ -55,7 +58,7 @@
     },
     "InquiryLog": {
       "title": "Inquiry Log",
-      "description": "Tracks student engagement and specific queries for future model fine-tuning.",
+      "description": "Tracks student engagement and specific queries for future model fine-tuning (Wisdom Engine).",
       "type": "object",
       "properties": {
         "userId": { "type": "string" },
@@ -72,7 +75,7 @@
   },
   "firestore": {
     "/users/{userId}": { "schema": "UserProfile", "description": "User profiles and mastery metadata." },
-    "/portals/{portalId}": { "schema": "WisdomPortal", "description": "The private university portals." },
+    "/portals/{portalId}": { "schema": "WisdomPortal", "description": "The private wisdom portals." },
     "/portals/{portalId}/chapters/{chapterId}": { "schema": "WisdomChapter", "description": "Individual lessons of mastery." },
     "/inquiries": { "schema": "InquiryLog", "description": "Global log of student inquiries for ML training." }
   }

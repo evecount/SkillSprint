@@ -4,7 +4,7 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
-import { Users, BookOpen, CheckCircle, AlertCircle, Plus, ShieldCheck, Landmark } from 'lucide-react';
+import { Users, BookOpen, CheckCircle, AlertCircle, Plus, ShieldCheck, Landmark, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { AIConsultant } from '@/components/consultant/AIConsultant';
@@ -31,93 +31,93 @@ export default function AdminDashboard() {
       <Navbar role="admin" />
       
       <main className="container mx-auto px-4 py-8">
-        <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-center">
+        <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end border-b-8 border-black pb-8">
           <div>
-            <div className="flex items-center gap-2 mb-1">
-              <Landmark className="h-5 w-5 text-primary" />
-              <span className="text-xs font-bold uppercase tracking-widest text-primary">Registry Administrator</span>
+            <div className="flex items-center gap-2 mb-2 text-primary">
+              <Landmark className="h-6 w-6" />
+              <span className="text-sm font-black uppercase tracking-[0.3em]">Registry Administrator</span>
             </div>
-            <h1 className="font-headline text-3xl font-bold">Campus Insights</h1>
-            <p className="text-muted-foreground">Overseeing the wisdom ecosystem of {mockOrg.name}.</p>
+            <h1 className="font-headline text-5xl font-black uppercase italic tracking-tighter">Campus Registry</h1>
+            <p className="text-muted-foreground font-bold italic mt-2">Orchestrating the wisdom ecosystem of {mockOrg.name}. You bring the people, we digitalize the mastery.</p>
           </div>
-          <div className="flex gap-2">
-            <Button variant="outline" asChild>
+          <div className="flex gap-4">
+            <Button variant="outline" className="h-16 px-8 text-lg font-black uppercase italic tracking-widest rounded-none border-4 border-black hover:bg-black hover:text-white transition-all" asChild>
               <Link href="/admin/users">
                 Community Directory
               </Link>
             </Button>
-            <Button asChild>
+            <Button className="h-16 px-8 text-lg font-black uppercase italic tracking-widest rounded-none bg-black border-4 border-black hover:bg-secondary shadow-none transition-all" asChild>
               <Link href="/admin/courses/new">
-                <Plus className="mr-2 h-4 w-4" /> New Portal
+                <Plus className="mr-3 h-6 w-6" /> New Portal
               </Link>
             </Button>
           </div>
         </div>
 
         {/* Stats Grid */}
-        <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Card className="shadow-sm border-none bg-white">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Students</CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
+        <div className="mb-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <Card className="shadow-none border-4 border-black bg-white rounded-none">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+              <CardTitle className="text-xs font-black uppercase tracking-widest">Total Students</CardTitle>
+              <Users className="h-5 w-5 text-black" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">1,248</div>
-              <p className="text-xs text-green-600 font-medium">+12% from last month</p>
+              <div className="text-4xl font-black italic">1,248</div>
+              <p className="text-[10px] font-black uppercase tracking-widest text-secondary mt-2">+12% from last month</p>
             </CardContent>
           </Card>
-          <Card className="shadow-sm border-none bg-white">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Portals</CardTitle>
-              <BookOpen className="h-4 w-4 text-muted-foreground" />
+          <Card className="shadow-none border-4 border-black bg-white rounded-none">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+              <CardTitle className="text-xs font-black uppercase tracking-widest">Active Portals</CardTitle>
+              <BookOpen className="h-5 w-5 text-black" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">24</div>
-              <p className="text-xs text-muted-foreground">+2 new this week</p>
+              <div className="text-4xl font-black italic">24</div>
+              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-2">+2 new this week</p>
             </CardContent>
           </Card>
-          <Card className="shadow-sm border-none bg-white">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Avg. Engagement</CardTitle>
-              <CheckCircle className="h-4 w-4 text-muted-foreground" />
+          <Card className="shadow-none border-4 border-black bg-white rounded-none">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+              <CardTitle className="text-xs font-black uppercase tracking-widest">Avg. Engagement</CardTitle>
+              <CheckCircle className="h-5 w-5 text-black" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">78%</div>
-              <p className="text-xs text-green-600 font-medium">+5% improvement</p>
+              <div className="text-4xl font-black italic">78%</div>
+              <p className="text-[10px] font-black uppercase tracking-widest text-secondary mt-2">+5% improvement</p>
             </CardContent>
           </Card>
-          <Card className="bg-destructive/5 border-destructive/10 shadow-sm border-2">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-destructive">At Risk</CardTitle>
-              <AlertCircle className="h-4 w-4 text-destructive" />
+          <Card className="shadow-none border-4 border-black bg-white rounded-none">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+              <CardTitle className="text-xs font-black uppercase tracking-widest text-black">Wisdom Impact</CardTitle>
+              <Globe className="h-5 w-5 text-black" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-destructive">12</div>
-              <p className="text-xs text-muted-foreground">Students falling behind</p>
+              <div className="text-4xl font-black italic">High</div>
+              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mt-2">Registry Health: Stable</p>
             </CardContent>
           </Card>
         </div>
 
-        <Tabs defaultValue="engagement" className="space-y-4">
-          <TabsList className="bg-white/50 border">
-            <TabsTrigger value="engagement">Student Engagement</TabsTrigger>
-            <TabsTrigger value="completion">Wisdom Mastery</TabsTrigger>
+        <Tabs defaultValue="engagement" className="space-y-8">
+          <TabsList className="bg-muted/10 border-4 border-black rounded-none h-14 p-1">
+            <TabsTrigger value="engagement" className="rounded-none font-black uppercase italic tracking-widest text-xs h-full data-[state=active]:bg-black data-[state=active]:text-white">Student Engagement</TabsTrigger>
+            <TabsTrigger value="completion" className="rounded-none font-black uppercase italic tracking-widest text-xs h-full data-[state=active]:bg-black data-[state=active]:text-white">Wisdom Mastery</TabsTrigger>
           </TabsList>
           
           <TabsContent value="engagement" className="space-y-4">
-            <Card className="border-none shadow-md bg-white">
+            <Card className="border-4 border-black shadow-none bg-white rounded-none">
               <CardHeader>
-                <CardTitle className="text-lg">Active Students Over Time</CardTitle>
-                <CardDescription>Weekly active users engaging with portal chapters.</CardDescription>
+                <CardTitle className="text-2xl font-black uppercase italic tracking-tight">Active Students Over Time</CardTitle>
+                <CardDescription className="font-bold italic">Weekly active users engaging with portal chapters.</CardDescription>
               </CardHeader>
-              <CardContent className="h-[300px] pt-4">
+              <CardContent className="h-[400px] pt-4">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={engagementData}>
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
-                    <XAxis dataKey="name" stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
-                    <YAxis stroke="#888888" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `${value}`} />
-                    <Tooltip />
-                    <Line type="monotone" dataKey="users" stroke="hsl(var(--primary))" strokeWidth={3} dot={{ r: 4, fill: "hsl(var(--primary))" }} activeDot={{ r: 6 }} />
+                    <XAxis dataKey="name" stroke="#000" fontSize={10} fontWeight="900" tickLine={false} axisLine={false} />
+                    <YAxis stroke="#000" fontSize={10} fontWeight="900" tickLine={false} axisLine={false} tickFormatter={(value) => `${value}`} />
+                    <Tooltip contentStyle={{ border: '4px solid black', borderRadius: '0', fontWeight: 'bold' }} />
+                    <Line type="monotone" dataKey="users" stroke="hsl(var(--secondary))" strokeWidth={5} dot={{ r: 6, fill: "hsl(var(--secondary))", strokeWidth: 0 }} activeDot={{ r: 8 }} />
                   </LineChart>
                 </ResponsiveContainer>
               </CardContent>
@@ -125,19 +125,19 @@ export default function AdminDashboard() {
           </TabsContent>
 
           <TabsContent value="completion" className="space-y-4">
-            <Card className="border-none shadow-md bg-white">
+            <Card className="border-4 border-black shadow-none bg-white rounded-none">
               <CardHeader>
-                <CardTitle className="text-lg">Daily Inquiry Rate</CardTitle>
-                <CardDescription>Percentage of portal requirements met daily.</CardDescription>
+                <CardTitle className="text-2xl font-black uppercase italic tracking-tight">Daily Inquiry Rate</CardTitle>
+                <CardDescription className="font-bold italic">Percentage of portal requirements met daily.</CardDescription>
               </CardHeader>
-              <CardContent className="h-[300px] pt-4">
+              <CardContent className="h-[400px] pt-4">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={completionData}>
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
-                    <XAxis dataKey="name" stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
-                    <YAxis stroke="#888888" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `${value}%`} />
-                    <Tooltip />
-                    <Bar dataKey="completion" fill="hsl(var(--secondary))" radius={[6, 6, 0, 0]} barSize={40} />
+                    <XAxis dataKey="name" stroke="#000" fontSize={10} fontWeight="900" tickLine={false} axisLine={false} />
+                    <YAxis stroke="#000" fontSize={10} fontWeight="900" tickLine={false} axisLine={false} tickFormatter={(value) => `${value}%`} />
+                    <Tooltip contentStyle={{ border: '4px solid black', borderRadius: '0', fontWeight: 'bold' }} />
+                    <Bar dataKey="completion" fill="black" radius={0} barSize={60} />
                   </BarChart>
                 </ResponsiveContainer>
               </CardContent>
