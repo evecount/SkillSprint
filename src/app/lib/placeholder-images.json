@@ -1,0 +1,35 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "hero-learning",
+      "description": "Professional learning environment",
+      "imageUrl": "https://picsum.photos/seed/skillsprint1/1200/800",
+      "imageHint": "professional learning"
+    },
+    {
+      "id": "course-data",
+      "description": "Data analysis and growth",
+      "imageUrl": "https://picsum.photos/seed/skillsprint2/600/400",
+      "imageHint": "data analysis"
+    },
+    {
+      "id": "course-leadership",
+      "description": "Leadership and teamwork",
+      "imageUrl": "https://picsum.photos/seed/skillsprint3/600/400",
+      "imageHint": "leadership teamwork"
+    },
+    {
+      "id": "course-tech",
+      "description": "Modern technology stack",
+      "imageUrl": "https://picsum.photos/seed/skillsprint4/600/400",
+      "imageHint": "technology code"
+    },
+    {
+      "id": "user-avatar",
+      "description": "User profile placeholder",
+      "imageUrl": "https://picsum.photos/seed/skillsprint-user/150/150",
+      "imageHint": "person portrait"
+    }
+  ]
+}
