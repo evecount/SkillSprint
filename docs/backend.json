@@ -1,82 +1,782 @@
 {
   "entities": {
-    "UserProfile": {
-      "title": "User Profile",
-      "description": "Represents a member of the University of Life registry.",
+    "Organization": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Organization",
       "type": "object",
+      "description": "Represents a white-label client organization utilizing the SkillSprint platform, serving as the root for multi-tenancy.",
       "properties": {
-        "name": { "type": "string" },
-        "email": { "type": "string", "format": "email" },
-        "role": { 
-          "type": "string", 
-          "enum": ["admin", "teacher", "learner"],
-          "description": "admin: Registry Admin (Champion), teacher: Wisdom Architect, learner: Direct Student"
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Organization entity."
         },
-        "livedMasteryYears": { "type": "number", "description": "Years of experience in their field." },
-        "masteryDomain": { "type": "string", "description": "The specific industry or craft (e.g., 'Dark Romanticism', '4A Ad Agency Creative')." },
-        "totalXP": { "type": "number" },
-        "streak": { "type": "number" }
-      },
-      "required": ["name", "email", "role"]
-    },
-    "WisdomPortal": {
-      "title": "Wisdom Portal",
-      "description": "A private learning ecosystem owned by a Wisdom Architect.",
-      "type": "object",
-      "properties": {
-        "title": { "type": "string" },
-        "description": { "type": "string" },
-        "authorId": { "type": "string" },
-        "accessModel": { "type": "string", "enum": ["public", "invitation_only", "referral_only"] },
-        "monetization": {
-          "type": "object",
-          "properties": {
-            "type": { "type": "string", "enum": ["free", "paid", "scholarship_based"] },
-            "price": { "type": "string" }
-          }
+        "name": {
+          "type": "string",
+          "description": "The official name of the organization."
         },
-        "logistics": {
-          "type": "object",
-          "properties": {
-            "format": { "type": "string" },
-            "frequency": { "type": "string" }
-          }
+        "description": {
+          "type": "string",
+          "description": "A brief description of the organization."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the organization record was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the organization record was last updated.",
+          "format": "date-time"
         }
-      }
+      },
+      "required": [
+        "id",
+        "name",
+        "createdAt"
+      ]
     },
-    "WisdomChapter": {
-      "title": "Wisdom Chapter",
-      "description": "A structured unit of lived mastery.",
+    "Learner": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Learner",
       "type": "object",
+      "description": "Represents an individual learner registered under an Organization.",
       "properties": {
-        "portalId": { "type": "string" },
-        "title": { "type": "string" },
-        "content": { "type": "string" },
-        "coreInsight": { "type": "string", "description": "The 'Source of Truth' nugget for ML feature extraction." },
-        "order": { "type": "number" }
-      }
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Learner entity."
+        },
+        "organizationId": {
+          "type": "string",
+          "description": "Reference to the Organization this learner belongs to. (Relationship: Organization 1:N Learner)"
+        },
+        "email": {
+          "type": "string",
+          "description": "The learner's email address, used for communication and login (handled by external auth).",
+          "format": "email"
+        },
+        "firstName": {
+          "type": "string",
+          "description": "The first name of the learner."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "The last name of the learner."
+        },
+        "enrollmentDate": {
+          "type": "string",
+          "description": "The date when the learner was enrolled.",
+          "format": "date-time"
+        },
+        "lastLogin": {
+          "type": "string",
+          "description": "The timestamp of the learner's last login.",
+          "format": "date-time"
+        },
+        "currentXp": {
+          "type": "number",
+          "description": "The learner's current total experience points (XP) across all completed modules/quizzes."
+        },
+        "currentDailyStreak": {
+          "type": "number",
+          "description": "The learner's current consecutive daily login streak."
+        },
+        "lastStreakUpdateDate": {
+          "type": "string",
+          "description": "The date when the learner's daily streak was last updated or maintained.",
+          "format": "date-time"
+        },
+        "profileImageUrl": {
+          "type": "string",
+          "description": "Optional URL to the learner's profile image.",
+          "format": "uri"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the learner's profile was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the learner's profile was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "organizationId",
+        "email",
+        "firstName",
+        "lastName",
+        "enrollmentDate",
+        "currentXp",
+        "currentDailyStreak",
+        "createdAt"
+      ]
     },
-    "InquiryLog": {
-      "title": "Inquiry Log",
-      "description": "Tracks student engagement and specific queries for future model fine-tuning (Wisdom Engine).",
+    "Course": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Course",
       "type": "object",
+      "description": "Represents a collection of learning modules provided by an Organization.",
       "properties": {
-        "userId": { "type": "string" },
-        "portalId": { "type": "string" },
-        "chapterId": { "type": "string" },
-        "query": { "type": "string" },
-        "sentiment": { "type": "string" },
-        "timestamp": { "type": "string", "format": "date-time" }
-      }
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Course entity."
+        },
+        "organizationId": {
+          "type": "string",
+          "description": "Reference to the Organization that owns this course. (Relationship: Organization 1:N Course)"
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the course."
+        },
+        "description": {
+          "type": "string",
+          "description": "A detailed description of what the course covers."
+        },
+        "difficultyLevel": {
+          "type": "string",
+          "description": "The perceived difficulty level of the course (e.g., 'Beginner', 'Intermediate', 'Advanced')."
+        },
+        "estimatedCompletionTime": {
+          "type": "string",
+          "description": "An estimate of the time required to complete the course (e.g., '2 hours', '1 week')."
+        },
+        "tags": {
+          "type": "array",
+          "description": "A list of tags or keywords associated with the course for categorization and search.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "isPublished": {
+          "type": "boolean",
+          "description": "Indicates whether the course is publicly available to learners."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the course was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the course was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "organizationId",
+        "title",
+        "description",
+        "isPublished",
+        "createdAt"
+      ]
+    },
+    "Module": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Module",
+      "type": "object",
+      "description": "Represents a bite-sized learning unit within a Course.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Module entity."
+        },
+        "courseId": {
+          "type": "string",
+          "description": "Reference to the Course this module belongs to. (Relationship: Course 1:N Module)"
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the module."
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief description of the module's content."
+        },
+        "contentType": {
+          "type": "string",
+          "description": "The type of content in the module (e.g., 'text', 'video', 'quiz').",
+          "items": {
+            "type": "string"
+          }
+        },
+        "contentBody": {
+          "type": "string",
+          "description": "The actual text content for 'text' type modules."
+        },
+        "contentLink": {
+          "type": "string",
+          "description": "A URI for external content like video links or hosted documents.",
+          "format": "uri"
+        },
+        "order": {
+          "type": "number",
+          "description": "The sequential order of the module within its parent course."
+        },
+        "xpAward": {
+          "type": "number",
+          "description": "The amount of XP a learner gains upon successful completion of this module."
+        },
+        "isPublished": {
+          "type": "boolean",
+          "description": "Indicates whether the module is published and visible to learners."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the module was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the module was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "courseId",
+        "title",
+        "contentType",
+        "order",
+        "xpAward",
+        "isPublished",
+        "createdAt"
+      ]
+    },
+    "QuizQuestion": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "QuizQuestion",
+      "type": "object",
+      "description": "Represents a multiple-choice question within a Module of type 'quiz'.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the QuizQuestion entity."
+        },
+        "moduleId": {
+          "type": "string",
+          "description": "Reference to the Module this question belongs to. (Relationship: Module 1:N QuizQuestion)"
+        },
+        "questionText": {
+          "type": "string",
+          "description": "The text of the quiz question."
+        },
+        "options": {
+          "type": "array",
+          "description": "An array of possible answers for the multiple-choice question, each with text and correctness.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "correctAnswerIndexes": {
+          "type": "array",
+          "description": "An array of zero-based indexes indicating which options are correct. Supports single or multiple correct answers.",
+          "items": {
+            "type": "number"
+          }
+        },
+        "explanation": {
+          "type": "string",
+          "description": "An optional explanation provided after the learner answers the question."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the quiz question was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the quiz question was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "moduleId",
+        "questionText",
+        "options",
+        "correctAnswerIndexes",
+        "createdAt"
+      ]
+    },
+    "ProgressLog": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ProgressLog",
+      "type": "object",
+      "description": "Records a specific event of a learner's progress through a module or quiz.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the ProgressLog entity."
+        },
+        "learnerId": {
+          "type": "string",
+          "description": "Reference to the Learner who performed the action. (Relationship: Learner 1:N ProgressLog)"
+        },
+        "moduleId": {
+          "type": "string",
+          "description": "Reference to the Module involved in this progress log entry. (Relationship: Module 1:N ProgressLog)"
+        },
+        "courseId": {
+          "type": "string",
+          "description": "Reference to the Course the module belongs to, for easier querying. (Relationship: Course 1:N ProgressLog)"
+        },
+        "completionDate": {
+          "type": "string",
+          "description": "Timestamp when the module or quiz was completed/attempted.",
+          "format": "date-time"
+        },
+        "xpGained": {
+          "type": "number",
+          "description": "The amount of XP gained for this specific progress event."
+        },
+        "quizAttempted": {
+          "type": "boolean",
+          "description": "Indicates if this log entry represents a quiz attempt."
+        },
+        "quizPassed": {
+          "type": "boolean",
+          "description": "Indicates if the quiz attempt was successful (if quizAttempted is true)."
+        },
+        "quizScore": {
+          "type": "number",
+          "description": "The score obtained on the quiz (if quizAttempted is true, 0-100)."
+        },
+        "status": {
+          "type": "string",
+          "description": "The status of the module/quiz progress (e.g., 'started', 'completed', 'passed_quiz', 'failed_quiz')."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when this progress log entry was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when this progress log entry was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "learnerId",
+        "moduleId",
+        "courseId",
+        "completionDate",
+        "xpGained",
+        "status",
+        "createdAt"
+      ]
+    },
+    "AIConversation": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "AIConversation",
+      "type": "object",
+      "description": "Represents a single conversational session between a Learner and the intelligent AI proctor.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the AIConversation entity."
+        },
+        "learnerId": {
+          "type": "string",
+          "description": "Reference to the Learner participating in the conversation. (Relationship: Learner 1:N AIConversation)"
+        },
+        "organizationId": {
+          "type": "string",
+          "description": "Reference to the Organization the learner belongs to, for multi-tenancy. (Relationship: Organization 1:N AIConversation)"
+        },
+        "startTime": {
+          "type": "string",
+          "description": "Timestamp marking the beginning of the conversation session.",
+          "format": "date-time"
+        },
+        "endTime": {
+          "type": "string",
+          "description": "Optional timestamp marking the end of the conversation session.",
+          "format": "date-time"
+        },
+        "topicSummary": {
+          "type": "string",
+          "description": "An AI-generated summary of the main topics discussed in the conversation."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the conversation record was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the conversation record was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "learnerId",
+        "organizationId",
+        "startTime",
+        "createdAt"
+      ]
+    },
+    "AIChatMessage": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "AIChatMessage",
+      "type": "object",
+      "description": "Represents an individual message exchanged within an AIConversation.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the AIChatMessage entity."
+        },
+        "conversationId": {
+          "type": "string",
+          "description": "Reference to the AIConversation this message belongs to. (Relationship: AIConversation 1:N AIChatMessage)"
+        },
+        "sender": {
+          "type": "string",
+          "description": "Indicates who sent the message ('learner' or 'ai')."
+        },
+        "messageText": {
+          "type": "string",
+          "description": "The content of the message."
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "Timestamp when the message was sent.",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the chat message record was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the chat message record was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "conversationId",
+        "sender",
+        "messageText",
+        "timestamp",
+        "createdAt"
+      ]
+    },
+    "AISuggestion": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "AISuggestion",
+      "type": "object",
+      "description": "Represents a course or module suggestion made by the AI proctor to a Learner during a conversation.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the AISuggestion entity."
+        },
+        "conversationId": {
+          "type": "string",
+          "description": "Reference to the AIConversation during which the suggestion was made. (Relationship: AIConversation 1:N AISuggestion)"
+        },
+        "learnerId": {
+          "type": "string",
+          "description": "Reference to the Learner for whom the suggestion was made. (Relationship: Learner 1:N AISuggestion)"
+        },
+        "suggestedEntityType": {
+          "type": "string",
+          "description": "The type of entity being suggested ('Course' or 'Module')."
+        },
+        "suggestedEntityId": {
+          "type": "string",
+          "description": "Reference to the suggested Course or Module. (Relationship: Course 1:N AISuggestion OR Module 1:N AISuggestion)"
+        },
+        "reasoning": {
+          "type": "string",
+          "description": "The AI's reasoning or explanation for making this suggestion."
+        },
+        "suggestionTimestamp": {
+          "type": "string",
+          "description": "Timestamp when the suggestion was made by the AI.",
+          "format": "date-time"
+        },
+        "wasAccepted": {
+          "type": "boolean",
+          "description": "Optional: Indicates if the learner accepted the suggestion."
+        },
+        "acceptedTimestamp": {
+          "type": "string",
+          "description": "Optional: Timestamp when the learner accepted the suggestion.",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the AI suggestion record was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the AI suggestion record was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "conversationId",
+        "learnerId",
+        "suggestedEntityType",
+        "suggestedEntityId",
+        "reasoning",
+        "suggestionTimestamp",
+        "createdAt"
+      ]
     }
   },
   "auth": {
-    "providers": ["google.com", "password"]
+    "providers": [
+      "password",
+      "anonymous"
+    ]
   },
   "firestore": {
-    "/users/{userId}": { "schema": "UserProfile", "description": "User profiles and mastery metadata." },
-    "/portals/{portalId}": { "schema": "WisdomPortal", "description": "The private wisdom portals." },
-    "/portals/{portalId}/chapters/{chapterId}": { "schema": "WisdomChapter", "description": "Individual lessons of mastery." },
-    "/inquiries": { "schema": "InquiryLog", "description": "Global log of student inquiries for ML training." }
+    "structure": [
+      {
+        "path": "/organizations/{organizationId}",
+        "definition": {
+          "entityName": "Organization",
+          "schema": {
+            "$ref": "#/backend/entities/Organization"
+          },
+          "description": "Top-level collection for all white-label client organizations. Each document represents a unique organization in the multi-tenant architecture.",
+          "params": [
+            {
+              "name": "organizationId",
+              "description": "The unique identifier for an Organization."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/organizations/{organizationId}/admins/{adminId}",
+        "definition": {
+          "entityName": "OrganizationAdmin",
+          "schema": {
+            "$ref": "#/backend/entities/Learner"
+          },
+          "description": "Collection for storing administrators of a specific organization. The existence of a document signifies that the `adminId` (which is the user's UID) is an administrator for this organization, enabling Database Access Control (DBAC). This allows for managing courses, modules, and viewing compliance reports. (Note: Using Learner schema as a placeholder for identity, but actual document content might be minimal, e.g., just the ID itself).",
+          "params": [
+            {
+              "name": "organizationId",
+              "description": "The unique identifier for the parent Organization."
+            },
+            {
+              "name": "adminId",
+              "description": "The Firebase Authentication UID of the administrator."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/organizations/{organizationId}/learners/{learnerId}",
+        "definition": {
+          "entityName": "Learner",
+          "schema": {
+            "$ref": "#/backend/entities/Learner"
+          },
+          "description": "Collection for individual learners registered under a specific organization. This path provides path-based ownership for learner-specific data.",
+          "params": [
+            {
+              "name": "organizationId",
+              "description": "The unique identifier for the parent Organization."
+            },
+            {
+              "name": "learnerId",
+              "description": "The unique identifier for the Learner (corresponds to Firebase Auth UID)."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/organizations/{organizationId}/courses/{courseId}",
+        "definition": {
+          "entityName": "Course",
+          "schema": {
+            "$ref": "#/backend/entities/Course"
+          },
+          "description": "Collection for courses offered by a specific organization. Access can be restricted by `isPublished` status, supporting QAPs for listing available courses.",
+          "params": [
+            {
+              "name": "organizationId",
+              "description": "The unique identifier for the parent Organization."
+            },
+            {
+              "name": "courseId",
+              "description": "The unique identifier for the Course."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/organizations/{organizationId}/courses/{courseId}/modules/{moduleId}",
+        "definition": {
+          "entityName": "Module",
+          "schema": {
+            "$ref": "#/backend/entities/Module"
+          },
+          "description": "Subcollection for modules belonging to a specific course. Includes denormalized 'organizationId' for authorization independence, allowing rules to check organization membership without `get()` calls on parent documents.",
+          "params": [
+            {
+              "name": "organizationId",
+              "description": "The unique identifier for the parent Organization."
+            },
+            {
+              "name": "courseId",
+              "description": "The unique identifier for the parent Course."
+            },
+            {
+              "name": "moduleId",
+              "description": "The unique identifier for the Module."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/organizations/{organizationId}/courses/{courseId}/modules/{moduleId}/quizQuestions/{questionId}",
+        "definition": {
+          "entityName": "QuizQuestion",
+          "schema": {
+            "$ref": "#/backend/entities/QuizQuestion"
+          },
+          "description": "Subcollection for quiz questions within a specific module. Includes denormalized 'organizationId' and 'courseId' for authorization independence, preventing `get()` calls to parent modules or courses for access checks.",
+          "params": [
+            {
+              "name": "organizationId",
+              "description": "The unique identifier for the parent Organization."
+            },
+            {
+              "name": "courseId",
+              "description": "The unique identifier for the parent Course."
+            },
+            {
+              "name": "moduleId",
+              "description": "The unique identifier for the parent Module."
+            },
+            {
+              "name": "questionId",
+              "description": "The unique identifier for the QuizQuestion."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/organizations/{organizationId}/learners/{learnerId}/progressLogs/{progressLogId}",
+        "definition": {
+          "entityName": "ProgressLog",
+          "schema": {
+            "$ref": "#/backend/entities/ProgressLog"
+          },
+          "description": "Subcollection for tracking a learner's progress through modules and quizzes. Stored under the learner for direct user ownership and efficient, secure QAPs. Includes denormalized 'organizationId' for admin reporting via collection group queries without parent `get()` calls.",
+          "params": [
+            {
+              "name": "organizationId",
+              "description": "The unique identifier for the parent Organization."
+            },
+            {
+              "name": "learnerId",
+              "description": "The unique identifier for the parent Learner."
+            },
+            {
+              "name": "progressLogId",
+              "description": "The unique identifier for the ProgressLog entry."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/organizations/{organizationId}/learners/{learnerId}/aiConversations/{conversationId}",
+        "definition": {
+          "entityName": "AIConversation",
+          "schema": {
+            "$ref": "#/backend/entities/AIConversation"
+          },
+          "description": "Subcollection for storing AI conversational sessions for a specific learner. Provides path-based ownership for learner's private conversations.",
+          "params": [
+            {
+              "name": "organizationId",
+              "description": "The unique identifier for the parent Organization."
+            },
+            {
+              "name": "learnerId",
+              "description": "The unique identifier for the parent Learner."
+            },
+            {
+              "name": "conversationId",
+              "description": "The unique identifier for the AIConversation."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/organizations/{organizationId}/learners/{learnerId}/aiConversations/{conversationId}/chatMessages/{messageId}",
+        "definition": {
+          "entityName": "AIChatMessage",
+          "schema": {
+            "$ref": "#/backend/entities/AIChatMessage"
+          },
+          "description": "Subcollection for individual chat messages within an AI conversation. Includes denormalized 'organizationId' and 'learnerId' for authorization independence, enabling direct access checks on each message.",
+          "params": [
+            {
+              "name": "organizationId",
+              "description": "The unique identifier for the top-level Organization."
+            },
+            {
+              "name": "learnerId",
+              "description": "The unique identifier for the parent Learner."
+            },
+            {
+              "name": "conversationId",
+              "description": "The unique identifier for the parent AIConversation."
+            },
+            {
+              "name": "messageId",
+              "description": "The unique identifier for the AIChatMessage."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/organizations/{organizationId}/learners/{learnerId}/aiConversations/{conversationId}/aiSuggestions/{suggestionId}",
+        "definition": {
+          "entityName": "AISuggestion",
+          "schema": {
+            "$ref": "#/backend/entities/AISuggestion"
+          },
+          "description": "Subcollection for AI-generated course/module suggestions made during a conversation. Includes denormalized 'organizationId' for authorization independence.",
+          "params": [
+            {
+              "name": "organizationId",
+              "description": "The unique identifier for the top-level Organization."
+            },
+            {
+              "name": "learnerId",
+              "description": "The unique identifier for the parent Learner."
+            },
+            {
+              "name": "conversationId",
+              "description": "The unique identifier for the parent AIConversation."
+            },
+            {
+              "name": "suggestionId",
+              "description": "The unique identifier for the AISuggestion."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The recommended Firestore structure is designed following a multi-tenant hierarchy with an emphasis on Authorization Independence, Structural Segregation, and consistent Access Modeling. The root of the data structure is `/organizations/{organizationId}`, enforcing multi-tenancy as requested. All subsequent collections are subcollections of a specific organization or a learner within an organization, ensuring data isolation and clear ownership.\n\nAuthorization Independence (CRITICAL) is achieved through strategic denormalization. For instance, `Module` documents will include `organizationId` in addition to `courseId`, and `QuizQuestion` documents will store `organizationId` and `courseId` alongside `moduleId`. Similarly, `AIChatMessage`, `AISuggestion`, and `ProgressLog` documents will denormalize `organizationId` and `learnerId` (where applicable) directly into their respective documents. This eliminates the need for expensive and rule-breaking `get()` operations on parent documents during authorization checks, allowing for atomic writes and simplified security rules. Rules can directly check `request.auth.uid` against relevant fields like `learnerId` or check for membership in the `/organizations/{organizationId}/admins/{adminId}` collection, ensuring efficient and secure access.\n\nStructural Segregation (Homogeneous Security Posture) is applied by ensuring that all documents within a given collection share similar security requirements. For example, `Course` and `Module` documents utilize an `isPublished` field, and security rules will enforce that only published content is readable by learners. This avoids mixing data with disparate access needs in the same collection, simplifying rule logic. Learner-specific data like `ProgressLog`, `AIConversation`, `AIChatMessage`, and `AISuggestion` are nested directly under `/organizations/{organizationId}/learners/{learnerId}`, creating a clear path-based ownership model.\n\nQAPs (Query as Authorization Predicates) are supported by this structure. For public data within an organization (e.g., published courses, modules), rules will require specific query constraints like `request.query.where('isPublished', '==', true)`. For private, user-owned data (e.g., `progressLogs`, `aiConversations`), rules will ensure that `request.auth.uid == learnerId` for reads, effectively making `list` operations secure by default. Organization administrators, defined by presence in `/organizations/{organizationId}/admins/{adminId}`, can perform collection group queries on learner-specific subcollections (e.g., `progressLogs`) and the denormalized `organizationId` field in each document allows rules to validate their administrative scope without `get()` calls on parent `learner` documents. This holistic approach ensures secure, scalable, and debuggable access control across the platform."
   }
 }

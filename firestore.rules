@@ -1,0 +1,187 @@
+/**
+ * SkillSprint Firestore Security Rules (Prototyping Mode)
+ *
+ * CORE PHILOSOPHY
+ * This ruleset implements a strict multi-tenant architecture centered around Organizations. 
+ * Access is governed by two primary identities: Organization Administrators and Learners.
+ * Authorization is decoupled from complex joins by leveraging denormalized identifiers 
+ * (like organizationId and learnerId) directly within documents.
+ *
+ * DATA STRUCTURE
+ * All data is organized hierarchically under /organizations/{organizationId}.
+ * - Administrative access is controlled via the /admins subcollection.
+ * - Content (Courses, Modules, Quizzes) is managed by admins and consumed by learners.
+ * - Personal data (Progress, AI Conversations) is nested under the specific /learners/{learnerId} path.
+ *
+ * KEY SECURITY DECISIONS
+ * 1. Multi-Tenancy: All requests must be scoped to an organizationId. 
+ * 2. Role-Based Access: The exists() check on /admins/{userId} determines administrative privileges.
+ * 3. Path-Based Ownership: Learners are granted full CRUD access to data residing under 
+ *    their own /learners/{learnerId} path, provided the internal data remains consistent with the path.
+ * 4. Content Visibility: Learners can only read Courses and Modules where 'isPublished' is true.
+ * 5. Flexible Schema: Rules enforce "Who" and "Whose" (authorization/relational integrity) 
+ *    but do not restrict the "What" (data types or fields), allowing for rapid prototyping.
+ *
+ * DENORMALIZATION FOR AUTHORIZATION
+ * To ensure high performance and avoid costly get() calls, critical relational fields 
+ * (organizationId, learnerId) are expected to be present on leaf documents. 
+ * This allows rules to validate organization context or ownership without traversing the tree.
+ */
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // --- GLOBAL HELPER FUNCTIONS ---
+
+    /** @description Checks if the user is authenticated. */
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    /** @description Checks if the user's UID matches the provided ID. */
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    /** @description Combines ownership check with document existence for updates/deletes. */
+    function isExistingOwner(userId) {
+      return resource != null && isOwner(userId);
+    }
+
+    /** @description Checks if the authenticated user is an administrator of the organization. */
+    function isOrgAdmin(orgId) {
+      return isSignedIn() && exists(/databases/$(database)/documents/organizations/$(orgId)/admins/$(request.auth.uid));
+    }
+
+    /** @description Permits read access for content if it is published or if the user is an admin. */
+    function canReadContent(orgId) {
+      return isSignedIn() && (resource.data.isPublished == true || isOrgAdmin(orgId));
+    }
+
+    // --- COLLECTION RULES ---
+
+    /**
+     * @description Top-level organization document.
+     * @path /organizations/{organizationId}
+     * @allow get (isSignedIn), update (isOrgAdmin)
+     * @deny create, delete, list (No self-creation of orgs in prototype)
+     * @principle Multi-tenant root; restricted to admin management.
+     */
+    match /organizations/{organizationId} {
+      allow get: if isSignedIn();
+      allow list: if false;
+      allow create: if false;
+      allow update: if isOrgAdmin(organizationId);
+      allow delete: if false;
+
+      /**
+       * @description Registry of organization administrators for DBAC.
+       * @path /organizations/{organizationId}/admins/{adminId}
+       * @allow read, write (isOrgAdmin)
+       * @principle Database Access Control (DBAC) for organizational roles.
+       */
+      match /admins/{adminId} {
+        allow get, list, create, update, delete: if isOrgAdmin(organizationId);
+      }
+
+      /**
+       * @description Profile data for learners.
+       * @path /organizations/{organizationId}/learners/{learnerId}
+       * @allow get, list (isOwner || isOrgAdmin), create (isOwner), update (isExistingOwner)
+       * @deny delete (Managed by system/admin)
+       * @principle Self-creation and ownership of learner profiles.
+       */
+      match /learners/{learnerId} {
+        allow get, list: if isOwner(learnerId) || isOrgAdmin(organizationId);
+        allow create: if isOwner(learnerId) && request.resource.data.id == learnerId;
+        allow update: if isExistingOwner(learnerId) && request.resource.data.id == resource.data.id;
+        allow delete: if false;
+
+        /**
+         * @description Tracking entries for learner activity.
+         * @path /organizations/{organizationId}/learners/{learnerId}/progressLogs/{logId}
+         * @allow read, create, update (isOwner || isOrgAdmin)
+         * @principle Owner-driven progress tracking with admin oversight.
+         */
+        match /progressLogs/{logId} {
+          allow get, list: if isOwner(learnerId) || isOrgAdmin(organizationId);
+          allow create: if isOwner(learnerId) && request.resource.data.learnerId == learnerId;
+          allow update: if (isExistingOwner(learnerId) || isOrgAdmin(organizationId)) && request.resource.data.learnerId == resource.data.learnerId;
+          allow delete: if isOrgAdmin(organizationId);
+        }
+
+        /**
+         * @description Conversational sessions with the AI Proctor.
+         * @path /organizations/{organizationId}/learners/{learnerId}/aiConversations/{convId}
+         * @allow get, list, create, update (isOwner), read (isOrgAdmin)
+         * @principle Private conversational data owned by the learner.
+         */
+        match /aiConversations/{convId} {
+          allow get, list: if isOwner(learnerId) || isOrgAdmin(organizationId);
+          allow create: if isOwner(learnerId) && request.resource.data.learnerId == learnerId;
+          allow update: if isExistingOwner(learnerId) && request.resource.data.learnerId == resource.data.learnerId;
+          allow delete: if false;
+
+          /**
+           * @description Messages within an AI conversation.
+           * @path /organizations/{organizationId}/learners/{learnerId}/aiConversations/{convId}/chatMessages/{msgId}
+           * @allow read, create (isOwner)
+           * @principle Path-based ownership of chat history.
+           */
+          match /chatMessages/{msgId} {
+            allow get, list: if isOwner(learnerId) || isOrgAdmin(organizationId);
+            allow create: if isOwner(learnerId);
+            allow update, delete: if false;
+          }
+
+          /**
+           * @description Suggestions generated by AI during a session.
+           * @path /organizations/{organizationId}/learners/{learnerId}/aiConversations/{convId}/aiSuggestions/{sugId}
+           * @allow read (isOwner || isOrgAdmin), update (isOwner)
+           * @principle Interactive AI suggestions that learners can accept/update.
+           */
+          match /aiSuggestions/{sugId} {
+            allow get, list: if isOwner(learnerId) || isOrgAdmin(organizationId);
+            allow create: if isOrgAdmin(organizationId); // AI/System creates these
+            allow update: if isExistingOwner(learnerId);
+            allow delete: if false;
+          }
+        }
+      }
+
+      /**
+       * @description Curricula and course definitions.
+       * @path /organizations/{organizationId}/courses/{courseId}
+       * @allow get, list (canReadContent), write (isOrgAdmin)
+       * @principle Public consumption of published content; admin-only management.
+       */
+      match /courses/{courseId} {
+        allow get, list: if canReadContent(organizationId);
+        allow create, update, delete: if isOrgAdmin(organizationId);
+
+        /**
+         * @description Individual learning units within a course.
+         * @path /organizations/{organizationId}/courses/{courseId}/modules/{moduleId}
+         * @allow get, list (canReadContent), write (isOrgAdmin)
+         * @principle Inheritance of course visibility and administrative control.
+         */
+        match /modules/{moduleId} {
+          allow get, list: if canReadContent(organizationId);
+          allow create, update, delete: if isOrgAdmin(organizationId);
+
+          /**
+           * @description Assessment questions for quiz modules.
+           * @path /organizations/{organizationId}/courses/{courseId}/modules/{moduleId}/quizQuestions/{qId}
+           * @allow get, list (canReadContent), write (isOrgAdmin)
+           * @principle Secured quiz data restricted to published state.
+           */
+          match /quizQuestions/{qId} {
+            allow get, list: if canReadContent(organizationId);
+            allow create, update, delete: if isOrgAdmin(organizationId);
+          }
+        }
+      }
+    }
+  }
+}
