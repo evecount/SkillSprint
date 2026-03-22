@@ -72,45 +72,47 @@
         "timestamp": { "type": "string", "format": "date-time" }
       },
       "required": ["conversationId", "sender", "messageText", "timestamp"]
+    },
+    "AISuggestion": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "AISuggestion",
+      "type": "object",
+      "description": "A structured recommendation from Proctor (e.g., suggested role or monetization strategy).",
+      "properties": {
+        "id": { "type": "string" },
+        "conversationId": { "type": "string" },
+        "learnerId": { "type": "string" },
+        "suggestedEntityType": { "type": "string" },
+        "suggestedEntityId": { "type": "string" },
+        "reasoning": { "type": "string" },
+        "suggestionTimestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["conversationId", "learnerId", "reasoning"]
     }
   },
   "auth": {
     "providers": ["password", "anonymous"]
   },
   "firestore": {
-    "structure": [
-      {
-        "path": "/organizations/{organizationId}",
-        "definition": {
-          "entityName": "Organization",
-          "schema": { "$ref": "#/backend/entities/Organization" },
-          "description": "Multi-tenant root."
-        }
-      },
-      {
-        "path": "/organizations/{organizationId}/learners/{learnerId}",
-        "definition": {
-          "entityName": "Learner",
-          "schema": { "$ref": "#/backend/entities/Learner" },
-          "description": "Professional profile and identity registry."
-        }
-      },
-      {
-        "path": "/organizations/{organizationId}/learners/{learnerId}/aiConversations/{conversationId}",
-        "definition": {
-          "entityName": "AIConversation",
-          "schema": { "$ref": "#/backend/entities/AIConversation" },
-          "description": "Digital assets representing the user's professional journey and AI-guided architecture."
-        }
-      },
-      {
-        "path": "/organizations/{organizationId}/learners/{learnerId}/aiConversations/{conversationId}/chatMessages/{messageId}",
-        "definition": {
-          "entityName": "AIChatMessage",
-          "schema": { "$ref": "#/backend/entities/AIChatMessage" },
-          "description": "Atomic units of conversation history used to provide Proctor with long-term memory."
-        }
-      }
-    ]
+    "/organizations/{organizationId}": {
+      "schema": { "$ref": "#/backend/entities/Organization" },
+      "description": "Multi-tenant root."
+    },
+    "/organizations/{organizationId}/learners/{learnerId}": {
+      "schema": { "$ref": "#/backend/entities/Learner" },
+      "description": "Professional profile and identity registry."
+    },
+    "/organizations/{organizationId}/learners/{learnerId}/aiConversations/{conversationId}": {
+      "schema": { "$ref": "#/backend/entities/AIConversation" },
+      "description": "Digital assets representing the user's professional journey."
+    },
+    "/organizations/{organizationId}/learners/{learnerId}/aiConversations/{conversationId}/chatMessages/{messageId}": {
+      "schema": { "$ref": "#/backend/entities/AIChatMessage" },
+      "description": "Atomic units of conversation history."
+    },
+    "/organizations/{organizationId}/learners/{learnerId}/aiConversations/{conversationId}/aiSuggestions/{suggestionId}": {
+      "schema": { "$ref": "#/backend/entities/AISuggestion" },
+      "description": "Proctor's intelligent recommendations."
+    }
   }
 }

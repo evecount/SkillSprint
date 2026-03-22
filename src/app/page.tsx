@@ -9,9 +9,9 @@ export default function Home() {
       <Navbar />
       
       {/* Main content area optimized for high-density Discovery engine */}
-      <main className="flex-1 pt-16 pb-24 md:pb-8 overflow-y-auto scrollbar-hide">
+      <main className="flex-1 pt-16 pb-20 md:pb-8">
         <div className="container mx-auto px-4 min-h-[calc(100vh-64px)] max-w-5xl flex items-center justify-center py-8">
-          <div className="w-full max-w-[800px] h-[750px] max-h-[85vh] flex flex-col">
+          <div className="w-full max-w-[800px] flex flex-col">
             <HeroChat />
           </div>
         </div>
