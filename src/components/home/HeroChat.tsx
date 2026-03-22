@@ -1,23 +1,16 @@
+
 "use client"
 
 import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Send, Bot, Loader2, ArrowRight, Zap, GraduationCap, MapPin, Calendar, Users, Star, FastForward, Clock, Heart, Briefcase, Landmark } from 'lucide-react';
+import { Send, Loader2, ArrowRight, Zap, MapPin, Users, Star, FastForward, Heart, Briefcase, X, Check } from 'lucide-react';
 import { prospectiveOnboardingChat, ProspectiveOnboardingOutput } from '@/ai/flows/prospective-onboarding';
 import { onboardingConsultant } from '@/ai/flows/onboarding-consultant';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import Image from 'next/image';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
 
 type Message = {
   role: 'user' | 'model';
@@ -39,6 +32,8 @@ export function HeroChat() {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [draft, setDraft] = useState<ProspectiveOnboardingOutput['portalDraft'] | null>(null);
+  const [stackIndex, setStackIndex] = useState(0);
+  const [swipeDirection, setSwipeDirection] = useState<'left' | 'right' | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -100,21 +95,45 @@ export function HeroChat() {
     }
   };
 
+  const handleSwipe = (direction: 'left' | 'right') => {
+    setSwipeDirection(direction);
+    setTimeout(() => {
+      setStackIndex((prev) => (prev + 1) % MOCK_EXPERIENCES.length);
+      setSwipeDirection(null);
+    }, 600);
+  };
+
   if (!role) {
     return (
       <div className="space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-700">
-        {/* Experience Swiper */}
+        {/* Experience Swipe Stack */}
         <div className="space-y-6">
           <div className="flex items-center justify-between px-2">
             <h3 className="text-xs font-black uppercase tracking-[0.4em] text-primary">Featured Apprenticeship Cycles</h3>
-            <Badge variant="outline" className="border-white/10 text-white/40 text-[9px] uppercase tracking-widest px-4">Swipe to Discover</Badge>
+            <div className="flex items-center gap-2">
+               <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+               <span className="text-[10px] font-black text-white/40 uppercase tracking-widest">Live Registry</span>
+            </div>
           </div>
           
-          <Carousel className="w-full" opts={{ align: "start", loop: true }}>
-            <CarouselContent className="-ml-4">
-              {MOCK_EXPERIENCES.map((item) => (
-                <CarouselItem key={item.id} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/4">
-                  <div className="group relative aspect-[3/4] overflow-hidden rounded-[2.5rem] bg-secondary border border-white/5 shadow-2xl transition-all hover:scale-[1.02]">
+          <div className="relative h-[450px] w-full max-w-sm mx-auto perspective-1000">
+            {MOCK_EXPERIENCES.map((item, idx) => {
+              const isTop = idx === stackIndex;
+              const isNext = idx === (stackIndex + 1) % MOCK_EXPERIENCES.length;
+              
+              if (!isTop && !isNext) return null;
+
+              return (
+                <div 
+                  key={item.id}
+                  className={cn(
+                    "absolute inset-0 transition-all duration-500",
+                    isTop ? "z-20 scale-100" : "z-10 scale-95 translate-y-4 opacity-40",
+                    isTop && swipeDirection === 'left' && "animate-swipe-out-left-tilt",
+                    isTop && swipeDirection === 'right' && "animate-swipe-out-right-tilt"
+                  )}
+                >
+                  <div className="group relative h-full w-full overflow-hidden rounded-[2.5rem] bg-secondary border border-white/5 shadow-2xl">
                     <Image 
                       src={item.image} 
                       alt={item.title} 
@@ -130,22 +149,38 @@ export function HeroChat() {
                         </Badge>
                         <span className="text-[10px] font-bold text-white/60">{item.price}</span>
                       </div>
-                      <h4 className="text-xl font-black text-white leading-tight">{item.title}</h4>
+                      <h4 className="text-2xl font-black text-white leading-tight">{item.title}</h4>
                       <p className="text-[10px] font-bold text-primary uppercase tracking-widest mt-1">by {item.author}</p>
                     </div>
                   </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <div className="hidden sm:block">
-              <CarouselPrevious className="absolute -left-12 bg-white/5 border-white/10 hover:bg-primary" />
-              <CarouselNext className="absolute -right-12 bg-white/5 border-white/10 hover:bg-primary" />
+                </div>
+              );
+            })}
+            
+            {/* Swiper Controls */}
+            <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4 z-30">
+              <Button 
+                variant="outline" 
+                size="icon" 
+                onClick={() => handleSwipe('left')}
+                className="h-14 w-14 rounded-2xl bg-secondary/80 backdrop-blur-md border-white/10 text-white hover:bg-destructive hover:border-destructive transition-all hover:scale-110 active:scale-90"
+              >
+                <X className="h-6 w-6" />
+              </Button>
+              <Button 
+                variant="outline" 
+                size="icon" 
+                onClick={() => handleSwipe('right')}
+                className="h-14 w-14 rounded-2xl bg-primary text-white border-none shadow-xl shadow-primary/20 hover:bg-accent transition-all hover:scale-110 active:scale-90"
+              >
+                <Check className="h-6 w-6" />
+              </Button>
             </div>
-          </Carousel>
+          </div>
         </div>
 
         {/* Role Matcher Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-12">
           <button 
             onClick={() => handleRoleSelect('mentor')}
             className="group relative h-[400px] rounded-[3rem] bg-white text-secondary overflow-hidden transition-all hover:scale-[1.02] active:scale-95 shadow-2xl border-2 border-transparent hover:border-primary/20"
