@@ -1,67 +1,83 @@
+
 "use client"
 
 import Link from 'next/link';
-import { Trophy, Home, BookOpen, BarChart2, User, LayoutDashboard, PlusCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Home, BookOpen, User, PlusCircle, Compass, ShieldCheck } from 'lucide-react';
 import { UserRole } from '@/lib/types';
 import { cn } from '@/lib/utils';
+import { usePathname } from 'next/navigation';
 
 interface NavbarProps {
   role?: UserRole;
 }
 
 export function Navbar({ role = 'learner' }: NavbarProps) {
+  const pathname = usePathname();
+
+  const navItems = role === 'learner' ? [
+    { label: 'Home', icon: Home, href: '/learner/dashboard' },
+    { label: 'Apprentice', icon: Compass, href: '/learner/courses' },
+    { label: 'Profile', icon: User, href: '/profile' },
+  ] : [
+    { label: 'Studio', icon: ShieldCheck, href: '/teacher/dashboard' },
+    { label: 'New Guild', icon: PlusCircle, href: '/admin/courses/new' },
+    { label: 'Profile', icon: User, href: '/profile' },
+  ];
+
   return (
-    <nav className="fixed bottom-4 left-4 right-4 z-50 md:top-0 md:bottom-auto md:left-0 md:right-0">
-      <div className="container mx-auto">
-        <div className="bg-white/90 backdrop-blur-xl border border-white/20 shadow-2xl rounded-3xl md:rounded-none md:border-none md:bg-white md:shadow-sm md:border-b h-16 md:h-20 flex items-center justify-between px-6">
-          <Link href="/" className="flex items-center gap-3 font-headline hover:opacity-80 transition-opacity">
+    <>
+      {/* Desktop Top Navbar */}
+      <nav className="fixed top-0 left-0 right-0 z-50 hidden h-20 items-center border-b bg-background/80 backdrop-blur-xl md:flex">
+        <div className="container mx-auto flex items-center justify-between px-6">
+          <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary text-white font-bold text-xl shadow-lg shadow-secondary/20">
               U
             </div>
-            <div className="hidden sm:flex flex-col leading-none">
+            <div className="flex flex-col leading-none">
               <span className="text-lg font-black tracking-tight text-secondary">University</span>
               <span className="text-[10px] font-bold text-primary tracking-widest uppercase -mt-0.5">of Life</span>
             </div>
           </Link>
 
-          <div className="flex items-center gap-6 md:gap-10">
-            {role === 'learner' && (
-              <>
-                <Link href="/learner/dashboard" className="flex flex-col items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground hover:text-primary transition-colors md:flex-row md:text-xs">
-                  <Home className="h-5 w-5 md:h-4 md:w-4" />
-                  <span className="hidden xs:inline">Dashboard</span>
-                </Link>
-                <Link href="/learner/courses" className="flex flex-col items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground hover:text-primary transition-colors md:flex-row md:text-xs">
-                  <BookOpen className="h-5 w-5 md:h-4 md:w-4" />
-                  <span className="hidden xs:inline">My Guilds</span>
-                </Link>
-                <div className="hidden md:flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-primary border border-primary/20">
-                  <Trophy className="h-4 w-4" />
-                  <span className="font-bold text-xs">1,250 XP</span>
-                </div>
-              </>
-            )}
-
-            {role === 'teacher' && (
-              <>
-                <Link href="/teacher/dashboard" className="flex flex-col items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground hover:text-primary transition-colors md:flex-row md:text-xs">
-                  <LayoutDashboard className="h-5 w-5 md:h-4 md:w-4" />
-                  <span className="hidden xs:inline">Studio</span>
-                </Link>
-                <Link href="/admin/courses/new" className="flex flex-col items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground hover:text-primary transition-colors md:flex-row md:text-xs">
-                  <PlusCircle className="h-5 w-5 md:h-4 md:w-4" />
-                  <span className="hidden xs:inline">New Guild</span>
-                </Link>
-              </>
-            )}
-
+          <div className="flex items-center gap-8">
+            {navItems.map((item) => (
+              <Link 
+                key={item.href}
+                href={item.href} 
+                className={cn(
+                  "flex items-center gap-2 text-xs font-bold uppercase tracking-widest transition-colors",
+                  pathname === item.href ? "text-primary" : "text-muted-foreground hover:text-primary"
+                )}
+              >
+                <item.icon className="h-4 w-4" />
+                {item.label}
+              </Link>
+            ))}
             <div className="h-10 w-10 rounded-xl bg-muted flex items-center justify-center hover:bg-muted/80 cursor-pointer transition-colors overflow-hidden">
               <User className="h-5 w-5 text-secondary" />
             </div>
           </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+
+      {/* Mobile Bottom Navigation */}
+      <nav className="fixed bottom-0 left-0 right-0 z-50 flex h-20 items-center border-t bg-background/95 backdrop-blur-xl md:hidden">
+        <div className="grid h-full w-full grid-cols-3">
+          {navItems.map((item) => (
+            <Link 
+              key={item.href}
+              href={item.href}
+              className={cn(
+                "flex flex-col items-center justify-center gap-1 transition-all active:scale-95",
+                pathname === item.href ? "text-primary" : "text-muted-foreground"
+              )}
+            >
+              <item.icon className={cn("h-6 w-6", pathname === item.href && "fill-primary/10")} />
+              <span className="text-[10px] font-black uppercase tracking-widest">{item.label}</span>
+            </Link>
+          ))}
+        </div>
+      </nav>
+    </>
   );
 }
