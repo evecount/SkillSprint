@@ -23,7 +23,7 @@ export default function Home() {
               <span className="text-primary italic">Skip the Loop.</span>
             </h1>
             <p className="text-lg md:text-2xl text-white/60 font-medium max-w-2xl leading-relaxed mt-6 italic">
-              "Trade money for time. Masters: Monetize your legacy. Students: Get real work in the field by buying back years of trial and error."
+              "Trade money for time. Practitioners: Monetize your legacy. Apprentices: Get real work in the field by buying back years of trial and error."
             </p>
           </div>
 
@@ -60,7 +60,7 @@ export default function Home() {
             <div className="space-y-6">
               <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">Registry</h4>
               <ul className="space-y-4">
-                <li><Link href="/learner/dashboard" className="text-sm text-white/60 hover:text-white transition-colors font-bold">Find a Mentor</Link></li>
+                <li><Link href="/learner/dashboard" className="text-sm text-white/60 hover:text-white transition-colors font-bold">Find a Practitioner</Link></li>
                 <li><Link href="/teacher/dashboard" className="text-sm text-white/60 hover:text-white transition-colors font-bold">Launch a Guild</Link></li>
                 <li><Link href="/about" className="text-sm text-white/60 hover:text-white transition-colors font-bold">The Mission</Link></li>
               </ul>

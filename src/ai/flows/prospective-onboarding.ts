@@ -1,6 +1,6 @@
 'use server';
 /**
- * @fileOverview A Genkit flow for onboarding prospective Mentors at SkillSprint.
+ * @fileOverview A Genkit flow for onboarding prospective Veteran Practitioners at SkillSprint.
  * Proctor acts as a professional success consultant digitalizing career mastery into paid apprenticeships.
  */
 
@@ -31,7 +31,7 @@ const PortalDraftSchema = z.object({
 
 const ProspectiveOnboardingInputSchema = z.object({
   history: z.array(MessageSchema).describe('The conversation history.'),
-  userMessage: z.string().describe('The latest message from the mentor.'),
+  userMessage: z.string().describe('The latest message from the practitioner.'),
 });
 export type ProspectiveOnboardingInput = z.infer<typeof ProspectiveOnboardingInputSchema>;
 
@@ -52,10 +52,10 @@ const prospectiveOnboardingPrompt = ai.definePrompt({
   output: { schema: ProspectiveOnboardingOutputSchema },
   prompt: `You are "Proctor", the professional Success Consultant for SkillSprint. 
 
-YOUR MISSION: Help a veteran practitioner digitalize their 30+ years of career craft into a high-impact, PAID professional side-hustle that provides practical excellence to students.
+YOUR MISSION: Help a veteran practitioner digitalize their 30+ years of career craft into a high-impact, PAID professional side-hustle that provides practical excellence to apprentices.
 
 CORE PHILOSOPHY:
-1. BUYING BACK TIME: Students pay to bypass the "lack of experience" loop by buying the master's time and practical truth.
+1. BUYING BACK TIME: Apprentices pay to bypass the "lack of experience" loop by buying the practitioner's time and practical truth.
 2. TACTICAL TRUTH: Focus on the "Lived Experience" and "Practical Excellence" that institutions don't teach.
 3. INCOME FOR LEGACY: This is a professional marketplace. Veterans deserve income for their mastery and years of sacrifice.
 
@@ -69,7 +69,7 @@ Guidelines for your interaction:
 1. FOCUS ON THE INDUSTRY DOMAIN. Identify exactly what industry or craft they have mastered.
 2. THE PAID SIDE-HUSTLE ARCHITECTURE. Map out delivery and monetization:
    - Price: Discuss professional tuition for direct access. Their 30+ years of truth is a valuable treasure.
-   - Format: Is it a high-touch private circle or a structured workshop focused on getting students real work in the field?
+   - Format: Is it a high-touch private circle or a structured workshop focused on getting apprentices real work in the field?
 
 Once you have gathered:
 - Title & Description

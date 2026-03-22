@@ -41,7 +41,7 @@ export default function AboutMission() {
                 <h2 className="text-3xl font-black text-secondary tracking-tight">Trading Time for Mastery</h2>
               </div>
               <p className="text-muted-foreground leading-relaxed text-lg font-medium">
-                Traditional education often leaves you locked out of the very industries you study. We respect the student who works to fund their own growth. You aren&apos;t just paying for content; you&apos;re buying back the master&apos;s years of trial, error, and sacrificed time to get direct entry into the craft.
+                Traditional education often leaves you locked out of the very industries you study. We respect the student who works to fund their own growth. You aren&apos;t just paying for content; you&apos;re buying back the practitioner&apos;s years of trial, error, and sacrificed time to get direct entry into the craft.
               </p>
             </div>
 
@@ -84,7 +84,7 @@ export default function AboutMission() {
                 <GraduationCap className="h-7 w-7 text-white" />
               </div>
               <h3 className="text-2xl font-black mb-4">Direct Access</h3>
-              <p className="text-white/80 font-medium text-sm leading-relaxed">Trade money for the master&apos;s time. Bypass "no experience" loops and get real work insights directly from industry practitioners.</p>
+              <p className="text-white/80 font-medium text-sm leading-relaxed">Trade money for the practitioner&apos;s time. Bypass "no experience" loops and get real work insights directly from industry practitioners.</p>
             </div>
           </div>
 
@@ -95,7 +95,7 @@ export default function AboutMission() {
               Doing over <span className="text-primary italic">Studying.</span>
             </h3>
             <p className="text-white/60 text-xl max-w-2xl mx-auto font-medium leading-relaxed">
-              Whether you&apos;re a veteran practitioner or a student moonlighting after your shift—practical excellence is the only meritocracy that matters.
+              Whether you&apos;re a veteran practitioner or an apprentice moonlighting after your shift—practical excellence is the only meritocracy that matters.
             </p>
             <Button asChild className="rounded-[2rem] bg-primary hover:bg-accent text-white h-20 px-16 font-black uppercase tracking-[0.3em] text-xs shadow-2xl shadow-primary/20 transition-all hover:scale-105">
               <Link href="/learner/dashboard">Join the Registry</Link>

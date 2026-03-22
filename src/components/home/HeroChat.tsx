@@ -50,8 +50,8 @@ export function HeroChat() {
   const handleRoleSelect = (selectedRole: UserRole) => {
     setRole(selectedRole);
     const initialMsg = selectedRole === 'mentor' 
-      ? "Welcome Master. I am Proctor. Your 30+ years of truth is a finite treasure. Let's build your paid side-hustle. What industry domain are we digitalizing?"
-      : "Welcome Seeker. I am Proctor. You're here to buy back your time. Which industry has locked you out that you're ready to pay a Master to enter directly?";
+      ? "Welcome Practitioner. I am Proctor. Your 30+ years of truth is a finite treasure. Let's build your paid side-hustle. What industry domain are we digitalizing?"
+      : "Welcome Apprentice. I am Proctor. You're here to buy back your time. Which industry has locked you out that you're ready to pay a Practitioner to enter directly?";
     
     setMessages([{ role: 'model', text: initialMsg }]);
   };
@@ -78,7 +78,7 @@ export function HeroChat() {
         }
       } else {
         const result = await onboardingConsultant({
-          userName: "Seeker",
+          userName: "Apprentice",
           role: 'learner',
           orgName: "SkillSprint",
           userMessage: textToSend
@@ -103,7 +103,7 @@ export function HeroChat() {
   if (!role) {
     return (
       <div className="space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-700">
-        {/* Experience Swiper (Swipe on Mastery, not just faces) */}
+        {/* Experience Swiper */}
         <div className="space-y-6">
           <div className="flex items-center justify-between px-2">
             <h3 className="text-xs font-black uppercase tracking-[0.4em] text-primary">Featured Apprenticeship Cycles</h3>
@@ -156,7 +156,7 @@ export function HeroChat() {
                 <Heart className="h-10 w-10 text-primary" />
               </div>
               <div>
-                <h3 className="text-4xl font-black tracking-tight mb-2">Mentor / Lecturer</h3>
+                <h3 className="text-4xl font-black tracking-tight mb-2">Veteran Practitioner</h3>
                 <p className="text-secondary/40 font-black uppercase tracking-[0.3em] text-[10px]">Monetize Your Legacy</p>
               </div>
               <p className="text-secondary/70 font-medium italic leading-relaxed text-sm">
@@ -164,7 +164,7 @@ export function HeroChat() {
               </p>
               <div className="pt-4">
                 <span className="inline-flex h-14 px-10 rounded-2xl bg-secondary text-white items-center gap-3 font-black text-xs uppercase tracking-[0.2em] shadow-xl group-hover:bg-primary transition-colors">
-                  Match as Mentor <ArrowRight className="h-4 w-4" />
+                  Match as Practitioner <ArrowRight className="h-4 w-4" />
                 </span>
               </div>
             </div>
@@ -184,11 +184,11 @@ export function HeroChat() {
                 <p className="text-white/40 font-black uppercase tracking-[0.3em] text-[10px]">Buy Back Your Time</p>
               </div>
               <p className="text-white/80 font-medium italic leading-relaxed text-sm">
-                "Pay a Master directly for access and bypass the unpaid experience loop."
+                "Pay a Practitioner directly for access and bypass the unpaid experience loop."
               </p>
               <div className="pt-4">
                 <span className="inline-flex h-14 px-10 rounded-2xl bg-primary text-white items-center gap-3 font-black text-xs uppercase tracking-[0.2em] shadow-xl shadow-primary/20 hover:bg-accent transition-colors">
-                  Match as Student <ArrowRight className="h-4 w-4" />
+                  Match as Apprentice <ArrowRight className="h-4 w-4" />
                 </span>
               </div>
             </div>
@@ -311,12 +311,12 @@ export function HeroChat() {
             handleSend();
           }}
         >
-          <Input 
+          <input 
             placeholder={role === 'mentor' ? "What is your mastery domain?" : "Which industry is locking you out?"}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={loading}
-            className="flex-1 h-16 rounded-2xl px-8 bg-muted/50 border-transparent focus-visible:ring-primary text-base font-bold text-secondary shadow-inner"
+            className="flex-1 h-16 rounded-2xl px-8 bg-muted/50 border-transparent focus-visible:ring-primary text-base font-bold text-secondary shadow-inner outline-none"
           />
           <Button type="submit" size="icon" className="h-16 w-16 shrink-0 rounded-2xl bg-secondary hover:bg-primary transition-all shadow-xl shadow-secondary/20" disabled={loading || !input.trim()}>
             <Send className="h-7 w-7 text-white" />

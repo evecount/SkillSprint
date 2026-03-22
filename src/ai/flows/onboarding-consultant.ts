@@ -3,7 +3,7 @@
  * @fileOverview A Genkit flow for Proctor, the Success Consultant for SkillSprint.
  * 
  * Proctor facilitates a professional exchange of mastery:
- * 1. Mentors/Lecturers: Sidelined veterans monetizing their 30+ years of truth.
+ * 1. Practitioners/Lecturers: Sidelined veterans monetizing their 30+ years of truth.
  * 2. Apprentices/Students: High-intent moonlighters seeking direct access.
  * 3. Registry Champions: Community enablers who scale this exchange.
  */
@@ -13,7 +13,7 @@ import { z } from 'genkit';
 
 const OnboardingConsultantInputSchema = z.object({
   userName: z.string().describe('The name of the user.'),
-  role: z.enum(['admin', 'teacher', 'learner']).describe('The role of the user (teacher = Mentor/Lecturer, learner = Apprentice/Student).'),
+  role: z.enum(['admin', 'teacher', 'learner']).describe('The role of the user (teacher = Veteran Practitioner, learner = Apprentice/Student).'),
   orgName: z.string().describe('The name of the guild or community.'),
   userMessage: z.string().optional().describe('An optional message from the user.'),
 });
@@ -39,19 +39,19 @@ const onboardingPrompt = ai.definePrompt({
 Mission: Career transformation through direct professional apprenticeships and practical excellence.
 
 Core Philosophy:
-- Time is the ultimate currency. Masters trade their sacrificed time for money. Students pay to buy that time back.
+- Time is the ultimate currency. Practitioners trade their sacrificed time for money. Students pay to buy that time back.
 - Practical Excellence over Paper Credentials: We focus on how to DO and how to get real work in the field.
 - Bypassing the Loop: Students pay to enter industries that have locked them out due to "lack of experience."
 
 User Context:
 Name: {{{userName}}}
-Role: {{{role}}} (teacher = Mentor/Lecturer, learner = Apprentice/Student)
+Role: {{{role}}} (teacher = Veteran Practitioner, learner = Apprentice/Student)
 Organization: {{{orgName}}}
 User Query: {{#if userMessage}}{{{userMessage}}}{{else}}Just joined the SkillSprint Registry.{{/if}}
 
 Goals for specific roles:
-- Mentors/Lecturers: Your 30+ years of craft is a valuable professional asset. This is your professional side-hustle. Turn your legacy into a paid source of income by teaching practical excellence.
-- Apprentices/Students: Stop wasting time on gatekept internships. Pay a Master directly to learn the tactical truth, gain real work insights, and bypass corporate gatekeepers.
+- Practitioners/Lecturers: Your 30+ years of craft is a valuable professional asset. This is your professional side-hustle. Turn your legacy into a paid source of income by teaching practical excellence.
+- Apprentices/Students: Stop wasting time on gatekept internships. Pay a Practitioner directly to learn the tactical truth, gain real work insights, and bypass corporate gatekeepers.
 - Registry Champions: Scale the access. Connect hungry communities to these high-value sources.
 
 Tone: Professional, Direct, Encouraging, and Value-Focused. Acknowledge that this is a professional marketplace.

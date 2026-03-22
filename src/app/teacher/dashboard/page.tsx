@@ -7,7 +7,7 @@ import { Plus, BookOpen, Users, ArrowRight, Landmark, DollarSign, TrendingUp, Cl
 import Link from 'next/link';
 import { AIConsultant } from '@/components/consultant/AIConsultant';
 import { mockCourses, mockTeacher, mockOrg } from '@/lib/mock-data';
-import Image from 'image';
+import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 
 export default function TeacherDashboard() {
@@ -22,7 +22,7 @@ export default function TeacherDashboard() {
           <div className="space-y-2">
             <div className="flex items-center gap-2 mb-2 text-primary font-bold text-sm tracking-wider uppercase">
               <Heart className="h-4 w-4" />
-              <span>Master Mentor / Lecturer</span>
+              <span>Veteran Practitioner / Lecturer</span>
             </div>
             <h1 className="text-4xl md:text-5xl font-black text-secondary tracking-tight">Mastery Studio</h1>
             <p className="text-muted-foreground font-medium">Digitalizing your 30+ years of lived truth for the new workforce.</p>
@@ -58,7 +58,7 @@ export default function TeacherDashboard() {
           </Card>
           <Card className="rounded-[2rem] border-none shadow-sm hover:shadow-md transition-shadow">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Mastery Impact</CardTitle>
+              <CardTitle className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Practitioner Impact</CardTitle>
               <TrendingUp className="h-4 w-4 text-primary" />
             </CardHeader>
             <CardContent>
@@ -88,7 +88,7 @@ export default function TeacherDashboard() {
                     src={course.thumbnail} 
                     alt={course.title} 
                     fill 
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute top-4 left-4">
                     <Badge className="bg-secondary text-white border-none rounded-full px-3 py-1 font-bold">
